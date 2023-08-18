@@ -15,7 +15,7 @@ int main() {
     string comando, comando_ayuda;
     string cd[5];
     string nombre_archivo;
-    bool hayEspacio = false;
+    bool hayEspacio = false, inicializado = false;
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
     std::cout << "            a@@@@a             \n"
@@ -68,6 +68,7 @@ int main() {
         }
         else if (comando == "inicializar") { // Operaciones para inicializar el juego
             cout << "Comando 'inicializar' recibido\n";
+            inicializarJuego();
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
             imprimir_ayuda();
@@ -114,6 +115,10 @@ bool tiene_espacio(string comando, string cd[]) {
         }
     }
     return space;
+}
+
+void pruebaTAD(){
+
 }
 
 void limpiar(string cd[]) {
@@ -180,5 +185,28 @@ void descripcion_comando(string c) { // Imprime descripción de comando específ
     else {
         cout << "Comando no disponible" << endl;
     }
+}
+
+void inicializarJugadores(){
+}
+
+void cargarCartas(){
+}
+
+void inicializarTablero(){
+}
+
+void cargarGrafoRebuscado(){
+};
+
+void asignarUnidades(){
+}
+
+void inicializarJuego(){
+    cargarCartas();
+    inicializarTablero();
+    cargarGrafoRebuscado();
+    inicializarJugadores();
+    asignarUnidades();
 }
 
