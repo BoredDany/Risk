@@ -12,12 +12,12 @@ class Jugador{
 		char estado[10];
 	public:
 		Jugador();
-		void setId(int id);
-		void setColor(char color[]);
-		void setAlias(char alias[]);
-		void setUnidades(int unidades);
-		void setCartas(std::list<Cartas> cartas);
-		void setEstado(char Estado[]);
+		void setId(int idN);
+		void setColor(char colorN[]);
+		void setAlias(char aliasN[]);
+		void setUnidades(int unidadesN);
+		void setCartas(std::list<Cartas> cartasN);
+		void setEstado(char EstadoN[]);
 		int getId();
 		char* getColor();
 		char* getAlias();
