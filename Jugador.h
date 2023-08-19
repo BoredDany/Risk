@@ -28,4 +28,6 @@ class Jugador{
 		void atacar();
 		void reclamarCartas(); 
 
-}
+};
+
+#endif
