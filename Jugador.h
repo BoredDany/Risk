@@ -8,7 +8,7 @@ class Jugador{
 		char color[10];
 		char alias[20];
 		int unidades;
-		std::list<Cartas> cartas;
+		std::list<Carta> cartas;
 		char estado[10];
 	public:
 		Jugador();
@@ -16,13 +16,13 @@ class Jugador{
 		void setColor(char colorN[]);
 		void setAlias(char aliasN[]);
 		void setUnidades(int unidadesN);
-		void setCartas(std::list<Cartas> cartasN);
+		void setCartas(std::list<Carta> cartasN);
 		void setEstado(char EstadoN[]);
 		int getId();
 		char* getColor();
 		char* getAlias();
 		int getUnidades();
-		std::list<Cartas> getCartas();
+		std::list<Carta> getCartas();
 		char* getEstado();
 		void fortificar();
 		void atacar();

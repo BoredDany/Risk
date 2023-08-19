@@ -21,7 +21,7 @@ Jugador::setUnidades(int unidadesN){
 	this->unidades = unidadesN;
 }
 
-Jugador::setCartas(std::list<Cartas> cartasN){
+Jugador::setCartas(std::list<Carta> cartasN){
 	this->cartas = cartasN;
 }
 
