@@ -24,5 +24,8 @@ class Jugador{
 		int getUnidades();
 		std::list<Cartas> getCartas();
 		char* getEstado();
+		void fortificar();
+		void atacar();
+		void reclamarCartas(); 
 
 }
