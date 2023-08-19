@@ -22,12 +22,7 @@ Jugador::setUnidades(int unidadesN){
 }
 
 Jugador::setCartas(std::list<Cartas> cartasN){
-	std::list<Cartas>::iterator itCartasN = cartasN.begin();
-	std::list<Cartas>::iterator itCartas = this->cartas.begin();
-	for(;itCartas!=cartas.end();itCartas++){
-		*itCartas = *itCartasN;
-		itCartasN++;
-	}
+	this->cartas = cartasN;
 }
 
 Jugador::setEstado(char estadoN[]){
