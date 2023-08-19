@@ -33,3 +33,39 @@ Jugador::setCartas(std::list<Cartas> cartasN){
 Jugador::setEstado(char estadoN[]){
 	strcpy(this->estado, estadoN);
 }
+
+Jugador::getId(){
+	return id;
+}
+
+Jugador::getColor(){
+	return color;
+}
+
+Jugador::getAlias(){
+	return alias;
+}
+
+Jugador::getUnidades(){
+	return unidades;
+}
+
+Jugador::getCartas(){
+	return cartas;
+}
+
+Jugador::getEstado(){
+	return estado;
+}
+
+Jugador::fortificar(){
+	std::cout<< "Vamos a fortificar" << std::endl;
+}
+
+Jugador::atacar(){
+	std::cout<< "Vamos a atacar" << std::endl;
+}
+
+Jugador::reclamarCartas(){
+	std::cout<< "Vamos a reclamar cartas" << std::endl;
+}
