@@ -19,13 +19,15 @@ private:
 public:
     Jugador();
     Jugador (int id, char * color, char * alias,
-             int unidades,std::list<Carta> cartas);
+             int unidades);
     void setId(int idN);
     void setColor(char * color);
     void setAlias(char * aliasN);
     void setUnidades(int unidadesN);
     void setCartas(std::list<Carta> cartasN);
     void setEstado(char * EstadoN);
+
+    void agregarCarta(Carta carta);
 
     int getId();
     char* getColor();

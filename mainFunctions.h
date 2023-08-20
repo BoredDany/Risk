@@ -1,6 +1,9 @@
 #include<iostream>
 #include <cstring>
+#include <string>
 #include <sstream>
+#include <fstream>
+#include "Carta.h"
 using namespace std;
 
 bool tiene_espacio(string comando, string cd[]) {
@@ -93,21 +96,65 @@ void descripcion_comando(string c) { // Imprime descripción de comando específ
     }
 }
 
+int countLines(std::string archivo_cartas){
+    int i = 0;
+    string line;
+    std::ifstream inputFile(archivo_cartas);
+    if(inputFile.is_open()){
+        while(getline(inputFile,line)){
+            i++;
+        }
+        inputFile.clear();
+        inputFile.seekg(0);
+    }else{
+        cout<<"No se pudo abrir archivo"<<endl;
+    }
+    inputFile.close();
+    return i;
+}
+
+void cargarCartas(std::list<Carta>& cartas, std::string archivo_cartas){
+    std::ifstream inputFile(archivo_cartas);
+    std::string line, word;
+    int territorio, size = countLines(archivo_cartas);
+    std::string figura, pais, continente;
+
+    //terreno; pais; figura; continente
+    if(inputFile.is_open()){
+        for(int i = 0 ; i < size ; i++){
+            getline(inputFile,line);
+            stringstream str(line);
+            getline(str,word,';');
+            territorio = stoi(word);
+            getline(str,word,';');
+            pais = word;
+            getline(str,word,';');
+            figura = word;
+            getline(str,word,';');
+            continente = word;
+            cartas.push_back(Carta (territorio,&figura[0],&continente[0],&pais[0]));
+        }
+
+    }else{
+        cout<<"Archivo no leido"<<endl;
+    }
+    inputFile.close();
+}
 
 /*
 void inicializarJugadores(){
-}
-
-void cargarCartas(){
 }
 
 void inicializarTablero(){
 }
 
 void cargarGrafoRebuscado(){
-};
+}
 
 void asignarUnidades(){
+}
+
+void crearPartidaRisk(){
 }
 
 void inicializarJuego(){
@@ -116,5 +163,6 @@ void inicializarJuego(){
     cargarGrafoRebuscado();
     inicializarJugadores();
     asignarUnidades();
+    crearPartidaRisk();
 }
 */

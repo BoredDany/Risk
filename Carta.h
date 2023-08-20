@@ -9,10 +9,12 @@ private:
     int territorio;
     char * figura;
     char  * pais;
+    char  * continente;
 public:
-    Carta (int terr, const char * fig, const char * pai);
+    Carta (int terr, char * fig, char * cont, char * pai);
     int getTerritorio();
     char * getFigura();
+    char * getContinente();
     char * getPais();
 };
 #endif //RISK_TADCARTA_H

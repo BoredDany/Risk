@@ -1,24 +1,27 @@
 #include "Carta.h"
 #include <cstring>
 
-Carta::Carta(int terr, const char * fig, const char * pai) {
-    int long_fig = strlen(fig);
-    int long_pai = strlen(pai);
+Carta::Carta(int terr, char * fig, char * cont, char * pai) {
     this->territorio = terr;
-    this->figura = new char[long_fig+1];
+    this->figura = new char[strlen(fig)+1];
     strcpy(this->figura, fig);
-    this->pais = new char [long_pai+1];
+    this->continente = new char [strlen(cont)+1];
+    strcpy(this->continente, cont);
+    this->pais = new char[strlen(pai)+1];
     strcpy(this->pais, pai);
 }
 
+int Carta::getTerritorio(){
+    return territorio;
+};
 char *Carta::getFigura() {
     return figura;
 }
 
-char *Carta::getPais() {
+char * Carta::getPais(){
     return pais;
-}
+};
 
-int Carta::getTerritorio() {
-    return territorio;
+char *Carta::getContinente() {
+    return continente;
 }
