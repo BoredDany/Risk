@@ -18,14 +18,14 @@ private:
     char * estado;
 public:
     Jugador();
-    Jugador (int id, const char * color, const char * alias,
+    Jugador (int id, char * color, char * alias,
              int unidades,std::list<Carta> cartas);
     void setId(int idN);
-    void setColor(const char * color);
-    void setAlias(const char * aliasN);
+    void setColor(char * color);
+    void setAlias(char * aliasN);
     void setUnidades(int unidadesN);
     void setCartas(std::list<Carta> cartasN);
-    void setEstado(const char * EstadoN);
+    void setEstado(char * EstadoN);
 
     int getId();
     char* getColor();
