@@ -87,7 +87,8 @@ int main() {
             Carta carta (3, "hola", "jajaaj");
             std::list<Carta> cartas;
             cartas.push_back(carta);
-            Jugador jugador (1,"rojo","player",3,cartas);
+            string color = "rojo", alias = "player";
+            Jugador jugador (1,&color[0],&alias[0],cartas);
             cout<<"SE PRUEBA EL TAD JUGADOR: "<<endl;
             cout<<"ID: "<<jugador.getId()<< endl;
             cout<<"COLOR: "<<jugador.getColor()<< endl;
@@ -95,7 +96,7 @@ int main() {
             cout<<"UNIDADES: "<<jugador.getUnidades()<< endl;
             cout<<"CARTAS: "<< endl;
             std::list<Carta>::iterator iC = jugador.getCartas().begin();
-            for(iC = cartas.begin() ; iC != cartas.end() ; iC++){
+            for(iC = jugador.getCartas().begin() ; iC != jugador.getCartas().begin() ; iC++){
                 cout<<"Carta:"<< endl;
                 cout<<"Territorio: "<<iC->getTerritorio()<< endl;
                 cout<<"Figura: "<<iC->getFigura()<< endl;
