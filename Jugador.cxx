@@ -7,12 +7,9 @@ Jugador::Jugador(){
 
 Jugador::Jugador(int id, const char *color, const char *alias, int unidades, std::list<Carta> cartas) {
     this->id = id;
-    int len_color = strlen(color);
-    int len_alias = strlen(alias);
-    int len_estado = strlen(estado);
-    this->color = new char [len_color+1];
+    this->color = new char [strlen(color)+1];
     strcpy(this->color, color);
-    this->alias = new char [len_alias+1];
+    this->alias = new char [strlen(alias)+1];
     strcpy(this->alias, alias);
     this->unidades = unidades;
     this->cartas = cartas;
