@@ -132,7 +132,6 @@ int main() {
                 ++k;
                 cout<<endl;
                 j = 0;
-                k = 0;
             }
         }
         else {
