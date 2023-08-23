@@ -37,6 +37,7 @@ int main() {
         getline(cin, comando);
         hayEspacio = tiene_espacio(comando, cd);
 
+
         if (hayEspacio) {
 
             if (cd[2] != "") {
@@ -67,6 +68,12 @@ int main() {
         }
         else if (comando == "inicializar") { // Operaciones para inicializar el juego
             cout << "Comando 'inicializar' recibido\n";
+            if(inicializado){
+                cout << "Juego ya inicializado\n";
+            }else{
+                inicializarJuego(cartas, archivo_cartas, inicializado);
+                cout << "Juego inicializado\n";
+            }
             //inicializarJuego();
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
@@ -85,30 +92,26 @@ int main() {
         }
         else if(comando == "test"){
 
-            cargarCartas(cartas, archivo_cartas);
             std::list<Carta>::iterator it = cartas.begin();
             int i = 0;
-            /*for(it = cartas.begin() ; it != cartas.end() ; it++){
+            for(it = cartas.begin() ; it != cartas.end() ; it++){
                 cout<<i+1<<": "<<it->getTerritorio()<<";"
                 <<it->getPais()<<";"<<it->getFigura()<<";"
                 <<it->getContinente()<<endl;
                 i++;
-            }*/
-
+            }
+            /*
             cout<<"PRUEBA DE JUGADOR"<<endl<<endl;
             string color = "rojo", alias = "player1", color2 = "azul", alias2 = "player2";
-
             Jugador jugador1(22,&color[0],&alias[0], 4);
             jugador1.agregarCarta(*(next(cartas.begin(), 0)));
             jugador1.agregarCarta(*(next(cartas.begin(), 1)));
-
             Jugador jugador2(33,&color2[0],&alias2[0], 3);
             jugador2.agregarCarta(*(next(cartas.begin(), 2)));
 
             std::list<Jugador>players;
             players.push_back(jugador1);
             players.push_back(jugador2);
-
             cout<<"JUGADORES"<<endl<<endl;
 
             std::list<Jugador>::iterator itJ = players.begin();
@@ -133,7 +136,7 @@ int main() {
                 cout<<endl;
                 j = 0;
                 k = 0;
-            }
+            }*/
         }
         else {
             cout << "Comando invalido" << endl;

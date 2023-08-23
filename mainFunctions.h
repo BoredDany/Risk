@@ -156,13 +156,13 @@ void asignarUnidades(){
 
 void crearPartidaRisk(){
 }
-
-void inicializarJuego(){
-    cargarCartas();
-    inicializarTablero();
+*/
+void inicializarJuego(std::list<Carta>& cartas, std::string archivo_cartas, bool& inicializado){
+    cargarCartas(cartas, archivo_cartas);
+    /*inicializarTablero();
     cargarGrafoRebuscado();
     inicializarJugadores();
     asignarUnidades();
-    crearPartidaRisk();
+    crearPartidaRisk();*/
+    inicializado = true;
 }
-*/
