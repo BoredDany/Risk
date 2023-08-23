@@ -5,26 +5,23 @@ Jugador::Jugador(){
 
 }
 
-Jugador::Jugador(int id, char *color, char *alias, int unidades) {
+Jugador::Jugador(int id, std::string color, std::string alias) {
     this->id = id;
-    this->color = new char [strlen(color)+1];
-    strcpy(this->color, color);
-    this->alias = new char [strlen(alias)+1];
-    strcpy(this->alias, alias);
-    this->unidades = unidades;
-    this->estado = new char [10];
-    strcpy(this->estado, "neutro");
+    this->color = color;
+    this->alias = alias;
+    this->unidades = 0;
+    this->estado = "neutro";
 }
 
 int Jugador::getId() {
     return id;
 }
 
-char * Jugador::getColor() {
+std::string Jugador::getColor() {
     return color;
 }
 
-char * Jugador::getAlias(){
+std::string Jugador::getAlias(){
     return alias;
 }
 
@@ -36,7 +33,7 @@ std::list<Carta> Jugador::getCartas(){
     return cartas;
 }
 
-char * Jugador::getEstado(){
+std::string Jugador::getEstado(){
     return estado;
 }
 
@@ -44,12 +41,12 @@ void Jugador::setId(int idN) {
     this->id = idN;
 }
 
-void Jugador::setColor(char *colorN){
-    strcpy(this->color, colorN);
+void Jugador::setColor(std::string colorN){
+    this->color = colorN;
 }
 
-void Jugador::setAlias(char * aliasN){
-    strcpy(this->alias, aliasN);
+void Jugador::setAlias( std::string aliasN){
+    this->alias = aliasN;
 }
 
 void Jugador::setUnidades(int unidadesN){
@@ -60,8 +57,8 @@ void Jugador::setCartas(std::list<Carta> cartasN){
     this->cartas = cartasN;
 }
 
-void Jugador::setEstado(char * estadoN){
-    strcpy(this->estado, estadoN);
+void Jugador::setEstado(std::string estadoN){
+    this->estado = estadoN;
 }
 
 void Jugador::agregarCarta(Carta carta) {

@@ -4,17 +4,19 @@
 
 #ifndef RISK_TADCARTA_H
 #define RISK_TADCARTA_H
+#include<string>
+
 class Carta {
 private:
     int territorio;
-    char * figura;
-    char  * pais;
-    char  * continente;
+    std::string figura;
+    std::string pais;
+    std::string continente;
 public:
-    Carta (int terr, char * fig, char * cont, char * pai);
+    Carta (int terr, std::string fig, std::string cont, std::string pai);
     int getTerritorio();
-    char * getFigura();
-    char * getContinente();
-    char * getPais();
+    std::string getFigura();
+    std::string getContinente();
+    std::string getPais();
 };
 #endif //RISK_TADCARTA_H

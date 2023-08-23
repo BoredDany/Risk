@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include "Carta.h"
+#include "Jugador.h"
 using namespace std;
 
 bool tiene_espacio(string comando, string cd[]) {
@@ -132,7 +133,7 @@ void cargarCartas(std::list<Carta>& cartas, std::string archivo_cartas){
             figura = word;
             getline(str,word,';');
             continente = word;
-            cartas.push_back(Carta (territorio,&figura[0],&continente[0],&pais[0]));
+            cartas.push_back(Carta (territorio,figura,continente,pais));
         }
 
     }else{
@@ -142,9 +143,6 @@ void cargarCartas(std::list<Carta>& cartas, std::string archivo_cartas){
 }
 
 /*
-void inicializarJugadores(){
-}
-
 void inicializarTablero(){
 }
 
@@ -157,12 +155,94 @@ void asignarUnidades(){
 void crearPartidaRisk(){
 }
 */
-void inicializarJuego(std::list<Carta>& cartas, std::string archivo_cartas, bool& inicializado){
-    cargarCartas(cartas, archivo_cartas);
+bool buscarColorRepetido (std::vector<Jugador>& jugadores, std::string color){
+    for(int i = 0 ; i < jugadores.size() ; i++){
+        if(jugadores[i].getColor() == color){
+            return true;
+        }
+    }
+    return false;
+}
+
+void asignarUnidades(std::vector<Jugador>& jugadores, int numJ){
+    int unidades = 0;
+    switch(numJ){
+        case 3:
+            unidades = 35;
+            break;
+        case 4:
+            unidades = 30;
+            break;
+        case 5:
+            unidades = 25;
+            break;
+        case 6:
+            unidades = 20;
+            break;
+    }
+    for(int i = 0 ; i < jugadores.size() ; i++){
+        jugadores[i].setUnidades(unidades);
+    }
+}
+void inicializarJugadores(std::vector<Jugador>& jugadores){
+    int numJ = 0, id = 0, unidades = 0, colorN = 0;
+    std::string color, alias;
+    bool repetido = false;
+    do{
+        cout<<"Ingrese cantidad de jugadores (entre 3 y 6): \n$";
+        cin>>numJ;
+    }while(numJ < 3 || numJ > 6);
+
+    for(int i = 0 ; i < numJ ; i++){
+        cout<<"Jugador "<<i+1<<endl;
+        cout<<"Alias:";
+        cout << "\n$";
+        cin>>alias;
+        cout<<"Ingrese numero para elegir color: \n1. verde\n"
+              "2. azul\n"
+              "3. rojo\n"
+              "4. amarillo\n"
+              "5. rosado\n"
+              "6. morado\n$";
+        do{
+            cin>>colorN;
+            switch (colorN) {
+                case 1:
+                    color = "verde";
+                    break;
+                case 2:
+                    color = "azul";
+                    break;
+                case 3:
+                    color = "rojo";
+                    break;
+                case 4:
+                    color = "amarillo";
+                    break;
+                case 5:
+                    color = "rosado";
+                    break;
+                case 6:
+                    color = "morado";
+                    break;
+            }
+            if(colorN < 1 || colorN > 6){
+                cout<<"Color invalido"<<endl;
+            }
+            if(repetido){
+                cout<<"Color repetido"<<endl;
+            }
+            repetido = buscarColorRepetido(jugadores, color);
+        }while(colorN < 1 || colorN > 6 || repetido);
+        Jugador nuevo(id,color,alias);
+        jugadores.push_back(nuevo);
+    }
+    asignarUnidades(jugadores, numJ);
+    cout<<"JUGADORES AGREGADOS"<<endl;
+}
+
+void inicializarJuego(){
     /*inicializarTablero();
     cargarGrafoRebuscado();
-    inicializarJugadores();
-    asignarUnidades();
     crearPartidaRisk();*/
-    inicializado = true;
 }

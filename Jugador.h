@@ -11,30 +11,29 @@
 class Jugador{
 private:
     int id;
-    char * color;
-    char * alias;
+    std::string color;
+    std::string alias;
     int unidades;
     std::list<Carta> cartas;
-    char * estado;
+    std::string estado;
 public:
     Jugador();
-    Jugador (int id, char * color, char * alias,
-             int unidades);
+    Jugador (int id, std::string color, std::string alias);
     void setId(int idN);
-    void setColor(char * color);
-    void setAlias(char * aliasN);
+    void setColor(std::string color);
+    void setAlias(std::string aliasN);
     void setUnidades(int unidadesN);
     void setCartas(std::list<Carta> cartasN);
-    void setEstado(char * EstadoN);
+    void setEstado(std::string EstadoN);
 
     void agregarCarta(Carta carta);
 
     int getId();
-    char* getColor();
-    char* getAlias();
+    std::string getColor();
+    std::string getAlias();
     int getUnidades();
     std::list<Carta> getCartas();
-    char* getEstado();
+    std::string getEstado();
 
     void fortificar();
     void atacar();

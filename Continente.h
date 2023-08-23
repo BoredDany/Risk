@@ -8,16 +8,15 @@
 #include<list>
 
 class Continente{
-
 private:
     char * nombre;
     std::list<Pais> paises;
 public:
-    Continente(char * nombre, std::list<Pais>& paises);
-    char * get_nombre(char * nombre);
+    Continente(char * nombre);
+    char * get_nombre();
     std::list<Pais> get_paises();
     void set_nombre(char * nombre);
-    void set_paises(std::list<Pais> paises);
+    void aggPais(Pais& pais);
 };
 
 #endif //RISK_CONTINENTE_H
