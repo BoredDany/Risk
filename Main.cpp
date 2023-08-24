@@ -18,6 +18,7 @@ int main() {
     string archivo_cartas = "cartas.txt";
     std::list<Carta> cartas;
     std::vector<Jugador> jugadores;
+    std::list<Continente> continentes;
     bool hayEspacio = false, inicializado = false;
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
@@ -75,11 +76,9 @@ int main() {
                 cout << "Juego ya inicializado\n";
             }else{
                 cargarCartas(cartas,archivo_cartas);
-                inicializarJugadores(jugadores);
-                for(int i = 0 ; i < jugadores.size() ; i++){
-                    cout<<"Jugador: "<<jugadores[i].getAlias()<<" color "<<jugadores[i].getColor()<<" tiene "<<jugadores[i].getUnidades()<<" unidades"<<endl;
-                }
-                cout<<"fin jugadores";
+                //inicializarJugadores(jugadores);
+                inicializarTablero(cartas, continentes);
+                llenarContinentes(cartas,continentes);
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
@@ -99,14 +98,11 @@ int main() {
         else if(comando == "test"){
 
         }
-        else if (comando == ""){
-
-        }
         else {
             cout << "Comando invalido" << endl;
         }
 
         limpiar(cd);
 
-    } while (comando != "salir");
+    } while (comando != "salir" || comando == "");
 }

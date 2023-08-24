@@ -2,25 +2,25 @@
 // Created by Estudiante on 23/08/2023.
 //
 #include <cstring>
+#include <string>
+#include <list>
 #include "Pais.h"
 
-Pais::Pais(int id, char *nombre, char *continente) {
+Pais::Pais(int id, std::string nombre,  std::string continente) {
     this->id = id;
-    this->nombre = new char [strlen(nombre)+1];
-    strcpy(this->nombre,nombre);
-    this->continente = new char [strlen(continente)+1];
-    strcpy(this->continente,continente);
+    this->nombre = nombre;
+    this->continente = continente;
 }
 
 int Pais::get_id() {
     return id;
 }
 
-char * Pais::get_nombre() {
+std::string Pais::get_nombre() {
     return nombre;
 }
 
-char * Pais::get_continente() {
+std::string Pais::get_continente() {
     return continente;
 }
 
@@ -32,10 +32,18 @@ int Pais::get_id_jugador() {
     return id_jugador;
 }
 
+std::list<int> Pais::get_conexiones() {
+    return conexiones;
+}
+
 void Pais::set_unidades(int unidades) {
     this->unidades = unidades;
 }
 
 void Pais::set_id_jugador(int id_jugador) {
     this->id_jugador = id_jugador;
+}
+
+void Pais::agg_conexion(int conexion) {
+    this->conexiones.push_back(conexion);
 }

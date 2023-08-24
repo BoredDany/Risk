@@ -4,22 +4,26 @@
 
 #ifndef RISK_TERRITORIO_H
 #define RISK_TERRITORIO_H
+#include<string>
 
 class Pais{
 private:
     int id;
-    char * nombre;
-    char * continente;
+    std::string nombre;
+    std::string continente;
     int unidades;
     int id_jugador;
+    std::list<int> conexiones;
 public:
-    Pais(int id, char * nombre, char * continente);
+    Pais(int id, std::string nombre, std::string continente);
     int get_id();
-    char * get_nombre();
-    char * get_continente();
+    std::string get_nombre();
+    std::string get_continente();
     int get_unidades();
     int get_id_jugador();
+    std::list<int> get_conexiones();
     void set_unidades(int unidades);
     void set_id_jugador(int id_jugador);
+    void agg_conexion(int conexion);
 };
 #endif //RISK_TERRITORIO_H

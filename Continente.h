@@ -1,22 +1,23 @@
 //
-// Created by Estudiante on 23/08/2023.
+// Created by Estudiante on 24/08/2023.
 //
 
 #ifndef RISK_CONTINENTE_H
 #define RISK_CONTINENTE_H
 #include "Pais.h"
+#include<string>
 #include<list>
 
 class Continente{
 private:
-    char * nombre;
+    std::string nombre;
     std::list<Pais> paises;
 public:
-    Continente(char * nombre);
-    char * get_nombre();
+    Continente(std::string nombre);
+    std::string get_nombre();
     std::list<Pais> get_paises();
-    void set_nombre(char * nombre);
-    void aggPais(Pais& pais);
+    void aggPais(Pais p);
+    void setNombre(std::string nombre);
 };
 
 #endif //RISK_CONTINENTE_H

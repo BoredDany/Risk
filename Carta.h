@@ -8,13 +8,13 @@
 
 class Carta {
 private:
-    int territorio;
+    int id;
     std::string figura;
     std::string pais;
     std::string continente;
 public:
-    Carta (int terr, std::string fig, std::string cont, std::string pai);
-    int getTerritorio();
+    Carta (int id, std::string fig, std::string cont, std::string pai);
+    int getId();
     std::string getFigura();
     std::string getContinente();
     std::string getPais();

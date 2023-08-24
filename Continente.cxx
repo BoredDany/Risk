@@ -1,23 +1,19 @@
-//
-// Created by Estudiante on 23/08/2023.
-//
 #include "Continente.h"
-#include<cstring>
+#include <string>
 
-Continente::Continente(char * nombre){
-    this->nombre = new char [strlen(nombre)+1];
-    strcpy(this->nombre, nombre);
+Continente::Continente(std::string nombre){
+    this->nombre = nombre;
 }
-char * Continente::get_nombre(){
+
+std::string Continente::get_nombre(){
     return nombre;
 }
 std::list<Pais> Continente::get_paises(){
     return paises;
 }
-void Continente::set_nombre(char * nombre){
-    this->nombre = new char[strlen(nombre)+1];
-    strcpy(this->nombre, nombre);
+void Continente::aggPais(Pais p){
+    this->paises.push_back(p);
 }
-void Continente::aggPais(Pais& pais){
-    this->paises.push_back(pais);
+void Continente::setNombre(std::string nombre){
+    this->nombre = nombre;
 }
