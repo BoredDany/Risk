@@ -6,6 +6,7 @@
 #include "Carta.h"
 #include "Jugador.h"
 #include "Continente.h"
+#include "Conexion.h"
 using namespace std;
 
 bool tiene_espacio(string comando, string cd[]) {
@@ -143,16 +144,6 @@ void cargarCartas(std::list<Carta>& cartas, std::string archivo_cartas){
     inputFile.close();
 }
 
-/*
-void cargarGrafoRebuscado(){
-}
-
-void asignarUnidades(){
-}
-
-void crearPartidaRisk(){
-}
-*/
 bool buscarColorRepetido (std::vector<Jugador>& jugadores, std::string color){
     for(int i = 0 ; i < jugadores.size() ; i++){
         if(jugadores[i].getColor() == color){
@@ -184,7 +175,7 @@ void asignarUnidades(std::vector<Jugador>& jugadores, int numJ){
 }
 
 void inicializarJugadores(std::vector<Jugador>& jugadores){
-    int numJ = 0, id = 0, unidades = 0, colorN = 0;
+    int numJ = 0, id = 0, colorN = 0;
     std::string color, alias;
     bool repetido = false;
     do{
@@ -225,13 +216,15 @@ void inicializarJugadores(std::vector<Jugador>& jugadores){
                     color = "morado";
                     break;
             }
+            repetido = buscarColorRepetido(jugadores, color);
             if(colorN < 1 || colorN > 6){
-                cout<<"Color invalido"<<endl;
+                cout<<"Color invalido\n$";
             }
             if(repetido){
-                cout<<"Color repetido"<<endl;
+                cout<<"Color repetido\n$";
+            }else{
+                repetido = false;
             }
-            repetido = buscarColorRepetido(jugadores, color);
         }while(colorN < 1 || colorN > 6 || repetido);
         Jugador nuevo(id,color,alias);
         jugadores.push_back(nuevo);
@@ -275,6 +268,46 @@ void llenarContinentes(std::list<Carta>& cartas, std::list<Continente>& continen
         }
     }
 }
+
+void cargarConexiones(std::list<Continente>& continentes, std::string archivo){
+    ifstream file (archivo);
+    int size = countLines(archivo);
+    std::string line, word;
+    std::list<Conexion> vecinos;
+
+    if(file.is_open()){
+        for(int i = 0 ; i<size ; i++){
+            getline(file, line, '\n');
+            int id = stoi(line);
+            getline(file,line,'\n');
+            Conexion con(id);
+
+            std::istringstream ss(line);
+
+            while (std::getline(ss, word, ';')) {
+                int v;
+                std::istringstream(word) >> v;
+                con.aggVecino(v);
+            }
+            vecinos.push_back(con);
+        }
+
+        cout<<"CONEXIONES DE PAISES"<<endl;
+        std::list<Conexion>::iterator it = vecinos.begin();
+        for(it = vecinos.begin();it != vecinos.end();it++){
+            cout<<"Pais: "<<it->getId()<<" tiene vecinos:"<<endl;
+            std::list<int> vecinosA = it->getVecinos();
+            std::list<int>::iterator itv = vecinosA.begin();
+            for(itv = vecinosA.begin();itv != vecinosA.end();itv++){
+                cout<<*itv<<" - ";
+            }
+        }
+    }else{
+        cout<<"Archivo de conexiones no leido"<<endl;
+    }
+    file.close();
+}
+
 void inicializarJuego(){
     /*cargarGrafoRebuscado();
     crearPartidaRisk();*/

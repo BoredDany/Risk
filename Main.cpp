@@ -8,6 +8,7 @@
 #include "Carta.h"
 #include "Jugador.h"
 #include "Continente.h"
+#include "Conexion.h"
 #include "Pais.h"
 using namespace std;
 
@@ -16,6 +17,7 @@ int main() {
     string comando, comando_ayuda;
     string cd[5];
     string archivo_cartas = "cartas.txt";
+    string archivo_conexiones = "Conexiones.txt";
     std::list<Carta> cartas;
     std::vector<Jugador> jugadores;
     std::list<Continente> continentes;
@@ -79,6 +81,7 @@ int main() {
                 //inicializarJugadores(jugadores);
                 inicializarTablero(cartas, continentes);
                 llenarContinentes(cartas,continentes);
+                cargarConexiones(continentes,archivo_conexiones);
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles

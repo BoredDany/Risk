@@ -5,6 +5,7 @@
 #ifndef RISK_TERRITORIO_H
 #define RISK_TERRITORIO_H
 #include<string>
+#include<list>
 
 class Pais{
 private:
