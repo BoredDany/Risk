@@ -21,4 +21,17 @@ int main(){
         }
     }
 
+
+    cout<<"CONTINENTES Y PAISES"<<endl;
+    std::list<Continente> ca = risk.get_tablero();
+    std::list<Continente>::iterator it = ca.begin();
+    for(it = ca.begin();it != ca.end();it++){
+        cout<<it->get_nombre()<<" tiene "<<it->get_paises().size()<<endl;
+        std::list<Pais>p=it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            cout<<itp->get_id()<<":"<<itp->get_nombre()<<" en "<<itp->get_continente()<<endl;
+        }
+    }
+
 }

@@ -100,10 +100,6 @@ void descripcion_comando(string c) { // Imprime descripción de comando específ
 }
 
 
-
-
-
-
 void cargarConexiones(std::list<Continente>& continentes, std::string archivo){
    /* ifstream file (archivo);
     int size = countLines(archivo);

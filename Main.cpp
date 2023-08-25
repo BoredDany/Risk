@@ -19,9 +19,6 @@ int main() {
     string cd[5];
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
-    std::list<Carta> cartas;
-    std::vector<Jugador> jugadores;
-    std::list<Continente> continentes;
     bool hayEspacio = false, inicializado = false;
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
@@ -84,8 +81,17 @@ int main() {
                 risk.inicializarTablero();
                 risk.llenarContinentes();
 
+                std::list<Continente> ca = risk.get_tablero();
+                std::list<Continente>::iterator it = ca.begin();
+                for(it = ca.begin();it != ca.end();it++){
+                    cout<<it->get_nombre()<<" tiene "<<it->get_paises().size()<<endl;
+                    std::list<Pais>p=it->get_paises();
+                    std::list<Pais>::iterator itp = p.begin();
+                    for(itp = p.begin();itp != p.end();itp++){
+                        cout<<itp->get_id()<<":"<<itp->get_nombre()<<" en "<<itp->get_continente()<<endl;
+                    }
+                }
                 /*cargarConexiones(continentes,archivo_conexiones);*/
-
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
