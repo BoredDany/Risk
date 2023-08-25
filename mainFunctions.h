@@ -99,139 +99,7 @@ void descripcion_comando(string c) { // Imprime descripción de comando específ
     }
 }
 
-int countLines(std::string archivo_cartas){
-    int i = 0;
-    string line;
-    std::ifstream inputFile(archivo_cartas);
-    if(inputFile.is_open()){
-        while(getline(inputFile,line)){
-            i++;
-        }
-        inputFile.clear();
-        inputFile.seekg(0);
-    }else{
-        cout<<"No se pudo abrir archivo"<<endl;
-    }
-    inputFile.close();
-    return i;
-}
 
-void cargarCartas(std::list<Carta>& cartas, std::string archivo_cartas){
-    std::ifstream inputFile(archivo_cartas);
-    std::string line, word;
-    int territorio, size = countLines(archivo_cartas);
-    std::string figura, pais, continente;
-
-    //terreno; pais; figura; continente
-    if(inputFile.is_open()){
-        for(int i = 0 ; i < size ; i++){
-            getline(inputFile,line);
-            stringstream str(line);
-            getline(str,word,';');
-            territorio = stoi(word);
-            getline(str,word,';');
-            pais = word;
-            getline(str,word,';');
-            figura = word;
-            getline(str,word,';');
-            continente = word;
-            cartas.push_back(Carta (territorio,figura,continente,pais));
-        }
-
-    }else{
-        cout<<"Archivo no leido"<<endl;
-    }
-    inputFile.close();
-}
-
-bool buscarColorRepetido (std::vector<Jugador>& jugadores, std::string color){
-    for(int i = 0 ; i < jugadores.size() ; i++){
-        if(jugadores[i].getColor() == color){
-            return true;
-        }
-    }
-    return false;
-}
-
-void asignarUnidades(std::vector<Jugador>& jugadores, int numJ){
-    int unidades = 0;
-    switch(numJ){
-        case 3:
-            unidades = 35;
-            break;
-        case 4:
-            unidades = 30;
-            break;
-        case 5:
-            unidades = 25;
-            break;
-        case 6:
-            unidades = 20;
-            break;
-    }
-    for(int i = 0 ; i < jugadores.size() ; i++){
-        jugadores[i].setUnidades(unidades);
-    }
-}
-
-void inicializarJugadores(std::vector<Jugador>& jugadores){
-    int numJ = 0, id = 0, colorN = 0;
-    std::string color, alias;
-    bool repetido = false;
-    do{
-        cout<<"Ingrese cantidad de jugadores (entre 3 y 6): \n$";
-        cin>>numJ;
-    }while(numJ < 3 || numJ > 6);
-
-    for(int i = 0 ; i < numJ ; i++){
-        cout<<"Jugador "<<i+1<<endl;
-        cout<<"Alias:";
-        cout << "\n$";
-        cin>>alias;
-        cout<<"Ingrese numero para elegir color: \n1. verde\n"
-              "2. azul\n"
-              "3. rojo\n"
-              "4. amarillo\n"
-              "5. rosado\n"
-              "6. morado\n$";
-        do{
-            cin>>colorN;
-            switch (colorN) {
-                case 1:
-                    color = "verde";
-                    break;
-                case 2:
-                    color = "azul";
-                    break;
-                case 3:
-                    color = "rojo";
-                    break;
-                case 4:
-                    color = "amarillo";
-                    break;
-                case 5:
-                    color = "rosado";
-                    break;
-                case 6:
-                    color = "morado";
-                    break;
-            }
-            repetido = buscarColorRepetido(jugadores, color);
-            if(colorN < 1 || colorN > 6){
-                cout<<"Color invalido\n$";
-            }
-            if(repetido){
-                cout<<"Color repetido\n$";
-            }else{
-                repetido = false;
-            }
-        }while(colorN < 1 || colorN > 6 || repetido);
-        Jugador nuevo(id,color,alias);
-        jugadores.push_back(nuevo);
-    }
-    asignarUnidades(jugadores, numJ);
-    cin.ignore();
-}
 
 bool repetido(std::list<Continente>& continentes, std::string nombre){
     std::list<Continente>::iterator itCo = continentes.begin();
@@ -270,7 +138,7 @@ void llenarContinentes(std::list<Carta>& cartas, std::list<Continente>& continen
 }
 
 void cargarConexiones(std::list<Continente>& continentes, std::string archivo){
-    ifstream file (archivo);
+   /* ifstream file (archivo);
     int size = countLines(archivo);
     std::string line, word;
     std::list<Conexion> vecinos;
@@ -305,7 +173,7 @@ void cargarConexiones(std::list<Continente>& continentes, std::string archivo){
     }else{
         cout<<"Archivo de conexiones no leido"<<endl;
     }
-    file.close();
+    file.close();*/
 }
 
 void inicializarJuego(){

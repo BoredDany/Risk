@@ -10,6 +10,7 @@
 #include "Continente.h"
 #include "Conexion.h"
 #include "Pais.h"
+#include "Partida.h"
 using namespace std;
 
 int main() {
@@ -77,11 +78,36 @@ int main() {
             if(inicializado){
                 cout << "Juego ya inicializado\n";
             }else{
-                cargarCartas(cartas,archivo_cartas);
-                //inicializarJugadores(jugadores);
-                inicializarTablero(cartas, continentes);
+                Partida risk(1);
+                risk.cargarCartas(archivo_cartas);
+                risk.inicializarJugadores();
+                /*cout<<"JUGADORES"<<endl;
+                int k = 0, j = 0;
+                std::vector<Jugador>::iterator itJ = risk.get_jugadores().begin();
+                cout<<"primer j: "<<itJ->getAlias();*/
+                /*for (itJ = risk.get_jugadores().begin(); itJ != risk.get_jugadores().end(); itJ++) {
+                    cout << "------JUGADOR " << k + 1 << "-------" << endl;
+                    cout << "ID: " << itJ->getId() << " ; COLOR: " << itJ->getColor() <<
+                         " ; ALIAS: " << itJ->getAlias() << " ; UNIDADES: " << itJ->getUnidades() << endl;
+                    cout << "HAY " << itJ->getCartas().size() << " CARTAS: " << endl;
+
+                    std::list<Carta> auxCartas = itJ->getCartas();
+                    std::list<Carta>::iterator itC = auxCartas.begin();
+
+                    for (itC = auxCartas.begin(); itC != auxCartas.end(); itC++) {
+                        cout << "Carta " << j + 1 << ": " << itC->getId() << ";"
+                             << itC->getPais() << ";" << itC->getFigura() << ";"
+                             << itC->getContinente() << endl;
+                        ++j;
+                    }
+                    ++k;
+                    cout << endl;
+                    j = 0;
+                }*/
+                /*inicializarTablero(cartas, continentes);
                 llenarContinentes(cartas,continentes);
-                cargarConexiones(continentes,archivo_conexiones);
+                cargarConexiones(continentes,archivo_conexiones);*/
+
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
