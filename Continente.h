@@ -18,6 +18,7 @@ public:
     std::list<Pais> get_paises();
     void aggPais(Pais p);
     void setNombre(std::string nombre);
+    void aggConexion(int pais, int vecino);
 };
 
 #endif //RISK_CONTINENTE_H

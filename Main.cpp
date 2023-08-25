@@ -8,7 +8,6 @@
 #include "Carta.h"
 #include "Jugador.h"
 #include "Continente.h"
-#include "Conexion.h"
 #include "Pais.h"
 #include "Partida.h"
 using namespace std;

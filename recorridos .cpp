@@ -34,4 +34,21 @@ int main(){
         }
     }
 
+    cout<<"CONTINENTES Y PAISES CON VECINOS"<<endl;
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::cout<<it->get_nombre()<<" tiene "<<it->get_paises().size()<<std::endl;
+        std::list<Pais>p=it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" en "<<itp->get_continente()<<std::endl;
+            std::cout<<"conexiones: "<<std::endl;
+            std::list<int> vecinos = itp->get_conexiones();
+            for(int v:vecinos){
+                std::cout<<v<<" ";
+            }
+            std::cout<<std::endl;
+        }
+    }
+
 }

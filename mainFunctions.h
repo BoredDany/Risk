@@ -6,7 +6,6 @@
 #include "Carta.h"
 #include "Jugador.h"
 #include "Continente.h"
-#include "Conexion.h"
 using namespace std;
 
 bool tiene_espacio(string comando, string cd[]) {

@@ -2,7 +2,6 @@
 #include "Carta.h"
 #include "Jugador.h"
 #include "Partida.h"
-#include "Conexion.h"
 #include<list>
 #include<vector>
 #include<string>
@@ -13,19 +12,15 @@
 Partida::Partida(int id){
     this->id = id;
 }
-
 std::vector<Jugador> Partida::get_jugadores() {
     return jugadores;
 }
-
 std::list<Carta> Partida::get_cartas(){
     return cartas;
 }
-
 std::list<Continente> Partida::get_tablero(){
     return tablero;
 }
-
 void Partida::set_id(int id){
     this->id = id;
 }
@@ -45,7 +40,6 @@ int Partida::countLines(std::string archivo_cartas){
     inputFile.close();
     return i;
 }
-
 void Partida::cargarCartas(std::string archivo_cartas){
     std::ifstream inputFile(archivo_cartas);
     std::string line, word;
@@ -73,7 +67,6 @@ void Partida::cargarCartas(std::string archivo_cartas){
     }
     inputFile.close();
 }
-
 bool Partida::buscarColorRepetido (std::string color){
     for(int i = 0 ; i < jugadores.size() ; i++){
         if(jugadores[i].getColor() == color){
@@ -82,7 +75,6 @@ bool Partida::buscarColorRepetido (std::string color){
     }
     return false;
 }
-
 void Partida::asignarUnidades(){
     int unidades = 0, numJ = jugadores.size();
     switch(numJ){
@@ -103,7 +95,6 @@ void Partida::asignarUnidades(){
         jugadores[i].setUnidades(unidades);
     }
 }
-
 void Partida::inicializarJugadores(){
     int numJ = 0, id = 1, colorN = 0;
     std::string color, alias;
@@ -163,7 +154,6 @@ void Partida::inicializarJugadores(){
     asignarUnidades();
     std::cin.ignore();
 }
-
 bool Partida::repetido(std::string nombre){
     std::list<Continente>::iterator itCo = tablero.begin();
     for( itCo = tablero.begin() ; itCo != tablero.end() ; itCo++){
@@ -173,7 +163,6 @@ bool Partida::repetido(std::string nombre){
     }
     return false;
 }
-
 void Partida::inicializarTablero(){
     std::list<Carta>::iterator it = cartas.begin();
     for( it = cartas.begin(); it != cartas.end() ; it++){
@@ -184,7 +173,6 @@ void Partida::inicializarTablero(){
         }
     }
 }
-
 void Partida::llenarContinentes() {
     std::list<Carta>::iterator it = cartas.begin();
     std::list<Continente>::iterator itCo = tablero.begin();
@@ -199,23 +187,17 @@ void Partida::llenarContinentes() {
     }
 }
 
-/*void Partida::aggConexion(int pais, int vecino){
-    std::list<Continente>::iterator itc = tablero.begin();
-    for( itc = tablero.begin() ; itc != tablero.end() ; itc++){
-        std::list<Pais>::iterator itp = itc->get_paises().begin();
-        for(itp = itc->get_paises().begin(); itp != itc->get_paises().end() ; itp++){
-            if(itp->get_id() == pais){
-                itp->agg_conexion(vecino);
-            }
-        }
+void Partida::aggConexion(int pais, int vecino){
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        it->aggConexion(pais,vecino);
     }
-}*/
+}
 
 void Partida::cargarConexiones(std::string archivo){
      std::ifstream file (archivo);
      int size = countLines(archivo);
      std::string line, word;
-     std::list<Conexion> vecinos;
 
      if(file.is_open()){
          for(int i = 0 ; i<size ; i++){
@@ -223,34 +205,13 @@ void Partida::cargarConexiones(std::string archivo){
             std::stringstream ss(line);
             getline(ss,word,'-');
             int pais = stoi(word);
-            Conexion con(pais);
             while(getline(ss,word,';')){
                 int vecino = stoi(word);
-                con.aggVecino(vecino);
-                //aggConexion(pais,vecino);
+                aggConexion(pais,vecino);
             }
-            vecinos.push_back(con);
          }
 
-         for(Conexion c:vecinos){
-             std::cout<<c.getId()<<std::endl;
-             for(int v: c.getVecinos()){
-                 std::cout<<v<<" - ";
-             }
-         }
-         /*std::list<Continente>::iterator it = tablero.begin();
-         for(it = tablero.begin();it != tablero.end();it++){
-             std::cout<<it->get_nombre()<<" tiene "<<it->get_paises().size()<<std::endl;
-             std::list<Pais>p=it->get_paises();
-             std::list<Pais>::iterator itp = p.begin();
-             for(itp = p.begin();itp != p.end();itp++){
-                 std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" en "<<itp->get_continente()<<std::endl;
-                 std::cout<<"conexiones: ";
-                 for(int v:itp->get_conexiones()){
-                     std::cout<<v<<" ";
-                 }
-             }
-         }*/
+
      }else{
          std::cout<<"Archivo de conexiones no leido"<<std::endl;
      }
