@@ -4,6 +4,7 @@
 #include <cstring>
 #include <string>
 #include <list>
+#include <iostream>
 #include "Pais.h"
 
 Pais::Pais(int id, std::string nombre,  std::string continente) {
@@ -46,4 +47,11 @@ void Pais::set_id_jugador(int id_jugador) {
 
 void Pais::agg_conexion(int conexion) {
     this->conexiones.push_back(conexion);
+}
+
+void Pais::printVecinos(){
+    std::list<int>::iterator it = conexiones.begin();
+    for( it = conexiones.begin();  it != conexiones.end(); it++){
+        std::cout<<*it<<" - ";
+    }
 }

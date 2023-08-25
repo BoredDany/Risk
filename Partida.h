@@ -22,6 +22,7 @@ public:
     std::vector<Jugador> get_jugadores();
     std::list<Carta> get_cartas();
     std::list<Continente> get_tablero();
+    void set_id(int id);
     int countLines(std::string archivo_cartas);
     void cargarCartas(std::string archivo_cartas);
     bool buscarColorRepetido (std::string color);
@@ -30,6 +31,8 @@ public:
     bool repetido(std::string nombre);
     void inicializarTablero();
     void llenarContinentes();
+    void aggConexion(int pais, int vecino);
+    void cargarConexiones(std::string archivo);
 
     //void ubicarUnidades(std::vector<Jugador> jugadores, std::list<Continente> continetes, std::list<Pais> paises, std::list<Carta> cartas);
 };

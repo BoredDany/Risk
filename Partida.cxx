@@ -2,6 +2,7 @@
 #include "Carta.h"
 #include "Jugador.h"
 #include "Partida.h"
+#include "Conexion.h"
 #include<list>
 #include<vector>
 #include<string>
@@ -25,6 +26,9 @@ std::list<Continente> Partida::get_tablero(){
     return tablero;
 }
 
+void Partida::set_id(int id){
+    this->id = id;
+}
 int Partida::countLines(std::string archivo_cartas){
     int i = 0;
     std::string line;
@@ -194,15 +198,61 @@ void Partida::llenarContinentes() {
         }
     }
 }
-/*
-void Partida::ubicarUnidades(std::vector<Jugador> jugadores, std::list<Continente> continetes, std::list<Carta> cartas) {
-    std::list<Continente>::iterator itContinetes = continetes.begin();
-    std::list<Pais>::iterator itPais;
-    std::list<Carta>::iterator itCartas = cartas.begin();
 
-
-    for(int i=0; i<jugadores.size(); i++){
-        std::cout<<"Escoja su territorio \n$"<<std::endl;
-        //std::cin>>;
+/*void Partida::aggConexion(int pais, int vecino){
+    std::list<Continente>::iterator itc = tablero.begin();
+    for( itc = tablero.begin() ; itc != tablero.end() ; itc++){
+        std::list<Pais>::iterator itp = itc->get_paises().begin();
+        for(itp = itc->get_paises().begin(); itp != itc->get_paises().end() ; itp++){
+            if(itp->get_id() == pais){
+                itp->agg_conexion(vecino);
+            }
+        }
     }
 }*/
+
+void Partida::cargarConexiones(std::string archivo){
+     std::ifstream file (archivo);
+     int size = countLines(archivo);
+     std::string line, word;
+     std::list<Conexion> vecinos;
+
+     if(file.is_open()){
+         for(int i = 0 ; i<size ; i++){
+            getline(file,line,'\n');
+            std::stringstream ss(line);
+            getline(ss,word,'-');
+            int pais = stoi(word);
+            Conexion con(pais);
+            while(getline(ss,word,';')){
+                int vecino = stoi(word);
+                con.aggVecino(vecino);
+                //aggConexion(pais,vecino);
+            }
+            vecinos.push_back(con);
+         }
+
+         for(Conexion c:vecinos){
+             std::cout<<c.getId()<<std::endl;
+             for(int v: c.getVecinos()){
+                 std::cout<<v<<" - ";
+             }
+         }
+         /*std::list<Continente>::iterator it = tablero.begin();
+         for(it = tablero.begin();it != tablero.end();it++){
+             std::cout<<it->get_nombre()<<" tiene "<<it->get_paises().size()<<std::endl;
+             std::list<Pais>p=it->get_paises();
+             std::list<Pais>::iterator itp = p.begin();
+             for(itp = p.begin();itp != p.end();itp++){
+                 std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" en "<<itp->get_continente()<<std::endl;
+                 std::cout<<"conexiones: ";
+                 for(int v:itp->get_conexiones()){
+                     std::cout<<v<<" ";
+                 }
+             }
+         }*/
+     }else{
+         std::cout<<"Archivo de conexiones no leido"<<std::endl;
+     }
+     file.close();
+}

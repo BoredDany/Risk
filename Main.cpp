@@ -20,6 +20,7 @@ int main() {
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
     bool hayEspacio = false, inicializado = false;
+    Partida risk(0);
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
     std::cout << "            a@@@@a             \n"
@@ -75,23 +76,12 @@ int main() {
             if(inicializado){
                 cout << "Juego ya inicializado\n";
             }else{
-                Partida risk(1);
+                risk.set_id(1);
                 risk.cargarCartas(archivo_cartas);
-                risk.inicializarJugadores();
+                //risk.inicializarJugadores();
                 risk.inicializarTablero();
                 risk.llenarContinentes();
-
-                std::list<Continente> ca = risk.get_tablero();
-                std::list<Continente>::iterator it = ca.begin();
-                for(it = ca.begin();it != ca.end();it++){
-                    cout<<it->get_nombre()<<" tiene "<<it->get_paises().size()<<endl;
-                    std::list<Pais>p=it->get_paises();
-                    std::list<Pais>::iterator itp = p.begin();
-                    for(itp = p.begin();itp != p.end();itp++){
-                        cout<<itp->get_id()<<":"<<itp->get_nombre()<<" en "<<itp->get_continente()<<endl;
-                    }
-                }
-                /*cargarConexiones(continentes,archivo_conexiones);*/
+                risk.cargarConexiones(archivo_conexiones);
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
