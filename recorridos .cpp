@@ -10,41 +10,15 @@
 
 int main(){
 
-    cout<<"CARTAS"<<endl;
-    std::list<Carta>::iterator it = cartas.begin();
-    for( ; it != cartas.end() ; it++){
-        cout<<"carta: "<<it->getId()<<" en "<<it->getContinente()<<" - "<<it->getPais()<<endl;
-    }
-    cout<<"CONTINENTES"<<endl;
-    std::list<Continente>::iterator itC = continentes.begin();
-    for(itC = continentes.begin() ; itC != continentes.end() ; itC++){
-        cout<<"Continente "<<itC->get_nombre()<<" tiene "<<itC->get_paises().size()<<" paises:"<<endl;
-        std::list<Pais> paisesAux = itC->get_paises();
-        std::list<Pais>::iterator itp = paisesAux.begin();
-        for(itp = paisesAux.begin( ); itp != paisesAux.end() ; itp++){
-            cout<<itp->get_id()<<":"<<itp->get_nombre()<<" - "<<itp->get_continente()<<endl;
-        }
-    }
     cout<<"JUGADORES"<<endl;
-    int k = 0, j = 0;
-    std::vector<Jugador>::iterator itJ = jugadores.begin();
-    for (itJ = jugadores.begin(); itJ != jugadores.end(); itJ++) {
-        cout << "------JUGADOR " << k + 1 << "-------" << endl;
-        cout << "ID: " << itJ->getId() << " ; COLOR: " << itJ->getColor() <<
-             " ; ALIAS: " << itJ->getAlias() << " ; UNIDADES: " << itJ->getUnidades() << endl;
-        cout << "HAY " << itJ->getCartas().size() << " CARTAS: " << endl;
-
-        std::list<Carta> auxCartas = itJ->getCartas();
-        std::list<Carta>::iterator itC = auxCartas.begin();
-
-        for (itC = auxCartas.begin(); itC != auxCartas.end(); itC++) {
-            cout << "Carta " << j + 1 << ": " << itC->getId() << ";"
-                 << itC->getPais() << ";" << itC->getFigura() << ";"
-                 << itC->getContinente() << endl;
-            ++j;
+    for(int i = 0 ; i < risk.get_jugadores().size() ; i++){
+        cout<<"Jugador "<<i+1<<" tiene "<<risk.get_jugadores()[i].getCartas().size()<<endl;
+        cout<<risk.get_jugadores()[i].getId()<<" , "<<risk.get_jugadores()[i].getColor()<<endl;
+        list<Carta> cartasJ = risk.get_jugadores()[i].getCartas();
+        std::list<Carta>::iterator it = cartasJ.begin();
+        for(it = cartasJ.begin();it != cartasJ.end();it++){
+            cout<<it->getPais()<<endl;
         }
-        ++k;
-        cout << endl;
-        j = 0;
     }
+
 }

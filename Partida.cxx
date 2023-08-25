@@ -159,6 +159,41 @@ void Partida::inicializarJugadores(){
     asignarUnidades();
     std::cin.ignore();
 }
+
+bool Partida::repetido(std::string nombre){
+    std::list<Continente>::iterator itCo = tablero.begin();
+    for( itCo = tablero.begin() ; itCo != tablero.end() ; itCo++){
+        if(nombre == itCo->get_nombre()){
+            return true;
+        }
+    }
+    return false;
+}
+
+void Partida::inicializarTablero(){
+    std::list<Carta>::iterator it = cartas.begin();
+    for( it = cartas.begin(); it != cartas.end() ; it++){
+        bool rep = repetido(it->getContinente());
+        if(!rep){
+            Continente c(it->getContinente());
+            tablero.push_back(c);
+        }
+    }
+}
+
+void Partida::llenarContinentes() {
+    std::list<Carta>::iterator it = cartas.begin();
+    std::list<Continente>::iterator itCo = tablero.begin();
+
+    for( itCo = tablero.begin(); itCo != tablero.end() ; itCo++){
+        for( it = cartas.begin(); it != cartas.end() ; it++){
+            if(itCo->get_nombre() == it->getContinente()){
+                Pais p(it->getId(),it->getPais(),it->getContinente());
+                itCo->aggPais(p);
+            }
+        }
+    }
+}
 /*
 void Partida::ubicarUnidades(std::vector<Jugador> jugadores, std::list<Continente> continetes, std::list<Carta> cartas) {
     std::list<Continente>::iterator itContinetes = continetes.begin();

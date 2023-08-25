@@ -27,7 +27,10 @@ public:
     bool buscarColorRepetido (std::string color);
     void asignarUnidades();
     void inicializarJugadores();
+    bool repetido(std::string nombre);
+    void inicializarTablero();
+    void llenarContinentes();
 
-    void ubicarUnidades(std::vector<Jugador> jugadores, std::list<Continente> continetes, std::list<Pais> paises, std::list<Carta> cartas);
+    //void ubicarUnidades(std::vector<Jugador> jugadores, std::list<Continente> continetes, std::list<Pais> paises, std::list<Carta> cartas);
 };
 #endif //RISK_PARTIDA_H

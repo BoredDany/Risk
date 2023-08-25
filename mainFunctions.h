@@ -101,41 +101,8 @@ void descripcion_comando(string c) { // Imprime descripción de comando específ
 
 
 
-bool repetido(std::list<Continente>& continentes, std::string nombre){
-    std::list<Continente>::iterator itCo = continentes.begin();
-    for( ; itCo != continentes.end() ; itCo++){
-        if(nombre == itCo->get_nombre()){
-            return true;
-        }
-    }
-    return false;
-}
-
-void inicializarTablero(std::list<Carta>& cartas, std::list<Continente>& continentes){
-    std::list<Carta>::iterator it = cartas.begin();
-    for( ; it != cartas.end() ; it++){
-        if(!repetido(continentes, it->getContinente())){
-            Continente c(it->getContinente());
-            continentes.push_back(it->getContinente());
-        }
-    }
 
 
-}
-
-void llenarContinentes(std::list<Carta>& cartas, std::list<Continente>& continentes) {
-    std::list<Carta>::iterator it = cartas.begin();
-    std::list<Continente>::iterator itCo = continentes.begin();
-
-    for( itCo = continentes.begin(); itCo != continentes.end() ; itCo++){
-        for( it = cartas.begin(); it != cartas.end() ; it++){
-            if(itCo->get_nombre() == it->getContinente()){
-                Pais p(it->getId(),it->getPais(),it->getContinente());
-                itCo->aggPais(p);
-            }
-        }
-    }
-}
 
 void cargarConexiones(std::list<Continente>& continentes, std::string archivo){
    /* ifstream file (archivo);
