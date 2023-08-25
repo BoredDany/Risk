@@ -217,3 +217,25 @@ void Partida::cargarConexiones(std::string archivo){
      }
      file.close();
 }
+
+void Partida::ubicarUnidades() {
+    std::list<Continente>::iterator itContinetes;
+    std::string auxContinente;
+    int auxPais;
+
+    for(int i=0; i<jugadores.size(); i++){
+        std::cout<<"Selecciona tu territorio: \n-Escribe el nombre del continente: \n$";
+        std::cin>>auxContinente;
+        std::cout<<"Ingrese el número del país: \n$";
+        std::cin>>auxPais;
+        for(itContinetes = tablero.begin();itContinetes != tablero.end();itContinetes++){
+            std::cout<<itContinetes->get_nombre()<<" tiene "<<itContinetes->get_paises().size()<<std::endl;
+            std::list<Pais> paises = itContinetes->get_paises();
+            std::list<Pais>::iterator itPaises = paises.begin();
+            for(itPaises = paises.begin(); itPaises != paises.end();itPaises++){
+                std::cout<<itPaises->get_id()<<":"<<itPaises->get_nombre()<<" en "<<itPaises->get_continente()<<std::endl;
+            }
+        }
+    }
+
+}
