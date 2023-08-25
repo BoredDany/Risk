@@ -34,6 +34,6 @@ public:
     void aggConexion(int pais, int vecino);
     void cargarConexiones(std::string archivo);
 
-    //void ubicarUnidades(std::vector<Jugador> jugadores, std::list<Continente> continetes, std::list<Pais> paises, std::list<Carta> cartas);
+    void ubicarUnidades();
 };
 #endif //RISK_PARTIDA_H
