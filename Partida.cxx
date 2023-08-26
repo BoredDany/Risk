@@ -215,7 +215,6 @@ void Partida::cargarConexiones(std::string archivo){
      }
      file.close();
 }
-
 bool Partida:: tableroLleno(){
     std::list<Continente>::iterator it = tablero.begin();
     bool llenoTab = true;
@@ -226,7 +225,6 @@ bool Partida:: tableroLleno(){
     }
     return llenoTab;
 }
-
 bool Partida::paisLleno(int id){
     std::list<Continente>::iterator it = tablero.begin();
     bool lleno = true;
@@ -242,14 +240,12 @@ bool Partida::paisLleno(int id){
     }
     return lleno;
 }
-
 void Partida::ocuparPais(int idJugador, int idPais){
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
         it->ocuparPais(idJugador,idPais);
     }
 }
-
 Carta Partida::obtenerCarta(int idPais){
     std::list<Carta>::iterator it = cartas.begin();
     for(it = cartas.begin();it != cartas.end();it++){
@@ -295,7 +291,6 @@ void Partida::ubicarUnidades(bool& inicializado) {
     inicializado = true;
     std::cout<<"Inicializacion satisfactoria"<<std::endl;
 }
-
 void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     std::cout<<"JUGADORES"<<std::endl;
     for(int i = 0 ; i < jugadores.size() ; i++){
