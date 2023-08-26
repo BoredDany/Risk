@@ -19,6 +19,8 @@ public:
     void aggPais(Pais p);
     void setNombre(std::string nombre);
     void aggConexion(int pais, int vecino);
+    bool lleno();
+    void ocuparPais(int idJugador, int idPais);
 };
 
 #endif //RISK_CONTINENTE_H
