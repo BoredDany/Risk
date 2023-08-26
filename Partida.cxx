@@ -250,7 +250,15 @@ void Partida::ocuparPais(int idJugador, int idPais){
     }
 }
 
-void Partida::ubicarUnidades() {
+Carta Partida::obtenerCarta(int idPais){
+    std::list<Carta>::iterator it = cartas.begin();
+    for(it = cartas.begin();it != cartas.end();it++){
+        if(it->getId() == idPais){
+            return *it;
+        }
+    }
+}
+void Partida::ubicarUnidades(bool& inicializado) {
     std::list<Continente>::iterator itContinetes;
     int auxPais = 0;
     bool lleno = false;
@@ -265,28 +273,38 @@ void Partida::ubicarUnidades() {
                 std::cout<<itPaises->get_id()<<":"<<itPaises->get_nombre()<<" en "<<itPaises->get_continente()<<std::endl;
             }
         }
-        for(int i=0; i<jugadores.size(); i++){
+        for(int i=0; i<jugadores.size() && !lleno; i++){
             do{
                 std::cout<<"Jugador:"<<jugadores[i].getAlias()<<std::endl;
-                std::cout<<"Ingrese el número del país: \n$";
+                std::cout<<"Ingrese el numero del pais: \n$";
                 std::cin>>auxPais;
                 ocupado = paisLleno(auxPais);
                 if(ocupado){
-                    std::cout<<"Pais ocupado"<<std::endl;
+                    std::cout<<"Pais ocupado o no valido"<<std::endl;
                 }
-            }while(ocupado);
-            ocuparPais(jugadores[i].getId(), auxPais);
-            jugadores[i].setUnidades(jugadores[i].getUnidades()-1);
-            darCarta();
+            }while(ocupado && !lleno);
+            if(!lleno){
+                ocuparPais(jugadores[i].getId(), auxPais);
+                jugadores[i].setUnidades(jugadores[i].getUnidades()-1);
+                jugadores[i].agregarCarta(obtenerCarta(auxPais));
+            }
+            lleno = tableroLleno();
         }
-        lleno = tableroLleno();
     }
+    std::cin.ignore();
+    inicializado = true;
+    std::cout<<"Inicializacion satisfactoria"<<std::endl;
+}
 
+void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     std::cout<<"JUGADORES"<<std::endl;
     for(int i = 0 ; i < jugadores.size() ; i++){
-        std::cout<<"Jugador "<<i+1<<" tiene "<<jugadores[i].getUnidades()<<std::endl;
+        std::cout<<"Jugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
+        std::cout<<"color: "<<jugadores[i].getColor()<<" tiene "<<jugadores[i].getCartas().size()<<std::endl;
+        std::list<Carta> cartasJ = jugadores[i].getCartas();
+        std::list<Carta>::iterator it = cartasJ.begin();
+        for(it = cartasJ.begin();it != cartasJ.end();it++){
+            std::cout<<it->getId()<<":"<<it->getPais()<<std::endl;
+        }
     }
-
-
-    std::cin.ignore();
 }

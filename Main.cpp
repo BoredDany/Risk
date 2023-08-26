@@ -66,9 +66,8 @@ int main() {
 
         }
         else if (comando == "inicializar") { // Operaciones para inicializar el juego
-            cout << "Comando 'inicializar' recibido\n";
             if(inicializado){
-                cout << "Juego ya inicializado\n";
+                cout << "Juego en curso\n";
             }else{
                 risk.set_id(1);
                 risk.cargarCartas(archivo_cartas);
@@ -76,7 +75,9 @@ int main() {
                 risk.inicializarTablero();
                 risk.llenarContinentes();
                 risk.cargarConexiones(archivo_conexiones);
-                risk.ubicarUnidades();
+                risk.ubicarUnidades(inicializado);
+                risk.mostrarInicializacion();
+
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles

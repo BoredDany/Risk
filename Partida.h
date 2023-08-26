@@ -36,6 +36,8 @@ public:
     bool tableroLleno();
     bool paisLleno(int id);
     void ocuparPais(int id, int idPais);
-    void ubicarUnidades();
+    Carta obtenerCarta(int idPais);
+    void ubicarUnidades(bool& inicializado);
+    void mostrarInicializacion();
 };
 #endif //RISK_PARTIDA_H
