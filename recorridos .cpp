@@ -51,4 +51,15 @@ int main(){
         }
     }
 
+    std::cout<<"CONTINENTES CON PAISES Y JUGADORES PRESENTES"<<std::endl;
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::cout<<it->get_nombre()<<" paises: "<<std::endl;
+        std::list<Pais> p=it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" pertenece a "<<itp->get_id_jugador()<<" con "<<itp->get_unidades()<<" unidades"<<std::endl;
+        }
+    }
+
 }

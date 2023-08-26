@@ -11,6 +11,8 @@ Pais::Pais(int id, std::string nombre,  std::string continente) {
     this->id = id;
     this->nombre = nombre;
     this->continente = continente;
+    this->id_jugador = 0;
+    this->unidades = 0;
 }
 
 int Pais::get_id() {

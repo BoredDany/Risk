@@ -2,13 +2,8 @@
 // Created by Estudiante on 13/08/2023.
 //
 #include <iostream>
-#include <list>
-#include <vector>
 #include "mainFunctions.h"
 #include "Carta.h"
-#include "Jugador.h"
-#include "Continente.h"
-#include "Pais.h"
 #include "Partida.h"
 using namespace std;
 
@@ -77,10 +72,11 @@ int main() {
             }else{
                 risk.set_id(1);
                 risk.cargarCartas(archivo_cartas);
-                //risk.inicializarJugadores();
+                risk.inicializarJugadores();
                 risk.inicializarTablero();
                 risk.llenarContinentes();
                 risk.cargarConexiones(archivo_conexiones);
+                risk.ubicarUnidades();
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles

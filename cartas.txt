@@ -10,7 +10,7 @@
 10;Argentina;soldado;Sur America
 11;Brasil;caballo;Sur America
 12;Peru;canion;Sur America
-13;Venezuela;soldado;Sur America
+13;Colombia;soldado;Sur America
 14;Gran Bretania;caballo;Europa
 15;Islandia;canion;Europa
 16;Europa del Norte;soldado;Europa

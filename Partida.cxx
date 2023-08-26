@@ -186,14 +186,12 @@ void Partida::llenarContinentes() {
         }
     }
 }
-
 void Partida::aggConexion(int pais, int vecino){
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
         it->aggConexion(pais,vecino);
     }
 }
-
 void Partida::cargarConexiones(std::string archivo){
      std::ifstream file (archivo);
      int size = countLines(archivo);
@@ -218,16 +216,47 @@ void Partida::cargarConexiones(std::string archivo){
      file.close();
 }
 
+bool Partida:: tableroLleno(){
+    std::list<Continente>::iterator it = tablero.begin();
+    bool llenoTab = true;
+    for(it = tablero.begin();it != tablero.end();it++){
+        if(!it->lleno()){
+            llenoTab = false;
+        }
+    }
+    return llenoTab;
+}
+
+bool Partida::paisLleno(int id){
+    std::list<Continente>::iterator it = tablero.begin();
+    bool lleno = true;
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> paises = it->get_paises();
+        std::list<Pais>::iterator itPaises = paises.begin();
+        for(itPaises = paises.begin() ; itPaises != paises.end() ; itPaises++){
+            if(itPaises->get_id() == id && itPaises->get_unidades() == 0){
+                lleno = false;
+            }
+        }
+
+    }
+    return lleno;
+}
+
+void Partida::ocuparPais(int idJugador, int idPais){
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        it->ocuparPais(idJugador,idPais);
+    }
+}
+
 void Partida::ubicarUnidades() {
     std::list<Continente>::iterator itContinetes;
-    std::string auxContinente;
-    int auxPais;
+    int auxPais = 0;
+    bool lleno = false;
+    bool ocupado = true;
 
-    for(int i=0; i<jugadores.size(); i++){
-        std::cout<<"Selecciona tu territorio: \n-Escribe el nombre del continente: \n$";
-        std::cin>>auxContinente;
-        std::cout<<"Ingrese el número del país: \n$";
-        std::cin>>auxPais;
+    while(!lleno){
         for(itContinetes = tablero.begin();itContinetes != tablero.end();itContinetes++){
             std::cout<<itContinetes->get_nombre()<<" tiene "<<itContinetes->get_paises().size()<<std::endl;
             std::list<Pais> paises = itContinetes->get_paises();
@@ -236,6 +265,28 @@ void Partida::ubicarUnidades() {
                 std::cout<<itPaises->get_id()<<":"<<itPaises->get_nombre()<<" en "<<itPaises->get_continente()<<std::endl;
             }
         }
+        for(int i=0; i<jugadores.size(); i++){
+            do{
+                std::cout<<"Jugador:"<<jugadores[i].getAlias()<<std::endl;
+                std::cout<<"Ingrese el número del país: \n$";
+                std::cin>>auxPais;
+                ocupado = paisLleno(auxPais);
+                if(ocupado){
+                    std::cout<<"Pais ocupado"<<std::endl;
+                }
+            }while(ocupado);
+            ocuparPais(jugadores[i].getId(), auxPais);
+            jugadores[i].setUnidades(jugadores[i].getUnidades()-1);
+            darCarta();
+        }
+        lleno = tableroLleno();
     }
 
+    std::cout<<"JUGADORES"<<std::endl;
+    for(int i = 0 ; i < jugadores.size() ; i++){
+        std::cout<<"Jugador "<<i+1<<" tiene "<<jugadores[i].getUnidades()<<std::endl;
+    }
+
+
+    std::cin.ignore();
 }

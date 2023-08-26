@@ -26,3 +26,23 @@ void Continente::aggConexion(int pais, int vecino){
         }
     }
 }
+bool Continente::lleno(){
+    std::list<Pais>::iterator it = paises.begin();
+    bool lleno = true;
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id_jugador() == 0){
+            lleno = false;
+        }
+    }
+    return lleno;
+}
+
+void Continente::ocuparPais(int idJugador, int idPais){
+    std::list<Pais>::iterator it = paises.begin();
+    for(it = paises.begin();it != paises.end();it++){
+        if(idPais == it->get_id()){
+            it->set_id_jugador(idJugador);
+            it->set_unidades(it->get_unidades()+1);
+        }
+    }
+}

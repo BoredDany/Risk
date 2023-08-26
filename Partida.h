@@ -33,7 +33,9 @@ public:
     void llenarContinentes();
     void aggConexion(int pais, int vecino);
     void cargarConexiones(std::string archivo);
-
+    bool tableroLleno();
+    bool paisLleno(int id);
+    void ocuparPais(int id, int idPais);
     void ubicarUnidades();
 };
 #endif //RISK_PARTIDA_H
