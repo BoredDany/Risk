@@ -39,5 +39,15 @@ public:
     Carta obtenerCarta(int idPais);
     void ubicarUnidades(bool& inicializado);
     void mostrarInicializacion();
+
+    bool paisExiste(int idP);
+    bool jugadorOcupaPais(int idJ, int idP);
+    bool paisVecino(int paisOrigen, int paisDestino);
+    void elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDestino);
+
+    int buscarAtacado(int idP);
+    int lanzarDados(int numDados);
+    void quitarUnidad(int idP, bool * vaciado);
+    void atacar(int posAtacante, int origen, int destino);
 };
 #endif //RISK_PARTIDA_H

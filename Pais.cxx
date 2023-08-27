@@ -51,9 +51,12 @@ void Pais::agg_conexion(int conexion) {
     this->conexiones.push_back(conexion);
 }
 
-void Pais::printVecinos(){
+bool Pais::esVecino(int idP){
     std::list<int>::iterator it = conexiones.begin();
     for( it = conexiones.begin();  it != conexiones.end(); it++){
-        std::cout<<*it<<" - ";
+        if(*it == idP){
+            return true;
+        }
     }
+    return false;
 }

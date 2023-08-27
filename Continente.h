@@ -21,6 +21,9 @@ public:
     void aggConexion(int pais, int vecino);
     bool lleno();
     void ocuparPais(int idJugador, int idPais);
+    bool paisExiste(int idP);
+    bool jugadorOcupaPais(int idP, int idJ);
+    bool paisVecino(int origen, int destino);
 };
 
 #endif //RISK_CONTINENTE_H

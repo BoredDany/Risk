@@ -15,7 +15,6 @@ private:
     std::string alias;
     int unidades;
     std::list<Carta> cartas;
-    std::string estado;
 public:
     Jugador();
     Jugador (int id, std::string color, std::string alias);
@@ -36,7 +35,6 @@ public:
     std::string getEstado();
 
     void fortificar();
-    void atacar();
     void reclamarCartas();
 
 };

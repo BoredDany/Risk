@@ -10,7 +10,6 @@ Jugador::Jugador(int id, std::string color, std::string alias) {
     this->color = color;
     this->alias = alias;
     this->unidades = 0;
-    this->estado = "neutro";
 }
 
 int Jugador::getId() {
@@ -33,10 +32,6 @@ std::list<Carta> Jugador::getCartas(){
     return cartas;
 }
 
-std::string Jugador::getEstado(){
-    return estado;
-}
-
 void Jugador::setId(int idN) {
     this->id = idN;
 }
@@ -57,20 +52,12 @@ void Jugador::setCartas(std::list<Carta> cartasN){
     this->cartas = cartasN;
 }
 
-void Jugador::setEstado(std::string estadoN){
-    this->estado = estadoN;
-}
-
 void Jugador::agregarCarta(Carta carta) {
     cartas.push_back(carta);
 }
 
 void Jugador::fortificar(){
     std::cout<< "Vamos a fortificar" << std::endl;
-}
-
-void Jugador::atacar(){
-    std::cout<< "Vamos a atacar" << std::endl;
 }
 
 void Jugador::reclamarCartas(){

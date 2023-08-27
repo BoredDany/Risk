@@ -46,3 +46,34 @@ void Continente::ocuparPais(int idJugador, int idPais){
         }
     }
 }
+
+bool Continente::paisExiste(int idP){
+    std::list<Pais>::iterator it = paises.begin();
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id() == idP){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Continente::jugadorOcupaPais(int idP, int idJ){
+    std::list<Pais>::iterator it = paises.begin();
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id() == idP && it->get_id_jugador() == idJ){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Continente::paisVecino(int origen, int destino){
+    std::list<Pais>::iterator it = paises.begin();
+    bool vecino = false;
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id() == origen){
+            vecino = it->esVecino(destino);
+        }
+    }
+    return vecino;
+}

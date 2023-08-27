@@ -26,6 +26,6 @@ public:
     void set_unidades(int unidades);
     void set_id_jugador(int id_jugador);
     void agg_conexion(int conexion);
-    void printVecinos();
+    bool esVecino(int idP);
 };
 #endif //RISK_TERRITORIO_H

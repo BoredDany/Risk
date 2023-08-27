@@ -14,7 +14,7 @@ int main() {
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
     bool hayEspacio = false, inicializado = false;
-    int numTurno = 0;
+    int numTurno = 0, paisOrigen = 0, paisDestino = 0;
     Partida risk(0);
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
@@ -56,11 +56,37 @@ int main() {
                         if(turnoValido(risk.get_jugadores(), turno)){
                             if(turnoCorrecto(risk.get_jugadores(), turno, &numTurno)){
                                 numTurno++;
-                                cout << "Turno para el jugador " << cd[1] << " :recibido" << endl;
+                                cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl;
+                                //reclamar unidades
+                                //atacar
+                                int rta = 0;
+                                do{
+                                    cout << "Desea atacar?\n1) Si\n2) No\n$";
+                                    cin >> rta;
+                                    switch (rta) {
+                                        case 1:
+                                            cout << "\nATAQUE INICIADO" <<endl;
+                                            risk.elegirUbicacionAtaque(numTurno, &paisOrigen, &paisDestino);
+                                            risk.atacar(numTurno,paisOrigen,paisDestino);
+                                            risk.mostrarInicializacion();
+                                            break;
+                                        case 2:
+                                            cout << "\nHA DECIDIDO NO ATACAR" <<endl;
+                                            break;
+                                        default:
+                                            cout << "\nOpcion no valida" <<endl;
+                                            break;
+                                    }
+                                    cin.ignore();
+                                }while(rta < 1 || rta > 2);
+
+                                //fortificar
+
                                 if(numTurno == risk.get_jugadores().size())
                                 {
                                     numTurno = 0;
-                                }                            }else{
+                                }
+                            }else{
                                 cout << "Jugador fuera del turno" << endl;
                             }
                         }else{
@@ -93,6 +119,9 @@ int main() {
             if(inicializado){
                 cout << "Juego en curso\n";
             }else{
+                cout<<"\n****************************************"<<endl;
+                cout<<"*       INICIALIZACION DEL JUEGO       *"<<endl;
+                cout<<"****************************************"<<endl<<endl;
                 risk.set_id(1);
                 risk.cargarCartas(archivo_cartas);
                 risk.inicializarJugadores();
