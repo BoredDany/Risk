@@ -108,12 +108,16 @@ bool turnoValido(std::vector<Jugador> jugadores, int idJ){
     return false;
 }
 
-bool turnoCorrecto(std::list<Jugador> jugadores, int idJ){
-
+bool turnoCorrecto(std::vector<Jugador> jugadores, int idJ){
+    //para saber si el turno ingresado es el que corresponde
+return true;
 }
 
 bool turnonumerico(std::string turno){
     for(char c: turno){
-        if(c.isis)
+        if(isalpha(c)){
+            return true;
+        }
     }
+    return false;
 }

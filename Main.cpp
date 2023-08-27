@@ -49,17 +49,20 @@ int main() {
                 if(!inicializado){
                     cout << "Juego no incializado" << endl;
                 }else{
-                    if(cd[1].isalpha)
-                    if(turnoValido(risk.get_jugadores(), cd[1])){
-                        if(turnoCorrecto(risk.get_jugadores())){
-                            cout << "Turno para el jugador " << cd[1] << " :recibido" << endl;
+                    if(!turnonumerico(cd[1])){
+                        int turno = stoi(cd[1]);
+                        if(turnoValido(risk.get_jugadores(), turno)){
+                            if(turnoCorrecto(risk.get_jugadores(), turno)){
+                                cout << "Turno para el jugador " << cd[1] << " :recibido" << endl;
+                            }else{
+                                cout << "Jugador fuera del turno" << endl;
+                            }
                         }else{
-                            cout << "Jugador fuera del turno" << endl;
+                            cout << "Jugador no valido" << endl;
                         }
                     }else{
-                        cout << "Jugador no valido" << endl;
+                        cout << "Turno debe ser un numero" << endl;
                     }
-
                 }
 
             }
