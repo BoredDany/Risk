@@ -50,5 +50,8 @@ public:
     bool quitarUnidad(int idP);
     void atacar(int posAtacante, int origen, int destino);
     void intercambiarCartasPorUnidades(int jugadorIndex);
+    void intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios, bool tieneTodaSuramerica, bool tieneTodaOceania, bool tieneTodaAfrica, bool tieneTodaNorteamerica, bool tieneTodaEuropa, bool tieneTodaAsia);
+    bool sonTresCartasIguales(std::list<Carta>& cartas);
+    void fortificarTerritorio(int jugadorIndex, int origen, int destino);
 };
 #endif //RISK_PARTIDA_H
