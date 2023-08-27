@@ -42,7 +42,7 @@ void Continente::ocuparPais(int idJugador, int idPais){
     for(it = paises.begin();it != paises.end();it++){
         if(idPais == it->get_id()){
             it->set_id_jugador(idJugador);
-            it->set_unidades(it->get_unidades()+1);
+            it->set_unidades(it->get_unidades()+2);
         }
     }
 }
@@ -88,6 +88,7 @@ bool Continente::quitarUnidad(int idP, bool& encontrado){
             units = it->get_unidades()-1;
             if(units <= 0){
                 it->set_id_jugador(0);
+                it->set_unidades(units);
                 vacio = true;
             }else{
                 it->set_unidades(units);

@@ -58,6 +58,7 @@ int main() {
                                 numTurno++;
                                 cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl;
                                 //reclamar unidades
+
                                 //atacar
                                 int rta = 0;
                                 do{
@@ -81,6 +82,23 @@ int main() {
                                 }while(rta < 1 || rta > 2);
 
                                 //fortificar
+                                do{
+                                    cout << "Desea fortificar?\n1) Si\n2) No\n$";
+                                    cin >> rta;
+                                    switch (rta) {
+                                        case 1:
+                                            cout << "\nFORTIFICACION INICIADA" <<endl;
+
+                                            break;
+                                        case 2:
+                                            cout << "\nHA DECIDIDO NO FORTIFICAR" <<endl;
+                                            break;
+                                        default:
+                                            cout << "\nOpcion no valida" <<endl;
+                                            break;
+                                    }
+                                    cin.ignore();
+                                }while(rta < 1 || rta > 2);
 
                                 if(numTurno == risk.get_jugadores().size())
                                 {
