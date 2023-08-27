@@ -49,5 +49,6 @@ public:
     int lanzarDados(int numDados);
     bool quitarUnidad(int idP);
     void atacar(int posAtacante, int origen, int destino);
+    void intercambiarCartasPorUnidades(int jugadorIndex);
 };
 #endif //RISK_PARTIDA_H
