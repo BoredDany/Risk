@@ -14,6 +14,7 @@ int main() {
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
     bool hayEspacio = false, inicializado = false;
+    int numTurno = 0;
     Partida risk(0);
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
@@ -51,10 +52,15 @@ int main() {
                 }else{
                     if(!turnonumerico(cd[1])){
                         int turno = stoi(cd[1]);
+
                         if(turnoValido(risk.get_jugadores(), turno)){
-                            if(turnoCorrecto(risk.get_jugadores(), turno)){
+                            if(turnoCorrecto(risk.get_jugadores(), turno, &numTurno)){
+                                numTurno++;
                                 cout << "Turno para el jugador " << cd[1] << " :recibido" << endl;
-                            }else{
+                                if(numTurno == risk.get_jugadores().size())
+                                {
+                                    numTurno = 0;
+                                }                            }else{
                                 cout << "Jugador fuera del turno" << endl;
                             }
                         }else{
