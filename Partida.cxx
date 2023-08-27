@@ -481,6 +481,18 @@ void Partida::atacar(int posAtacante, int origen, int destino){
     }while(!vaciado);
 
 }
+
+bool Partida::sonTresCartasIguales(const std::list<Carta>& cartas) {
+    auto it = cartas.begin();
+    const Carta& primeraCarta = *it;
+    ++it;
+    const Carta& segundaCarta = *it;
+    ++it;
+    const Carta& terceraCarta = *it;
+
+    return primeraCarta.esIgual(segundaCarta) && segundaCarta.esIgual(terceraCarta);
+}
+
 void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios, bool tieneTodaSuramerica, bool tieneTodaOceania, bool tieneTodaAfrica, bool tieneTodaNorteamerica, bool tieneTodaEuropa, bool tieneTodaAsia) {
     if (jugadores[jugadorIndex].getCartas().size() < 3) {
         std::cout << "El jugador no tiene suficientes cartas para el intercambio." << std::endl;
@@ -525,15 +537,4 @@ void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios,
     for (const Carta& carta : cartasAIntercambiar) {
         jugadores[jugadorIndex].eliminarCarta(carta);
     }
-}
-
-bool Partida::sonTresCartasIguales(const std::list<Carta>& cartas) {
-    auto it = cartas.begin();
-    const Carta& primeraCarta = *it;
-    ++it;
-    const Carta& segundaCarta = *it;
-    ++it;
-    const Carta& terceraCarta = *it;
-
-    return primeraCarta.esIgual(segundaCarta) && segundaCarta.esIgual(terceraCarta);
 }
