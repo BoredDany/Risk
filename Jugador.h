@@ -26,6 +26,7 @@ public:
     void setEstado(std::string EstadoN);
 
     void agregarCarta(Carta carta);
+    void quitarCarta(int idP);
 
     int getId();
     std::string getColor();

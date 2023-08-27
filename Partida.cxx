@@ -233,6 +233,7 @@ bool Partida::paisLleno(int id){
         std::list<Pais>::iterator itPaises = paises.begin();
         for(itPaises = paises.begin() ; itPaises != paises.end() ; itPaises++){
             if(itPaises->get_id() == id && itPaises->get_unidades() == 0){
+                std::cout<<"El pais tiene cero unidades";
                 lleno = false;
             }
         }
@@ -289,7 +290,7 @@ void Partida::ubicarUnidades(bool& inicializado) {
     std::cout<<"\nInicializacion satisfactoria"<<std::endl;
 }
 void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
-    /*std::cout<<"JUGADORES"<<std::endl;
+    std::cout<<"\nJUGADORES"<<std::endl;
     for(int i = 0 ; i < jugadores.size() ; i++){
         std::cout<<"Jugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
         std::cout<<"color: "<<jugadores[i].getColor()<<" tiene "<<jugadores[i].getCartas().size()<<std::endl;
@@ -298,8 +299,8 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         for(it = cartasJ.begin();it != cartasJ.end();it++){
             std::cout<<it->getId()<<":"<<it->getPais()<<std::endl;
         }
-    }*/
-    std::cout<<"TABLERO"<<std::endl;
+    }
+    std::cout<<"\nTABLERO"<<std::endl;
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
         std::cout<<it->get_nombre()<<" paises: "<<std::endl;
@@ -346,6 +347,7 @@ bool Partida::paisVecino(int paisOrigen, int paisDestino){
 }
 void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDestino){
     bool ocupado = false, existe = false, esVecino = false, lleno = false;
+    int idAtacado = 0;
     do{
         std::cout<<"Ingrese numero de pais desde donde quiere atacar: \n$";
         std::cin>>*paisOrigen;
@@ -368,17 +370,19 @@ void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDest
         std::cin>>*paisDestino;
         esVecino = paisVecino(*paisOrigen, *paisDestino);
         existe = paisExiste(*paisDestino);
-        lleno = paisLleno(*paisDestino);
+        idAtacado = buscarAtacado(*paisDestino);
+        std::cout<<"LLENO: "<<lleno<<std::endl;
         if(!existe){
             std::cout<<"Este pais no existe"<<std::endl;
         }
         if(!esVecino){
             std::cout<<"No puede atacar este pais, no es vecino de "<<*paisOrigen<<std::endl;
         }
-        if(!lleno){
+        if(idAtacado == -1){
             std::cout<<"No puede atacar este pais, no hay nadie, puede fortificar si desea "<<std::endl;
         }
-    }while(!existe || !esVecino || !lleno);
+    }while(!existe || !esVecino || idAtacado == -1);
+
     std::cout<<"VA A ATACAR AL PAIS "<<*paisDestino<<std::endl;
 }
 
@@ -440,13 +444,6 @@ bool Partida::quitarUnidad(int idP){
             break;
         }
     }
-    if(encontrado){
-        std::cout<<"HALLADO"<<std::endl;
-    }
-    if(vaciado){
-        std::cout<<"SE DEBE QUITAR CARTA"<<std::endl;
-    }
-
     return vaciado;
 }
 
@@ -467,21 +464,32 @@ void Partida::atacar(int posAtacante, int origen, int destino){
         std::cout<<"\nATACADO OBTUVO:"<<puntosAtacado<<std::endl;
 
         if(puntosAtacado > puntosAtacante){
-            std::cout<<"\nATACADO GANA"<<puntosAtacado<<std::endl;
+            std::cout<<"\nATACADO GANA"<<std::endl;
             //ATACANTE PIERDE UNIDAD DE SU TERRITORIO
             vaciado=quitarUnidad(origen);
+            if(vaciado){
+                jugadores[posAtacante-1].quitarCarta(origen);
+                std::cout<<"\nEl atacante ha quedado sin unidades en su territorio, lo ha perdido:"<<std::endl;
+            }
         }
         if(puntosAtacado < puntosAtacante){
-            std::cout<<"\nATACANTE GANA"<<puntosAtacado<<std::endl;
+            std::cout<<"\nATACANTE GANA"<<std::endl;
             //ATACADO PIERDE UNIDAD DE SU TERRITORIO
             vaciado=quitarUnidad(destino);
+            if(vaciado){
+                jugadores[posAtacado].quitarCarta(destino);
+                std::cout<<"\nEl atacado ha quedado sin unidades en su territorio, lo ha perdido, atacante puede fortificar para ocupar el territorio"<<std::endl;
+            }
         }
         if(puntosAtacado == puntosAtacante){
-            std::cout<<"\nATACADO GANA POR EMPATE"<<puntosAtacado<<std::endl;
+            std::cout<<"\nATACADO GANA POR EMPATE"<<std::endl;
             //ATACANTE PIERDE UNIDAD DE SU TERRITORIO
             vaciado=quitarUnidad(origen);
+            if(vaciado){
+                jugadores[posAtacante-1].quitarCarta(origen);
+                std::cout<<"\nEl atacante ha quedado sin unidades en su territorio, lo ha perdido:"<<std::endl;
+            }
         }
-        std::cout<<"\nESTA VACIADO:"<<vaciado<<std::endl;
     }while(!vaciado && jugadorOcupaPais(jugadores[posAtacante-1].getId(),origen));
 
 }
@@ -500,7 +508,7 @@ void Partida::intercambiarCartasPorUnidades(int jugadorIndex) {
     jugadores[jugadorIndex].setUnidades(jugadores[jugadorIndex].getUnidades() + unidadesAgregadas);
 
     for (const Carta& carta : cartasAIntercambiar) {
-        jugadores[jugadorIndex].eliminarCarta(carta);
+        //jugadores[jugadorIndex].eliminarCarta(carta);
     }
     unidadesAgregadas += 5;
 }

@@ -56,6 +56,17 @@ void Jugador::agregarCarta(Carta carta) {
     cartas.push_back(carta);
 }
 
+void Jugador::quitarCarta(int idP) {
+    std::list<Carta>::iterator it = cartas.begin();
+    std::list<Carta>::iterator itE = cartas.end();
+    for(it = cartas.begin();it != cartas.end();it++){
+        if(it->getId() == idP){
+            itE = it;
+            cartas.erase(itE);
+        }
+    }
+}
+
 void Jugador::fortificar(){
     std::cout<< "Vamos a fortificar" << std::endl;
 }
