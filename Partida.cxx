@@ -39,7 +39,7 @@ int Partida::countLines(std::string archivo_cartas){
     }
     inputFile.close();
     return i;
-}
+}//inicializar cartas
 void Partida::cargarCartas(std::string archivo_cartas){
     std::ifstream inputFile(archivo_cartas);
     std::string line, word;
@@ -74,7 +74,7 @@ bool Partida::buscarColorRepetido (std::string color){
         }
     }
     return false;
-}
+}//inicializar jugadores
 void Partida::asignarUnidades(){
     int unidades = 0, numJ = jugadores.size();
     switch(numJ){
@@ -162,7 +162,7 @@ bool Partida::repetido(std::string nombre){
         }
     }
     return false;
-}
+}//cargar tablero
 void Partida::inicializarTablero(){
     std::list<Carta>::iterator it = cartas.begin();
     for( it = cartas.begin(); it != cartas.end() ; it++){
@@ -191,7 +191,7 @@ void Partida::aggConexion(int pais, int vecino){
     for(it = tablero.begin();it != tablero.end();it++){
         it->aggConexion(pais,vecino);
     }
-}
+}//vecinos
 void Partida::cargarConexiones(std::string archivo){
      std::ifstream file (archivo);
      int size = countLines(archivo);
@@ -224,7 +224,7 @@ bool Partida:: tableroLleno(){
         }
     }
     return llenoTab;
-}
+}//ubicar unidades
 bool Partida::paisLleno(int id){
     std::list<Continente>::iterator it = tablero.begin();
     bool lleno = true;

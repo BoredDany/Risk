@@ -46,7 +46,22 @@ int main() {
                 descripcion_comando(cd[1]);
             }
             else if (cd[0] == "turno") {
-                cout << "Turno para el jugador " << cd[1] << " :recibido" << endl;
+                if(!inicializado){
+                    cout << "Juego no incializado" << endl;
+                }else{
+                    if(cd[1].isalpha)
+                    if(turnoValido(risk.get_jugadores(), cd[1])){
+                        if(turnoCorrecto(risk.get_jugadores())){
+                            cout << "Turno para el jugador " << cd[1] << " :recibido" << endl;
+                        }else{
+                            cout << "Jugador fuera del turno" << endl;
+                        }
+                    }else{
+                        cout << "Jugador no valido" << endl;
+                    }
+
+                }
+
             }
             else if (cd[0] == "guardar") {
                 cout << "Guardar en archivo de texto '" << cd[1] << "' :recibido"<< endl;
@@ -77,7 +92,6 @@ int main() {
                 risk.cargarConexiones(archivo_conexiones);
                 risk.ubicarUnidades(inicializado);
                 risk.mostrarInicializacion();
-
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
@@ -93,9 +107,6 @@ int main() {
         }
         else if (comando == "conquista_mas_barata") { // Operaciones para indicar conquista más barata
             cout << "Comando 'conquista_mas_barata' recibido\n";
-        }
-        else if(comando == "test"){
-
         }
         else {
             cout << "Comando invalido" << endl;

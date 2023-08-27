@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <vector>
 #include "Carta.h"
 #include "Jugador.h"
 #include "Continente.h"
@@ -95,5 +96,24 @@ void descripcion_comando(string c) { // Imprime descripción de comando específ
     }
     else {
         cout << "Comando no disponible" << endl;
+    }
+}
+bool turnoValido(std::vector<Jugador> jugadores, int idJ){
+    std::vector<Jugador>::iterator it = jugadores.begin();
+    for(it = jugadores.begin();it != jugadores.end();it++){
+        if(idJ == it->getId()){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool turnoCorrecto(std::list<Jugador> jugadores, int idJ){
+
+}
+
+bool turnonumerico(std::string turno){
+    for(char c: turno){
+        if(c.isis)
     }
 }

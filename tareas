@@ -11,14 +11,14 @@ cargarCartas();//dani
 archivo de texto y leerlo;
 ------------------------------
 
-inicializarTablero();//pensarlo todos
+inicializarTablero();//dani y lina
 archivo para crear lista de territorios y lista de continentes;
 -------------------------------------------------------------------
 
-cargarGrafoRebuscado();//pensarlo todos
+cargarGrafoRebuscado();//lina y dani
 archivo para cargar conexiones entre paises;
 
-inicializarJugadores();// isa
+inicializarJugadores();// isa y dani
 preguntar todo sobre los jugadores;
 asignarUnidades();//lina
 asignar unidades a cada jugador
