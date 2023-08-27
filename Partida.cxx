@@ -481,3 +481,22 @@ void Partida::atacar(int posAtacante, int origen, int destino){
     }while(!vaciado);
 
 }
+void Partida::intercambiarCartasPorUnidades(int jugadorIndex) {
+    if (jugadores[jugadorIndex].getCartas().size() < 3) {
+        std::cout << "El jugador no tiene suficientes cartas para el intercambio." << std::endl;
+        return; 
+    }
+    std::list<Carta> cartasAIntercambiar;
+    int contador = 0;
+    for (auto it = jugadores[jugadorIndex].getCartas().begin(); contador < 3; ++it) {
+        cartasAIntercambiar.push_back(*it);
+        contador++;
+    }
+    int unidadesAgregadas = 5;
+    jugadores[jugadorIndex].setUnidades(jugadores[jugadorIndex].getUnidades() + unidadesAgregadas);
+
+    for (const Carta& carta : cartasAIntercambiar) {
+        jugadores[jugadorIndex].eliminarCarta(carta);
+    }
+    unidadesAgregadas += 5;
+}
