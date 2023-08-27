@@ -538,3 +538,34 @@ void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios,
         jugadores[jugadorIndex].eliminarCarta(carta);
     }
 }
+
+void Partida::fortificarTerritorio(int jugadorIndex, int origen, int destino) {
+    if (jugadores[jugadorIndex].getUnidades() < 2) {
+        std::cout << "El jugador no tiene suficientes unidades para fortificar." << std::endl;
+        return;
+    }
+
+    if (!jugadorOcupaPais(jugadores[jugadorIndex].getId(), origen)) {
+        std::cout << "El jugador no ocupa el país de origen." << std::endl;
+        return;
+    }
+
+    if (!jugadorOcupaPais(jugadores[jugadorIndex].getId(), destino)) {
+        std::cout << "El jugador no ocupa el país de destino." << std::endl;
+        return;
+    }
+
+    if (!paisVecino(origen, destino)) {
+        std::cout << "El país de destino no es vecino del país de origen." << std::endl;
+        return;
+    }
+
+    int unidadesAMover;
+    do {
+        std::cout << "Ingrese la cantidad de unidades a mover (debe ser al menos 2): ";
+        std::cin >> unidadesAMover;
+    } while (unidadesAMover < 2 || unidadesAMover >= jugadores[jugadorIndex].getUnidades());
+
+    jugadores[jugadorIndex].moverUnidades(origen, destino, unidadesAMover);
+    std::cout << "Se han movido " << unidadesAMover << " unidades desde " << origen << " a " << destino << std::endl;
+}
