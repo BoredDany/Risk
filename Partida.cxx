@@ -357,7 +357,10 @@ void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDest
         if(!existe){
             std::cout<<"No existe este pais"<<std::endl;
         }
-    }while(!existe || !ocupado);
+        if(*paisOrigen == jugadores[posJug-1].getId()){
+            std::cout<<"No  se puede autoatacar"<<std::endl;
+        }
+    }while(!existe || !ocupado || *paisOrigen == jugadores[posJug-1].getId());
     std::cout<<"VA A ATACAR DESDE EL PAIS "<<*paisOrigen<<std::endl<<std::endl;
 
     do{
@@ -428,31 +431,31 @@ int Partida::lanzarDados(int numDados){
     return resultado;
 }
 
-void Partida::quitarUnidad(int idP, bool * vaciado){
+bool Partida::quitarUnidad(int idP){
     std::list<Continente>::iterator it = tablero.begin();
+    bool vaciado = false, encontrado = false;
     for(it = tablero.begin();it != tablero.end();it++){
-        std::list<Pais> p = it->get_paises();
-        std::list<Pais>::iterator itp = p.begin();
-        for(itp = p.begin();itp != p.end();itp++){
-            if(itp->get_id() == idP){
-                if(itp->get_unidades() == 0){
-                    itp->set_id_jugador(0);
-                    *vaciado = true;
-                }else{
-                    itp->set_unidades(itp->get_unidades()-1);
-                }
-            }
+        vaciado = it->quitarUnidad(idP,encontrado);
+        if(encontrado){
+            break;
         }
     }
-    if(*vaciado){
+    if(encontrado){
+        std::cout<<"HALLADO"<<std::endl;
+    }
+    if(vaciado){
         std::cout<<"SE DEBE QUITAR CARTA"<<std::endl;
     }
+
+    return vaciado;
 }
+
 void Partida::atacar(int posAtacante, int origen, int destino){
     int posAtacado = buscarAtacado(destino), puntosAtacante = 0, puntosAtacado = 0;
     bool vaciado = false;
     std::cout<<"\nATACADO ESTA EN POS:"<<posAtacado<<std::endl;
-    std::cout<<"ATACADO ES:"<<jugadores[posAtacado].getId()<<std::endl;
+    std::cout<<"ATACANTE ES:"<<jugadores[posAtacante-1].getId()<<" en "<<origen<<std::endl;
+    std::cout<<"ATACADO ES:"<<jugadores[posAtacado].getId()<<" en "<<destino<<std::endl;
 
     do{
         std::cout<<"\nATACANTE LANZA  DADOS:"<<std::endl;
@@ -466,18 +469,19 @@ void Partida::atacar(int posAtacante, int origen, int destino){
         if(puntosAtacado > puntosAtacante){
             std::cout<<"\nATACADO GANA"<<puntosAtacado<<std::endl;
             //ATACANTE PIERDE UNIDAD DE SU TERRITORIO
-            quitarUnidad(origen, &vaciado);
+            vaciado=quitarUnidad(origen);
         }
         if(puntosAtacado < puntosAtacante){
             std::cout<<"\nATACANTE GANA"<<puntosAtacado<<std::endl;
             //ATACADO PIERDE UNIDAD DE SU TERRITORIO
-            quitarUnidad(destino, &vaciado);
+            vaciado=quitarUnidad(destino);
         }
         if(puntosAtacado == puntosAtacante){
             std::cout<<"\nATACADO GANA POR EMPATE"<<puntosAtacado<<std::endl;
             //ATACANTE PIERDE UNIDAD DE SU TERRITORIO
-            quitarUnidad(origen, &vaciado);
+            vaciado=quitarUnidad(origen);
         }
-    }while(!vaciado);
+        std::cout<<"\nESTA VACIADO:"<<vaciado<<std::endl;
+    }while(!vaciado && jugadorOcupaPais(jugadores[posAtacante-1].getId(),origen));
 
 }

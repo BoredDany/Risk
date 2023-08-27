@@ -24,6 +24,7 @@ public:
     bool paisExiste(int idP);
     bool jugadorOcupaPais(int idP, int idJ);
     bool paisVecino(int origen, int destino);
+    bool quitarUnidad(int idP, bool& encontrado);
 };
 
 #endif //RISK_CONTINENTE_H

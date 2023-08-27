@@ -77,3 +77,22 @@ bool Continente::paisVecino(int origen, int destino){
     }
     return vecino;
 }
+
+bool Continente::quitarUnidad(int idP, bool& encontrado){
+    std::list<Pais>::iterator it = paises.begin();
+    bool vacio = false;
+    int units = 0;
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id() == idP){
+            encontrado = true;
+            units = it->get_unidades()-1;
+            if(units <= 0){
+                it->set_id_jugador(0);
+                vacio = true;
+            }else{
+                it->set_unidades(units);
+            }
+        }
+    }
+    return vacio;
+}

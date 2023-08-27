@@ -47,7 +47,7 @@ public:
 
     int buscarAtacado(int idP);
     int lanzarDados(int numDados);
-    void quitarUnidad(int idP, bool * vaciado);
+    bool quitarUnidad(int idP);
     void atacar(int posAtacante, int origen, int destino);
 };
 #endif //RISK_PARTIDA_H
