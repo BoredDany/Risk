@@ -37,12 +37,12 @@ bool Continente::lleno(){
     return lleno;
 }
 
-void Continente::ocuparPais(int idJugador, int idPais){
+void Continente::ocuparPais(int idJugador, int idPais, int unidades){
     std::list<Pais>::iterator it = paises.begin();
     for(it = paises.begin();it != paises.end();it++){
         if(idPais == it->get_id()){
             it->set_id_jugador(idJugador);
-            it->set_unidades(it->get_unidades()+1);
+            it->set_unidades(it->get_unidades()+unidades);
         }
     }
 }

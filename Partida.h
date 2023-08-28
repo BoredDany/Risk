@@ -36,9 +36,9 @@ public:
     void cargarConexiones(std::string archivo);
     bool tableroLleno();
     bool paisLleno(int id);
-    void ocuparPais(int id, int idPais);
+    void ocuparPais(int id, int idPais, int unidades);
     Carta obtenerCarta(int idPais);
-    void ubicarUnidades(bool& inicializado);
+    void ubicarUnidades(bool& inicializado, int numUnidades);
     void mostrarInicializacion();
 
     bool paisExiste(int idP);
@@ -50,6 +50,7 @@ public:
     bool quitarUnidad(int idP);
     void atacar(int posAtacante, int origen, int destino);
 
+    void ubicarNuevasUnidades(int posJ, int gana);
     int calcularPaises(int idJ);
     void intercambioNormal(int posJ);
     void intercambioPorPaises(int posJ);

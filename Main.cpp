@@ -37,6 +37,11 @@ int main() {
         cout << "\n$";
         getline(cin, comando);
         hayEspacio = tiene_espacio(comando, cd);
+        finalizado = risk.finalizado(&ganador);
+        if(finalizado){
+            inicializado = false;
+            cout << "JUEGO FINALIZADO, HA GANADO EL JUGADOR " <<ganador<< endl;
+        }
 
         if (hayEspacio) {
 
@@ -49,22 +54,32 @@ int main() {
             else if (cd[0] == "turno") {
                 if(!inicializado){
                     cout << "Juego no incializado" << endl;
-                }else{
+                }
+
+                else{
                     if(!turnonumerico(cd[1])){
                         int turno = stoi(cd[1]);
 
                         if(turnoValido(risk.get_jugadores(), turno)){
+
                             if(turnoCorrecto(risk.get_jugadores(), turno, &numTurno)){
+
                                 numTurno++;
                                 if(risk.jugadorVigente(numTurno)){
+
                                     cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
                                     cout<<"RECLAMO DE UNIDADES"<<endl;
+
                                     //reclamar unidades normal
                                     risk.intercambioNormal(numTurno);
+
+
                                     //reclamar unidades por poseer paises
                                     risk.intercambioPorPaises(numTurno);
+
                                     //reclamar unidades por cartas
                                     intercambios = risk.intercambioPorCartasIguales(numTurno);
+
                                     if(intercambios){
                                         numIntercambios+=1;
                                         cout<<"\nEL JUGADOR TIENE 3 CARTAS CON LAS CONDICIONES DADAS";
@@ -73,6 +88,7 @@ int main() {
                                         cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
                                         risk.intercambiarCartas(numTurno,unidadesGanadas);
                                     }
+
                                     risk.mostrarInicializacion();
 
                                     //atacar
@@ -165,8 +181,9 @@ int main() {
                 risk.inicializarTablero();
                 risk.llenarContinentes();
                 risk.cargarConexiones(archivo_conexiones);
-                risk.ubicarUnidades(inicializado);
+                risk.ubicarUnidades(inicializado, 1);
                 risk.mostrarInicializacion();
+                std::cout<<"\nInicializacion satisfactoria"<<std::endl;
             }
         }
         else if (comando == "ayuda") { // Desplegar menú con los comandos disponibles
@@ -190,5 +207,5 @@ int main() {
         limpiar(cd);
 
 
-    } while (comando != "salir" || comando == "");
+    } while (comando != "salir" || comando == "" || !finalizado);
 }

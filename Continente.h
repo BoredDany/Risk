@@ -20,7 +20,7 @@ public:
     void setNombre(std::string nombre);
     void aggConexion(int pais, int vecino);
     bool lleno();
-    void ocuparPais(int idJugador, int idPais);
+    void ocuparPais(int idJugador, int idPais, int unidades);
     bool paisExiste(int idP);
     bool jugadorOcupaPais(int idP, int idJ);
     bool paisVecino(int origen, int destino);
