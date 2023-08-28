@@ -10,6 +10,7 @@ Jugador::Jugador(int id, std::string color, std::string alias) {
     this->color = color;
     this->alias = alias;
     this->unidades = 0;
+    this->activo;
 }
 
 int Jugador::getId() {
@@ -30,6 +31,10 @@ int Jugador::getUnidades(){
 
 std::list<Carta> Jugador::getCartas(){
     return cartas;
+}
+
+bool Jugador::getActivo(){
+    return activo;
 }
 
 void Jugador::setId(int idN) {
