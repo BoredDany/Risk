@@ -23,6 +23,7 @@ public:
     std::list<Carta> get_cartas();
     std::list<Continente> get_tablero();
     void set_id(int id);
+
     int countLines(std::string archivo_cartas);
     void cargarCartas(std::string archivo_cartas);
     bool buscarColorRepetido (std::string color);
@@ -60,5 +61,7 @@ public:
     bool paisFortificable(int idJ, int idP);
     void moverUnidades(int posJ, int origen, int destino, int unidadesM);
     void fortificarTerritorio(int jugadorIndex);
+
+    bool finalizado(int * ganador);
 };
 #endif //RISK_PARTIDA_H

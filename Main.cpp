@@ -13,8 +13,8 @@ int main() {
     string cd[5];
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
-    bool hayEspacio = false, inicializado = false;
-    int numTurno = 0, paisOrigen = 0, paisDestino = 0, intercambios = 0, numIntercambios = 0, unidadesGanadas = 0;
+    bool hayEspacio = false, inicializado = false, finalizado = false;
+    int numTurno = 0, paisOrigen = 0, paisDestino = 0, intercambios = 0, numIntercambios = 0, unidadesGanadas = 0, ganador = 0;
     Partida risk(0);
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
@@ -184,6 +184,7 @@ int main() {
         }
 
         limpiar(cd);
+
 
     } while (comando != "salir" || comando == "");
 }

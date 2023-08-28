@@ -275,9 +275,7 @@ void Partida::ubicarUnidades(bool& inicializado) {
     bool lleno = false;
     bool ocupado = true;
 
-    std::cout<<"\n****************************************"<<std::endl;
-    std::cout<<"*   TERRITORIOS DEL TABLERO DE JUEGO   *"<<std::endl;
-    std::cout<<"****************************************"<<std::endl<<std::endl;
+    mostrarInicializacion();
 
     while(!lleno){
 
@@ -305,20 +303,27 @@ void Partida::ubicarUnidades(bool& inicializado) {
 }//ubicar unidades de cada jugador
 
 void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
-    std::cout<<"\nJUGADORES"<<std::endl;
+    std::cout<<"\n****************************************"<<std::endl;
+    std::cout<<"*                JUGADORES              *"<<std::endl;
+    std::cout<<"****************************************"<<std::endl;
     for(int i = 0 ; i < jugadores.size() ; i++){
-        std::cout<<"Jugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
-        std::cout<<"tiene "<<jugadores[i].getUnidades()<<" unidades, "<<"color: "<<jugadores[i].getColor()<<" tiene "<<jugadores[i].getCartas().size()<<" cartas: "<<std::endl;
+        std::cout<<"\nJugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
+        std::cout<<"color: "<<jugadores[i].getColor()<<std::endl;
+        std::cout<<"tiene "<<jugadores[i].getUnidades()<<" unidades "<<std::endl;
+        std::cout<<"tiene "<<jugadores[i].getCartas().size()<<" cartas: "<<std::endl;
         std::list<Carta> cartasJ = jugadores[i].getCartas();
         std::list<Carta>::iterator it = cartasJ.begin();
         for(it = cartasJ.begin();it != cartasJ.end();it++){
             std::cout<<it->getId()<<":"<<it->getPais()<<std::endl;
         }
     }
-    std::cout<<"\nTABLERO"<<std::endl;
+    std::cout<<"\n****************************************"<<std::endl;
+    std::cout<<"*   TERRITORIOS DEL TABLERO DE JUEGO   *"<<std::endl;
+    std::cout<<"****************************************"<<std::endl<<std::endl;
+
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
-        std::cout<<it->get_nombre()<<"----------------------"<<std::endl;
+        std::cout<<it->get_nombre()<<" --------------------------------------------"<<std::endl;
         std::list<Pais> p=it->get_paises();
         std::list<Pais>::iterator itp = p.begin();
         for(itp = p.begin();itp != p.end();itp++){
@@ -646,6 +651,7 @@ void Partida::moverUnidades(int posJ, int origen, int destino, int unidadesM){
         }
     }
 }
+
 void Partida::fortificarTerritorio(int jugadorIndex) {
     int origen = 0, destino = 0, unidadesM = 0;
     bool ocupaOrigen = false, suficientes = false, vecino = false, libre = false;
