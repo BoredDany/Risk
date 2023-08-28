@@ -600,7 +600,7 @@ void Partida::intercambiarCartas(int posJ, int gana){
 
 }
 
-/*
+
 void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios, bool tieneTodaSuramerica, bool tieneTodaOceania, bool tieneTodaAfrica, bool tieneTodaNorteamerica, bool tieneTodaEuropa, bool tieneTodaAsia) {
     if (jugadores[jugadorIndex].getCartas().size() < 3) {
         std::cout << "El jugador no tiene suficientes cartas para el intercambio." << std::endl;
@@ -677,4 +677,3 @@ void Partida::fortificarTerritorio(int jugadorIndex, int origen, int destino) {
     jugadores[jugadorIndex].moverUnidades(origen, destino, unidadesAMover);
     std::cout << "Se han movido " << unidadesAMover << " unidades desde " << origen << " a " << destino << std::endl;
 }
-*/
