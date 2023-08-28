@@ -61,6 +61,7 @@ public:
     void moverUnidades(int posJ, int origen, int destino, int unidadesM);
     void fortificarTerritorio(int jugadorIndex);
 
+    bool jugadorVigente(int posJ);
     bool finalizado(int * ganador);
 };
 #endif //RISK_PARTIDA_H

@@ -37,6 +37,7 @@ public:
     std::string getEstado();
     void tresCartasCumplen(int * ganaIguales, int * ganaTodas);
     bool tieneCarta(int idP);
+    bool getActivo();
 
 };
 

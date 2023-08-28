@@ -56,68 +56,72 @@ int main() {
                         if(turnoValido(risk.get_jugadores(), turno)){
                             if(turnoCorrecto(risk.get_jugadores(), turno, &numTurno)){
                                 numTurno++;
-                                cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
-                                cout<<"RECLAMO DE UNIDADES"<<endl;
-                                //reclamar unidades normal
-                                risk.intercambioNormal(numTurno);
-                                //reclamar unidades por poseer paises
-                                risk.intercambioPorPaises(numTurno);
-                                //reclamar unidades por cartas
-                                intercambios = risk.intercambioPorCartasIguales(numTurno);
-                                if(intercambios){
-                                    numIntercambios+=1;
-                                    cout<<"\nEL JUGADOR TIENE 3 CARTAS CON LAS CONDICIONES DADAS";
-                                    cout<<"\nSe han hecho "<<numIntercambios<<" intercambios"<<endl;
-                                    incrementarGrupo(&numIntercambios, &unidadesGanadas);
-                                    cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
-                                    risk.intercambiarCartas(numTurno,unidadesGanadas);
-                                }
-                                risk.mostrarInicializacion();
-
-                                //atacar
-                                int rta = 0;
-                                do{
-                                    cout << "Desea atacar?\n1) Si\n2) No\n$";
-                                    cin >> rta;
-                                    switch (rta) {
-                                        case 1:
-                                            cout << "\nATAQUE INICIADO" <<endl;
-                                            risk.elegirUbicacionAtaque(numTurno, &paisOrigen, &paisDestino);
-                                            risk.atacar(numTurno,paisOrigen,paisDestino);
-                                            risk.mostrarInicializacion();
-                                            break;
-                                        case 2:
-                                            cout << "\nHA DECIDIDO NO ATACAR" <<endl;
-                                            break;
-                                        default:
-                                            cout << "\nOpcion no valida" <<endl;
-                                            break;
+                                if(risk.jugadorVigente(numTurno)){
+                                    cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
+                                    cout<<"RECLAMO DE UNIDADES"<<endl;
+                                    //reclamar unidades normal
+                                    risk.intercambioNormal(numTurno);
+                                    //reclamar unidades por poseer paises
+                                    risk.intercambioPorPaises(numTurno);
+                                    //reclamar unidades por cartas
+                                    intercambios = risk.intercambioPorCartasIguales(numTurno);
+                                    if(intercambios){
+                                        numIntercambios+=1;
+                                        cout<<"\nEL JUGADOR TIENE 3 CARTAS CON LAS CONDICIONES DADAS";
+                                        cout<<"\nSe han hecho "<<numIntercambios<<" intercambios"<<endl;
+                                        incrementarGrupo(&numIntercambios, &unidadesGanadas);
+                                        cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
+                                        risk.intercambiarCartas(numTurno,unidadesGanadas);
                                     }
-                                    cin.ignore();
-                                }while(rta < 1 || rta > 2);
+                                    risk.mostrarInicializacion();
 
-                                //fortificar
-                                do{
-                                    cout << "Desea fortificar?\n1) Si\n2) No\n$";
-                                    cin >> rta;
-                                    switch (rta) {
-                                        case 1:
-                                            cout << "\nFORTIFICACION INICIADA" <<endl;
-                                            risk.fortificarTerritorio(numTurno);
-                                            break;
-                                        case 2:
-                                            cout << "\nHA DECIDIDO NO FORTIFICAR" <<endl;
-                                            break;
-                                        default:
-                                            cout << "\nOpcion no valida" <<endl;
-                                            break;
+                                    //atacar
+                                    int rta = 0;
+                                    do{
+                                        cout << "Desea atacar?\n1) Si\n2) No\n$";
+                                        cin >> rta;
+                                        switch (rta) {
+                                            case 1:
+                                                cout << "\nATAQUE INICIADO" <<endl;
+                                                risk.elegirUbicacionAtaque(numTurno, &paisOrigen, &paisDestino);
+                                                risk.atacar(numTurno,paisOrigen,paisDestino);
+                                                risk.mostrarInicializacion();
+                                                break;
+                                            case 2:
+                                                cout << "\nHA DECIDIDO NO ATACAR" <<endl;
+                                                break;
+                                            default:
+                                                cout << "\nOpcion no valida" <<endl;
+                                                break;
+                                        }
+                                        cin.ignore();
+                                    }while(rta < 1 || rta > 2);
+
+                                    //fortificar
+                                    do{
+                                        cout << "Desea fortificar?\n1) Si\n2) No\n$";
+                                        cin >> rta;
+                                        switch (rta) {
+                                            case 1:
+                                                cout << "\nFORTIFICACION INICIADA" <<endl;
+                                                risk.fortificarTerritorio(numTurno);
+                                                break;
+                                            case 2:
+                                                cout << "\nHA DECIDIDO NO FORTIFICAR" <<endl;
+                                                break;
+                                            default:
+                                                cout << "\nOpcion no valida" <<endl;
+                                                break;
+                                        }
+                                        cin.ignore();
+                                    }while(rta < 1 || rta > 2);
+
+                                    if(numTurno == risk.get_jugadores().size())
+                                    {
+                                        numTurno = 0;
                                     }
-                                    cin.ignore();
-                                }while(rta < 1 || rta > 2);
-
-                                if(numTurno == risk.get_jugadores().size())
-                                {
-                                    numTurno = 0;
+                                }else{
+                                    cout<<"JUGADOR "<<turno<<"Ya fue retirado, perdio todas sus unidades, cartas y territorios"<<endl<<endl;
                                 }
                             }else{
                                 cout << "Jugador fuera del turno" << endl;

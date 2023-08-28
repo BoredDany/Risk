@@ -703,3 +703,29 @@ void Partida::fortificarTerritorio(int jugadorIndex) {
     std::cout << "Se fortifico dese " << origen << " hasta "<<destino<<" con "<<unidadesM<<" unidades"<< std::endl;
 
 }
+
+bool Partida::jugadorVigente(int posJ){
+    bool tieneTerritorios = false, tieneCartas = false;
+    std::list<Continente>::iterator itc = tablero.begin();
+
+    for(itc = tablero.begin();itc != tablero.end();itc++){
+        std::list<Pais> p = itc->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id_jugador() == jugadores[posJ-1].getId()){
+                tieneTerritorios = true;
+            }
+        }
+    }
+
+    tieneCartas = intercambioPorCartasIguales(posJ);
+
+    if(jugadores[posJ-1].getUnidades() == 0 && !tieneTerritorios && !tieneCartas){
+        return false;
+    }
+    return true;
+}
+
+bool finalizado(int * ganador){
+
+}
