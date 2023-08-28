@@ -203,12 +203,12 @@ void Partida::aggConexion(int pais, int vecino){
 }//agregar vecino a un pais
 
 void Partida::cargarConexiones(std::string archivo){
-     std::ifstream file (archivo);
-     int size = countLines(archivo);
-     std::string line, word;
+    std::ifstream file (archivo);
+    int size = countLines(archivo);
+    std::string line, word;
 
-     if(file.is_open()){
-         for(int i = 0 ; i<size ; i++){
+    if(file.is_open()){
+        for(int i = 0 ; i<size ; i++){
             getline(file,line,'\n');
             std::stringstream ss(line);
             getline(ss,word,'-');
@@ -217,13 +217,13 @@ void Partida::cargarConexiones(std::string archivo){
                 int vecino = stoi(word);
                 aggConexion(pais,vecino);
             }
-         }
+        }
 
 
-     }else{
-         std::cout<<"Archivo de conexiones no leido"<<std::endl;
-     }
-     file.close();
+    }else{
+        std::cout<<"Archivo de conexiones no leido"<<std::endl;
+    }
+    file.close();
 }//cargar conexiones
 
 bool Partida:: tableroLleno(){
