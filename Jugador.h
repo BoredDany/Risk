@@ -35,8 +35,7 @@ public:
     std::list<Carta> getCartas();
     std::string getEstado();
     void tresCartasCumplen(int * ganaIguales, int * ganaTodas);
-
-    void moverUnidades(int origen, int destino, int unidadesAMover);
+    bool tieneCarta(int idP);
 
 };
 

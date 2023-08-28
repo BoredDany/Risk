@@ -56,9 +56,9 @@ public:
     bool intercambioPorCartasIguales(int posJ);
     void intercambiarCartas(int posJ, int gana);
 
-    void intercambiarCartasPorUnidades(int jugadorIndex);
-    void intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios, bool tieneTodaSuramerica, bool tieneTodaOceania, bool tieneTodaAfrica, bool tieneTodaNorteamerica, bool tieneTodaEuropa, bool tieneTodaAsia);
-
-    void fortificarTerritorio(int jugadorIndex, int origen, int destino);
+    bool unidadesSuficientes(int posJ, int idP, int unidades);
+    bool paisFortificable(int idJ, int idP);
+    void moverUnidades(int posJ, int origen, int destino, int unidadesM);
+    void fortificarTerritorio(int jugadorIndex);
 };
 #endif //RISK_PARTIDA_H

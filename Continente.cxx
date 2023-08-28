@@ -107,3 +107,36 @@ bool Continente::intercambioPorPaises(int idJ){
     }
     return true;
 }
+
+bool Continente::moverUnidad(int idP, int unidades){
+    std::list<Pais>::iterator it = paises.begin();
+    int res = 0;
+    bool movido = false;
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id() == idP){
+            res = it->get_unidades()-unidades;
+            if(res == 0){
+                it->set_unidades(it->get_unidades()-unidades);
+                it->set_id_jugador(0);
+                movido = true;
+            }else{
+                movido = true;
+                it->set_unidades(it->get_unidades()-unidades);
+            }
+
+        }
+    }
+    return movido;
+}
+
+bool Continente::fortificar(int idP, int idJ, int unidades){
+    std::list<Pais>::iterator it = paises.begin();
+    bool fortificado = false;
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id() == idP){
+            it->set_unidades(it->get_unidades()+unidades);
+            it->set_id_jugador(idJ);
+        }
+    }
+    return fortificado;
+}

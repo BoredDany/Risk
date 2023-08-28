@@ -467,8 +467,8 @@ bool Partida::quitarUnidad(int idP){
 void Partida::atacar(int posAtacante, int origen, int destino){
     int posAtacado = buscarAtacado(destino), puntosAtacante = 0, puntosAtacado = 0, continuar = 0;
     bool vaciado = false;
-    std::cout<<"\nATACADO ESTA EN POS:"<<posAtacado<<std::endl;
-    std::cout<<"ATACANTE ES:"<<jugadores[posAtacante-1].getId()<<" en "<<origen<<std::endl;
+
+    std::cout<<"\nATACANTE ES:"<<jugadores[posAtacante-1].getId()<<" en "<<origen<<std::endl;
     std::cout<<"ATACADO ES:"<<jugadores[posAtacado].getId()<<" en "<<destino<<std::endl;
 
     do{
@@ -600,80 +600,98 @@ void Partida::intercambiarCartas(int posJ, int gana){
 
 }
 
-
-void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios, bool tieneTodaSuramerica, bool tieneTodaOceania, bool tieneTodaAfrica, bool tieneTodaNorteamerica, bool tieneTodaEuropa, bool tieneTodaAsia) {
-    if (jugadores[jugadorIndex].getCartas().size() < 3) {
-        std::cout << "El jugador no tiene suficientes cartas para el intercambio." << std::endl;
-        return; 
+bool Partida::unidadesSuficientes(int idJ, int idP, int unidades){
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id_jugador() == idJ && itp->get_unidades() >= unidades){
+                return true;
+            }
+        }
     }
-
-    std::list<Carta> cartasAIntercambiar;
-    int contador = 0;
-    for (auto it = jugadores[jugadorIndex].getCartas().begin(); contador < 3; ++it) {
-        cartasAIntercambiar.push_back(*it);
-        contador++;
-    }
-
-    if (!sonTresCartasIguales(cartasAIntercambiar)) {
-        std::cout << "Las tres cartas no son iguales y no se pueden intercambiar." << std::endl;
-        return;
-    }
-
-    int unidadesAgregadas = 5;
-
-    if (contador >= 1 && contador <= 6) {
-        unidadesAgregadas = (contador * 2) + 2;
-    }
-
-    if (tieneTodaSuramerica || tieneTodaOceania) {
-        unidadesAgregadas += 2;
-    }
-    if (tieneTodaAfrica) {
-        unidadesAgregadas += 3;
-    }
-    if (tieneTodaNorteamerica || tieneTodaEuropa) {
-        unidadesAgregadas += 5;
-    }
-    if (tieneTodaAsia) {
-        unidadesAgregadas += 7;
-    }
-
-    unidadesAgregadas += (paisesPropios / 3) * (-1);
-
-    jugadores[jugadorIndex].setUnidades(jugadores[jugadorIndex].getUnidades() + unidadesAgregadas);
-
-    for (const Carta& carta : cartasAIntercambiar) {
-        //jugadores[jugadorIndex].eliminarCarta(carta);
-    }
+    return false;
 }
 
-void Partida::fortificarTerritorio(int jugadorIndex, int origen, int destino) {
-    if (jugadores[jugadorIndex].getUnidades() < 2) {
-        std::cout << "El jugador no tiene suficientes unidades para fortificar." << std::endl;
-        return;
+bool Partida::paisFortificable(int idJ, int idP){
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id_jugador() == idJ || itp->get_id_jugador() == 0){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void Partida::moverUnidades(int posJ, int origen, int destino, int unidadesM){
+    std::list<Continente>::iterator it = tablero.begin();
+    bool movido = false, fortificado = false;
+    //restar del origen
+    for(it = tablero.begin();it != tablero.end();it++){
+        movido = it->moverUnidad(origen,unidadesM);
+        if(movido){
+            break;
+        }
+    }
+    //sumar al destino
+    for(it = tablero.begin();it != tablero.end();it++){
+        fortificado = it->fortificar(destino,jugadores[posJ-1].getId(),unidadesM);
+        if(fortificado){
+            break;
+        }
+    }
+}
+void Partida::fortificarTerritorio(int jugadorIndex) {
+    int origen = 0, destino = 0, unidadesM = 0;
+    bool ocupaOrigen = false, suficientes = false, vecino = false, libre = false;
+
+    do{
+        std::cout<<"Ingrese numero de pais desde donde quiere mover unidad: \n$";
+        std::cin>>origen;
+        //jugador ocupa terreno
+        ocupaOrigen = jugadorOcupaPais(jugadores[jugadorIndex-1].getId(), origen);
+        if (!ocupaOrigen) {
+            std::cout << "El jugador no ocupa el país de origen." << std::endl;
+        }
+    }while(!ocupaOrigen);
+
+    do{
+        std::cout<<"Ingrese numero de unidades a mover: \n$";
+        std::cin>>unidadesM;
+        //cuenta con unidades suficientes
+        suficientes = unidadesSuficientes(jugadores[jugadorIndex-1].getId(), origen, unidadesM);
+        if (!suficientes) {
+            std::cout << "El jugador no cuenta con unidades suficientes." << std::endl;
+        }
+    }while(!suficientes);
+
+    do{
+        std::cout<<"Ingrese numero de pais a fortificar: \n$";
+        std::cin>>destino;
+        //jugador ocupa terreno o terreno está libre
+        libre = paisFortificable(jugadores[jugadorIndex-1].getId(), destino);
+        vecino = paisVecino(origen, destino);
+        if (!vecino) {
+            std::cout << "El país de destino no es vecino del país de origen." << std::endl;
+            return;
+        }
+    }while(!vecino || !libre);
+
+    moverUnidades(jugadores[jugadorIndex-1].getId(), origen, destino, unidadesM);
+
+    if(!jugadorOcupaPais(jugadores[jugadorIndex-1].getId(), origen)){
+        jugadores[jugadorIndex-1].quitarCarta(origen);
+    }
+    if(!jugadores[jugadorIndex-1].tieneCarta(destino)){
+        Carta c = obtenerCarta(destino);
+        jugadores[jugadorIndex-1].agregarCarta(c);
     }
 
-    if (!jugadorOcupaPais(jugadores[jugadorIndex].getId(), origen)) {
-        std::cout << "El jugador no ocupa el país de origen." << std::endl;
-        return;
-    }
+    std::cout << "Se fortifico dese " << origen << " hasta "<<destino<<" con "<<unidadesM<<" unidades"<< std::endl;
 
-    if (!jugadorOcupaPais(jugadores[jugadorIndex].getId(), destino)) {
-        std::cout << "El jugador no ocupa el país de destino." << std::endl;
-        return;
-    }
-
-    if (!paisVecino(origen, destino)) {
-        std::cout << "El país de destino no es vecino del país de origen." << std::endl;
-        return;
-    }
-
-    int unidadesAMover;
-    do {
-        std::cout << "Ingrese la cantidad de unidades a mover (debe ser al menos 2): ";
-        std::cin >> unidadesAMover;
-    } while (unidadesAMover < 2 || unidadesAMover >= jugadores[jugadorIndex].getUnidades());
-
-    jugadores[jugadorIndex].moverUnidades(origen, destino, unidadesAMover);
-    std::cout << "Se han movido " << unidadesAMover << " unidades desde " << origen << " a " << destino << std::endl;
 }

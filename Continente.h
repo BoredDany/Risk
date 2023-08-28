@@ -26,6 +26,8 @@ public:
     bool paisVecino(int origen, int destino);
     bool quitarUnidad(int idP, bool& encontrado);
     bool intercambioPorPaises(int idJ);
+    bool moverUnidad(int idP, int unidades);
+    bool fortificar(int idP, int idJ, int unidades);
 };
 
 #endif //RISK_CONTINENTE_H

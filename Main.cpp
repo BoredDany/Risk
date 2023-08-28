@@ -103,7 +103,7 @@ int main() {
                                     switch (rta) {
                                         case 1:
                                             cout << "\nFORTIFICACION INICIADA" <<endl;
-
+                                            risk.fortificarTerritorio(numTurno);
                                             break;
                                         case 2:
                                             cout << "\nHA DECIDIDO NO FORTIFICAR" <<endl;
