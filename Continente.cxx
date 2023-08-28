@@ -42,7 +42,7 @@ void Continente::ocuparPais(int idJugador, int idPais){
     for(it = paises.begin();it != paises.end();it++){
         if(idPais == it->get_id()){
             it->set_id_jugador(idJugador);
-            it->set_unidades(it->get_unidades()+2);
+            it->set_unidades(it->get_unidades()+5);
         }
     }
 }
@@ -96,4 +96,14 @@ bool Continente::quitarUnidad(int idP, bool& encontrado){
         }
     }
     return vacio;
+}
+
+bool Continente::intercambioPorPaises(int idJ){
+    std::list<Pais>::iterator it = paises.begin();
+    for(it = paises.begin();it != paises.end();it++){
+        if(it->get_id_jugador() != idJ){
+            return false;
+        }
+    }
+    return true;
 }

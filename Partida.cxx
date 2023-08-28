@@ -245,7 +245,6 @@ bool Partida::paisLleno(int id){
         std::list<Pais>::iterator itPaises = paises.begin();
         for(itPaises = paises.begin() ; itPaises != paises.end() ; itPaises++){
             if(itPaises->get_id() == id && itPaises->get_unidades() == 0){
-                std::cout<<"El pais tiene cero unidades";
                 lleno = false;
             }
         }
@@ -309,21 +308,21 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     std::cout<<"\nJUGADORES"<<std::endl;
     for(int i = 0 ; i < jugadores.size() ; i++){
         std::cout<<"Jugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
-        std::cout<<"color: "<<jugadores[i].getColor()<<" tiene "<<jugadores[i].getCartas().size()<<std::endl;
+        std::cout<<"tiene "<<jugadores[i].getUnidades()<<" unidades, "<<"color: "<<jugadores[i].getColor()<<" tiene "<<jugadores[i].getCartas().size()<<" cartas: "<<std::endl;
         std::list<Carta> cartasJ = jugadores[i].getCartas();
         std::list<Carta>::iterator it = cartasJ.begin();
         for(it = cartasJ.begin();it != cartasJ.end();it++){
-            std::cout<<it->getId()<<":"<<it->getPais()<<std::endl;
+            std::cout<<it->getId()<<":"<<it->getPais()<<" - ";
         }
     }
     std::cout<<"\nTABLERO"<<std::endl;
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
-        std::cout<<it->get_nombre()<<" paises: "<<std::endl;
+        std::cout<<it->get_nombre()<<"----------------------"<<std::endl;
         std::list<Pais> p=it->get_paises();
         std::list<Pais>::iterator itp = p.begin();
         for(itp = p.begin();itp != p.end();itp++){
-            std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" pertenece a "<<itp->get_id_jugador()<<" con "<<itp->get_unidades()<<" unidades"<<std::endl;
+            std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" - pertenece a "<<itp->get_id_jugador()<<" con "<<itp->get_unidades()<<" unidades"<<std::endl;
         }
     }
 }//imprimir resumen
@@ -465,7 +464,7 @@ bool Partida::quitarUnidad(int idP){
     return vaciado;
 }//quitar unidad a jugador perdedor del ataque
 
-void Partida::atacar(int posAtacante, int origen, int destino){//atacar
+void Partida::atacar(int posAtacante, int origen, int destino){
     int posAtacado = buscarAtacado(destino), puntosAtacante = 0, puntosAtacado = 0, continuar = 0;
     bool vaciado = false;
     std::cout<<"\nATACADO ESTA EN POS:"<<posAtacado<<std::endl;
@@ -518,19 +517,90 @@ void Partida::atacar(int posAtacante, int origen, int destino){//atacar
 
     }while(!vaciado && continuar == 1);
 
+}//ejecutar ataque
+
+int Partida::calcularPaises(int idJ){
+    int paises = 0;
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id_jugador() == idJ){
+                paises += 1;
+            }
+        }
+    }
+    return paises;
+}//contar paises que pertenecen a un jugador
+
+void Partida::intercambioNormal(int posJ){
+
+    int paisesDelJugador = 0, gana = 0;
+    paisesDelJugador = calcularPaises(jugadores[posJ-1].getId());
+    std::cout<<"\nJUGADOR TIENE "<<paisesDelJugador<<" paises"<<std::endl;
+
+    if(paisesDelJugador < 3){
+        std::cout << "El jugador no tiene suficientes cartas para el intercambio." << std::endl;
+    }else{
+        gana =  paisesDelJugador/3;
+    }
+    jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
+    std::cout<<"ha obtenido "<<gana<<" unidades de forma normal"<<std::endl;
+}//calcular unidades para reclamar
+
+void Partida::intercambioPorPaises(int posJ){
+    std::list<Continente>::iterator it = tablero.begin();
+    std::list<std::string> continentes;
+    int gana = 0;
+    for(it = tablero.begin();it != tablero.end();it++){
+        if(it->intercambioPorPaises(jugadores[posJ-1].getId())){
+            continentes.push_back(it->get_nombre());
+        }
+    }
+    std::list<std::string>::iterator itc = continentes.begin();
+    for(itc = continentes.begin();itc != continentes.end();itc++){
+        if(*itc == "Africa"){
+            gana+=3;
+        }
+        if(*itc == "Oceania"){
+            gana+=2;
+        }
+        if(*itc == "Asia"){
+            gana+=7;
+        }
+        if(*itc == "Europa"){
+            gana+=5;
+        }
+        if(*itc == "Sur America"){
+            gana+=2;
+        }
+        if(*itc == "Norte America"){
+            gana+=5;
+        }
+    }
+    std::cout<<"\nJUGADOR HA GANADO "<<gana<<" POR HABER CONQUISTADO:"<<std::endl<<std::endl;
+    for(std::string c : continentes){
+        std::cout<<c<<std::endl;
+    }
+    jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
+}//calcular unidades para reclamar por continentes conquistados
+
+bool Partida::intercambioPorCartasIguales(int posJ) {
+    int cartasIguales = 0, cartasTodas = 0;
+    bool gana = false;
+    jugadores[posJ-1].tresCartasCumplen(&cartasIguales, &cartasTodas);
+    if(cartasIguales > 0 || cartasTodas > 0){
+        gana = true;
+    }
 }
 
-bool Partida::sonTresCartasIguales(const std::list<Carta>& cartas) {
-    auto it = cartas.begin();
-    const Carta& primeraCarta = *it;
-    ++it;
-    const Carta& segundaCarta = *it;
-    ++it;
-    const Carta& terceraCarta = *it;
+void Partida::intercambiarCartas(int posJ, int gana){
+    jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
 
-    return primeraCarta.esIgual(segundaCarta) && segundaCarta.esIgual(terceraCarta);
 }
 
+/*
 void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios, bool tieneTodaSuramerica, bool tieneTodaOceania, bool tieneTodaAfrica, bool tieneTodaNorteamerica, bool tieneTodaEuropa, bool tieneTodaAsia) {
     if (jugadores[jugadorIndex].getCartas().size() < 3) {
         std::cout << "El jugador no tiene suficientes cartas para el intercambio." << std::endl;
@@ -556,7 +626,7 @@ void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios,
     }
 
     if (tieneTodaSuramerica || tieneTodaOceania) {
-        unidadesAgregadas -= 2;
+        unidadesAgregadas += 2;
     }
     if (tieneTodaAfrica) {
         unidadesAgregadas += 3;
@@ -607,3 +677,4 @@ void Partida::fortificarTerritorio(int jugadorIndex, int origen, int destino) {
     jugadores[jugadorIndex].moverUnidades(origen, destino, unidadesAMover);
     std::cout << "Se han movido " << unidadesAMover << " unidades desde " << origen << " a " << destino << std::endl;
 }
+*/

@@ -34,9 +34,7 @@ public:
     int getUnidades();
     std::list<Carta> getCartas();
     std::string getEstado();
-
-    void fortificar();
-    void reclamarCartas();
+    void tresCartasCumplen(int * ganaIguales, int * ganaTodas);
 
 };
 

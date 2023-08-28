@@ -49,9 +49,16 @@ public:
     int lanzarDados(int numDados);
     bool quitarUnidad(int idP);
     void atacar(int posAtacante, int origen, int destino);
+
+    int calcularPaises(int idJ);
+    void intercambioNormal(int posJ);
+    void intercambioPorPaises(int posJ);
+    bool intercambioPorCartasIguales(int posJ);
+    void intercambiarCartas(int posJ, int gana);
+
     void intercambiarCartasPorUnidades(int jugadorIndex);
     void intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios, bool tieneTodaSuramerica, bool tieneTodaOceania, bool tieneTodaAfrica, bool tieneTodaNorteamerica, bool tieneTodaEuropa, bool tieneTodaAsia);
-    bool sonTresCartasIguales(std::list<Carta>& cartas);
+
     void fortificarTerritorio(int jugadorIndex, int origen, int destino);
 };
 #endif //RISK_PARTIDA_H

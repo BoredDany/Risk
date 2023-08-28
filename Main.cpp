@@ -14,7 +14,7 @@ int main() {
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
     bool hayEspacio = false, inicializado = false;
-    int numTurno = 0, paisOrigen = 0, paisDestino = 0;
+    int numTurno = 0, paisOrigen = 0, paisDestino = 0, intercambios = 0, numIntercambios = 0, unidadesGanadas = 0;
     Partida risk(0);
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
@@ -56,8 +56,23 @@ int main() {
                         if(turnoValido(risk.get_jugadores(), turno)){
                             if(turnoCorrecto(risk.get_jugadores(), turno, &numTurno)){
                                 numTurno++;
-                                cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl;
-                                //reclamar unidades
+                                cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
+                                cout<<"RECLAMO DE UNIDADES"<<endl;
+                                //reclamar unidades normal
+                                risk.intercambioNormal(numTurno);
+                                //reclamar unidades por poseer paises
+                                risk.intercambioPorPaises(numTurno);
+                                //reclamar unidades por cartas
+                                intercambios = risk.intercambioPorCartasIguales(numTurno);
+                                if(intercambios){
+                                    numIntercambios+=1;
+                                    cout<<"\nEL JUGADOR TIENE 3 CARTAS CON LAS CONDICIONES DADAS";
+                                    cout<<"\nSe han hecho "<<numIntercambios<<" intercambios"<<endl;
+                                    incrementarGrupo(&numIntercambios, &unidadesGanadas);
+                                    cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
+
+                                }
+                                risk.mostrarInicializacion();
 
                                 //atacar
                                 int rta = 0;

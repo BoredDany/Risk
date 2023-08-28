@@ -67,10 +67,26 @@ void Jugador::quitarCarta(int idP) {
     }
 }
 
-void Jugador::fortificar(){
-    std::cout<< "Vamos a fortificar" << std::endl;
-}
+void Jugador::tresCartasCumplen(int * ganaIguales, int * ganaTodas){
+    std::list<Carta>::iterator it = cartas.begin();
+    std::list<Carta>::iterator itEliminar = cartas.end();
 
-void Jugador::reclamarCartas(){
-    std::cout<< "Vamos a reclamar cartas" << std::endl;
+    int soldado = 0, canion = 0, caballo = 0;
+    for(it = cartas.begin();it != cartas.end();it++){
+        if(it->getFigura() == "soldado"){
+            soldado+=1;
+        }
+        if(it->getFigura() == "caballo"){
+            caballo+=1;
+        }
+        if(it->getFigura() == "canion"){
+            canion+=1;
+        }
+    }
+    if(soldado > 0 && canion > 0 && caballo > 0){
+        *ganaTodas = 1;
+    }
+    if(soldado >= 3 || canion >= 3 || caballo >=3){
+        *ganaIguales = 1;
+    }
 }

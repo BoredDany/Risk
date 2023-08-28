@@ -123,3 +123,27 @@ bool turnonumerico(std::string turno){
     }
     return false;
 }
+
+void incrementarGrupo(int * numIntercambios, int * unidadesGanadas){
+    if(*numIntercambios == 1){
+        *unidadesGanadas = 4;
+    }
+    if(*numIntercambios == 2){
+        *unidadesGanadas = 6;
+    }
+    if(*numIntercambios == 3){
+        *unidadesGanadas = 8;
+    }
+    if(*numIntercambios == 4){
+        *unidadesGanadas = 10;
+    }
+    if(*numIntercambios == 5){
+        *unidadesGanadas = 12;
+    }
+    if(*numIntercambios == 6){
+        *unidadesGanadas = 15;
+    }
+    if(*numIntercambios > 6){
+        *unidadesGanadas = *unidadesGanadas + 5;
+    }
+}
