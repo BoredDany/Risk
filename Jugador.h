@@ -15,6 +15,7 @@ private:
     std::string alias;
     int unidades;
     std::list<Carta> cartas;
+    bool activo;
 public:
     Jugador();
     Jugador (int id, std::string color, std::string alias);
