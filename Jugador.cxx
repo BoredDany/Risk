@@ -74,3 +74,12 @@ void Jugador::fortificar(){
 void Jugador::reclamarCartas(){
     std::cout<< "Vamos a reclamar cartas" << std::endl;
 }
+
+void Jugador::moverUnidades(int origen, int destino, int unidadesAMover) {
+    if (!ocupaPais(origen) || !ocupaPais(destino) || getPais(origen).getUnidades() < unidadesAMover) {
+        std::cout << "No es posible mover unidades desde el país de origen al país de destino." << std::endl;
+        return;
+    }
+    getPais(origen).restarUnidades(unidadesAMover);
+    getPais(destino).sumarUnidades(unidadesAMover);
+}
