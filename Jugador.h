@@ -36,6 +36,8 @@ public:
     std::string getEstado();
     void tresCartasCumplen(int * ganaIguales, int * ganaTodas);
 
+    void moverUnidades(int origen, int destino, int unidadesAMover);
+
 };
 
 #endif
