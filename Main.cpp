@@ -70,7 +70,7 @@ int main() {
                                     cout<<"\nSe han hecho "<<numIntercambios<<" intercambios"<<endl;
                                     incrementarGrupo(&numIntercambios, &unidadesGanadas);
                                     cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
-
+                                    risk.intercambiarCartas(numTurno,unidadesGanadas);
                                 }
                                 risk.mostrarInicializacion();
 

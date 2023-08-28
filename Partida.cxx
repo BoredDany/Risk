@@ -312,7 +312,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         std::list<Carta> cartasJ = jugadores[i].getCartas();
         std::list<Carta>::iterator it = cartasJ.begin();
         for(it = cartasJ.begin();it != cartasJ.end();it++){
-            std::cout<<it->getId()<<":"<<it->getPais()<<" - ";
+            std::cout<<it->getId()<<":"<<it->getPais()<<std::endl;
         }
     }
     std::cout<<"\nTABLERO"<<std::endl;

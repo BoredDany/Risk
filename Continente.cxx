@@ -42,7 +42,7 @@ void Continente::ocuparPais(int idJugador, int idPais){
     for(it = paises.begin();it != paises.end();it++){
         if(idPais == it->get_id()){
             it->set_id_jugador(idJugador);
-            it->set_unidades(it->get_unidades()+5);
+            it->set_unidades(it->get_unidades()+1);
         }
     }
 }

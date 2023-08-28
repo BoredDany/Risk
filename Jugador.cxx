@@ -90,7 +90,7 @@ void Jugador::tresCartasCumplen(int * ganaIguales, int * ganaTodas){
         *ganaIguales = 1;
     }
 }
-
+/*
 void Jugador::moverUnidades(int origen, int destino, int unidadesAMover) {
     if (!ocupaPais(origen) || !ocupaPais(destino) || getPais(origen).getUnidades() < unidadesAMover) {
         std::cout << "No es posible mover unidades desde el país de origen al país de destino." << std::endl;
@@ -98,4 +98,4 @@ void Jugador::moverUnidades(int origen, int destino, int unidadesAMover) {
     }
     getPais(origen).restarUnidades(unidadesAMover);
     getPais(destino).sumarUnidades(unidadesAMover);
-}
+}*/
