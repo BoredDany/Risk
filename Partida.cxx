@@ -643,7 +643,13 @@ void Partida::intercambiarCartasPorUnidades(int jugadorIndex, int paisesPropios,
     jugadores[jugadorIndex].setUnidades(jugadores[jugadorIndex].getUnidades() + unidadesAgregadas);
 
     for (const Carta& carta : cartasAIntercambiar) {
-        //jugadores[jugadorIndex].eliminarCarta(carta);
+         for (std::list<Carta>::iterator it = jugadores[jugadorIndex].getCartas().begin(); it != jugadores[jugadorIndex].getCartas().end(); ) {
+            if (std::find(cartasAIntercambiar.begin(), cartasAIntercambiar.end(), *it) != cartasAIntercambiar.end()) {
+                it = jugadores[jugadorIndex].eliminarCarta(it);
+            } else {
+            ++it;
+            }
+        }    
     }
 }
 
