@@ -45,7 +45,6 @@ public:
     bool jugadorOcupaPais(int idJ, int idP);
     bool paisVecino(int paisOrigen, int paisDestino);
     void elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDestino);
-
     int buscarAtacado(int idP);
     int lanzarDados(int numDados);
     bool quitarUnidad(int idP);

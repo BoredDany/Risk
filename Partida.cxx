@@ -382,10 +382,8 @@ void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDest
         if(!existe){
             std::cout<<"No existe este pais"<<std::endl;
         }
-        if(*paisOrigen == jugadores[posJug-1].getId()){
-            std::cout<<"No  se puede autoatacar"<<std::endl;
-        }
-    }while(!existe || !ocupado || *paisOrigen == jugadores[posJug-1].getId());
+
+    }while(!existe || !ocupado);
     std::cout<<"VA A ATACAR DESDE EL PAIS "<<*paisOrigen<<std::endl<<std::endl;
 
     do{
@@ -393,6 +391,7 @@ void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDest
         std::cin>>*paisDestino;
         esVecino = paisVecino(*paisOrigen, *paisDestino);
         existe = paisExiste(*paisDestino);
+        ocupado = jugadorOcupaPais(jugadores[posJug-1].getId(), *paisDestino);
         idAtacado = buscarAtacado(*paisDestino);
         if(!existe){
             std::cout<<"Este pais no existe"<<std::endl;
@@ -403,7 +402,10 @@ void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDest
         if(idAtacado == -1){
             std::cout<<"No puede atacar este pais, no hay nadie, puede fortificar si desea "<<std::endl;
         }
-    }while(!existe || !esVecino || idAtacado == -1);
+        if(ocupado){
+            std::cout<<"No  se puede autoatacar"<<std::endl;
+        }
+    }while(!existe || !esVecino || idAtacado == -1 || ocupado);
 
     std::cout<<"VA A ATACAR AL PAIS "<<*paisDestino<<std::endl;
 }//seleccionar origen y destino de ataque
