@@ -33,6 +33,10 @@ std::list<Carta> Jugador::getCartas(){
     return cartas;
 }
 
+bool Jugador::getActivo(){
+    return activo;
+}
+
 void Jugador::setId(int idN) {
     this->id = idN;
 }
