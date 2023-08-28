@@ -38,6 +38,8 @@ public:
     void fortificar();
     void reclamarCartas();
 
+    void moverUnidades(int origen, int destino, int unidadesAMover);
+
 };
 
 #endif
