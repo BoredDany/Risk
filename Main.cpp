@@ -68,15 +68,12 @@ int main() {
                                 if(risk.jugadorVigente(numTurno)){
 
                                     cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
-                                    /*cout<<"RECLAMO DE UNIDADES"<<endl;
+                                    cout<<"RECLAMO DE UNIDADES"<<endl;
 
                                     //reclamar unidades normal
                                     risk.intercambioNormal(numTurno);
-
-
                                     //reclamar unidades por poseer paises
                                     risk.intercambioPorPaises(numTurno);
-
                                     //reclamar unidades por cartas
                                     intercambios = risk.intercambioPorCartasIguales(numTurno);
 
@@ -89,10 +86,30 @@ int main() {
                                         risk.intercambiarCartas(numTurno,unidadesGanadas);
                                     }
 
-                                    risk.mostrarInicializacion();*/
+                                    //ubicar unidades propias
+                                    int unidadesPropias = risk.get_jugadores()[numTurno-1].getUnidades();
+                                    do{
+                                        cout << "\nDesea ubicar unidades propias?\n1) Si\n2) No\n$";
+                                        cin >> rta;
+                                        switch (rta) {
+                                            case 1:
+                                                cout<<"El jugador tiene "<<unidadesPropias<<" unidades"<<endl;
+                                                risk.ubicarNuevasUnidades(numTurno,unidadesPropias,true);
+                                                risk.mostrarInicializacion();
+                                                break;
+                                            case 2:
+                                                cout<<"\nHA DECIDIDO NO UBICAR UNIDADES PROPIAS"<<endl<<endl;
+                                                break;
+                                            default:
+                                                cout<<"Opcion no valida"<<endl;
+                                                break;
+
+                                        }
+                                        cin.ignore();
+                                    }while(rta < 1 || rta > 2);
+
 
                                     //atacar
-                                    /*
                                     do{
                                         cout << "Desea atacar?\n1) Si\n2) No\n$";
                                         cin >> rta;
@@ -116,11 +133,11 @@ int main() {
                                                 break;
                                         }
                                         cin.ignore();
-                                    }while(rta < 1 || rta > 2);*/
+                                    }while(rta < 1 || rta > 2);
 
                                     //fortificar
                                     do{
-                                        cout << "Desea fortificar?\n1) Si\n2) No\n$";
+                                        cout << "\nDesea fortificar?\n1) Si\n2) No\n$";
                                         cin >> rta;
                                         switch (rta) {
                                             case 1:
@@ -131,7 +148,6 @@ int main() {
                                                 }else{
                                                     cout << "\nJUGADOR NO PUEDE FORTIFICAR NINGÚN TERRITORIO" <<endl;
                                                 }
-
                                                 break;
                                             case 2:
                                                 cout << "\nHA DECIDIDO NO FORTIFICAR" <<endl;

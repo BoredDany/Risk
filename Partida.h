@@ -24,6 +24,7 @@ public:
     std::list<Continente> get_tablero();
     void set_id(int id);
 
+    //funciones relacionadas a inicializar
     int countLines(std::string archivo_cartas);
     void cargarCartas(std::string archivo_cartas);
     bool buscarColorRepetido (std::string color);
@@ -41,33 +42,38 @@ public:
     void ubicarUnidades(bool& inicializado, int numUnidades);
     void mostrarInicializacion();
 
+    //funciones relacionadas a atacar
     bool paisExiste(int idP);
     bool jugadorOcupaPais(int idJ, int idP);
     bool paisVecino(int paisOrigen, int paisDestino);
+    bool paisAtacable(int idJ, int idP);
+    bool puedeAtacar(int posJ);
+    bool origenAptoParaAtaque(int posJ, int idP);
     void elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDestino);
     int buscarAtacado(int idP);
     int lanzarDados(int numDados);
     bool quitarUnidad(int idP);
     void atacar(int posAtacante, int origen, int destino);
 
-    void ubicarNuevasUnidades(int posJ, int gana);
+    //funciones relacionadas al reclamo de cartas y ubicacion de nuevas unidades
+    void ubicarNuevasUnidades(int posJ, int gana, bool propias);
     int calcularPaises(int idJ);
     void intercambioNormal(int posJ);
     void intercambioPorPaises(int posJ);
     bool intercambioPorCartasIguales(int posJ);
     void intercambiarCartas(int posJ, int gana);
 
+    //funciones relacionadas a fortificar territorio
     bool unidadesSuficientes(int posJ, int idP, int unidades);
     bool paisFortificable(int idJ, int idP);
+    bool puedeFortificar(int posJ);
+    bool aptoParaFortificar(int idP, int posJ);
     void moverUnidades(int posJ, int origen, int destino, int unidadesM);
     void fortificarTerritorio(int jugadorIndex);
 
+    //funciones relacionadas a terminacion del juego y salida de jugadores
     bool jugadorVigente(int posJ);
     bool finalizado(int * ganador);
-    bool puedeFortificar(int posJ);
-    bool paisAtacable(int idJ, int idP);
-    bool puedeAtacar(int posJ);
-    bool origenAptoParaAtaque(int posJ, int idP);
-    bool aptoParaFortificar(int idP, int posJ);
+
 };
 #endif //RISK_PARTIDA_H

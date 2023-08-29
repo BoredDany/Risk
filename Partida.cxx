@@ -41,8 +41,7 @@ int Partida::countLines(std::string archivo_cartas){
     }
     inputFile.close();
     return i;
-}//inicializar cartas
-
+}//contar lineas del archivo de cartas
 void Partida::cargarCartas(std::string archivo_cartas){
     std::ifstream inputFile(archivo_cartas);
     std::string line, word;
@@ -69,8 +68,7 @@ void Partida::cargarCartas(std::string archivo_cartas){
         std::cout<<"Archivo no leido"<<std::endl;
     }
     inputFile.close();
-}//cargar cartas
-
+}//cargar cartas leyendo archivo
 bool Partida::buscarColorRepetido (std::string color){
     for(int i = 0 ; i < jugadores.size() ; i++){
         if(jugadores[i].getColor() == color){
@@ -78,8 +76,7 @@ bool Partida::buscarColorRepetido (std::string color){
         }
     }
     return false;
-}//color ya elejido por jugador
-
+}//retornar si un color ya esta elejido por jugador
 void Partida::asignarUnidades(){
     int unidades = 0, numJ = jugadores.size();
     switch(numJ){
@@ -100,7 +97,6 @@ void Partida::asignarUnidades(){
         jugadores[i].setUnidades(unidades);
     }
 }//asignar unidades a jugadores
-
 void Partida::inicializarJugadores(){
     int numJ = 0, id = 1, colorN = 0;
     std::string color, alias;
@@ -159,7 +155,6 @@ void Partida::inicializarJugadores(){
     asignarUnidades();
     std::cin.ignore();
 }//inicializar info de jugadores
-
 bool Partida::repetido(std::string nombre){
     std::list<Continente>::iterator itCo = tablero.begin();
     for( itCo = tablero.begin() ; itCo != tablero.end() ; itCo++){
@@ -168,8 +163,7 @@ bool Partida::repetido(std::string nombre){
         }
     }
     return false;
-}//guardar continentes sin repetir en cargar contientes
-
+}//retornar si un continente ya esta repetido
 void Partida::inicializarTablero(){
     std::list<Carta>::iterator it = cartas.begin();
     for( it = cartas.begin(); it != cartas.end() ; it++){
@@ -180,7 +174,6 @@ void Partida::inicializarTablero(){
         }
     }
 }//cargar continentes
-
 void Partida::llenarContinentes() {
     std::list<Carta>::iterator it = cartas.begin();
     std::list<Continente>::iterator itCo = tablero.begin();
@@ -193,15 +186,13 @@ void Partida::llenarContinentes() {
             }
         }
     }
-}//cargar los paises
-
+}//lenar continentes los paises
 void Partida::aggConexion(int pais, int vecino){
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
         it->aggConexion(pais,vecino);
     }
 }//agregar vecino a un pais
-
 void Partida::cargarConexiones(std::string archivo){
     std::ifstream file (archivo);
     int size = countLines(archivo);
@@ -224,8 +215,7 @@ void Partida::cargarConexiones(std::string archivo){
         std::cout<<"Archivo de conexiones no leido"<<std::endl;
     }
     file.close();
-}//cargar conexiones
-
+}//leer paises vecinos del archivo de conexiones
 bool Partida:: tableroLleno(){
     std::list<Continente>::iterator it = tablero.begin();
     bool llenoTab = true;
@@ -235,8 +225,7 @@ bool Partida:: tableroLleno(){
         }
     }
     return llenoTab;
-}//tablero esta lleno
-
+}//retornar si el tablero esta lleno
 bool Partida::paisLleno(int id){
     std::list<Continente>::iterator it = tablero.begin();
     bool lleno = true;
@@ -252,14 +241,12 @@ bool Partida::paisLleno(int id){
     }
     return lleno;
 }//saber si pais esta ocupado
-
 void Partida::ocuparPais(int idJugador, int idPais, int unidades){
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
         it->ocuparPais(idJugador,idPais, unidades);
     }
 }//ocupar pais por jugador
-
 Carta Partida::obtenerCarta(int idPais){
     std::list<Carta>::iterator it = cartas.begin();
     for(it = cartas.begin();it != cartas.end();it++){
@@ -268,7 +255,6 @@ Carta Partida::obtenerCarta(int idPais){
         }
     }
 }//reclamar carta por ocupar pais
-
 void Partida::ubicarUnidades(bool& inicializado, int numUnidades) {
     std::list<Continente>::iterator itContinetes;
     int auxPais = 0;
@@ -301,7 +287,6 @@ void Partida::ubicarUnidades(bool& inicializado, int numUnidades) {
     inicializado = true;
 
 }//ubicar unidades de cada jugador
-
 void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     std::cout<<"\n****************************************"<<std::endl;
     std::cout<<"*                JUGADORES              *"<<std::endl;
@@ -335,17 +320,6 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     }
 }//imprimir resumen
 
-bool Partida::jugadorOcupaPais(int idJ, int idP){
-    std::list<Continente>::iterator it = tablero.begin();
-    bool ocupa = false;
-    for(it = tablero.begin();it != tablero.end();it++){
-        ocupa = it->jugadorOcupaPais(idP, idJ);
-        if(ocupa){
-            break;
-        }
-    }
-    return ocupa;
-}//saber si jugador ocupa pais
 
 bool Partida::paisExiste(int idP){
     std::list<Continente>::iterator it = tablero.begin();
@@ -357,8 +331,18 @@ bool Partida::paisExiste(int idP){
         }
     }
     return existe;
-}//saber si pais existe
-
+}//retornar si pais existe
+bool Partida::jugadorOcupaPais(int idJ, int idP){
+    std::list<Continente>::iterator it = tablero.begin();
+    bool ocupa = false;
+    for(it = tablero.begin();it != tablero.end();it++){
+        ocupa = it->jugadorOcupaPais(idP, idJ);
+        if(ocupa){
+            break;
+        }
+    }
+    return ocupa;
+}//retornar si jugador ocupa pais
 bool Partida::paisVecino(int paisOrigen, int paisDestino){
     std::list<Continente>::iterator it = tablero.begin();
     bool vecino = false;
@@ -369,8 +353,7 @@ bool Partida::paisVecino(int paisOrigen, int paisDestino){
         }
     }
     return vecino;
-}//saber si pais es vecino de otro
-
+}//retornar si pais es vecino de otro
 bool Partida::paisAtacable(int idJ, int idP){
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
@@ -385,29 +368,7 @@ bool Partida::paisAtacable(int idJ, int idP){
         }
     }
     return false;
-}
-
-bool Partida::origenAptoParaAtaque(int posJ, int idP){
-    std::list<Continente>::iterator it = tablero.begin();
-
-    for(it = tablero.begin();it != tablero.end();it++){
-        std::list<Pais> p = it->get_paises();
-        std::list<Pais>::iterator itp = p.begin();
-        for(itp = p.begin();itp != p.end();itp++){
-            if(itp->get_id() == idP){
-                std::list<int> vecinos = itp->get_conexiones();
-                std::list<int>::iterator itv = vecinos.begin();
-                for(itv = vecinos.begin();itv != vecinos.end();itv++){
-                    if(paisAtacable(jugadores[posJ-1].getId(),*itv)){
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
+}//retornar si pais es atacable
 bool Partida::puedeAtacar(int posJ){
     bool puede = false;
     std::list<Continente>::iterator it = tablero.begin();
@@ -428,8 +389,27 @@ bool Partida::puedeAtacar(int posJ){
         }
     }
     return puede;
-}
+}//retornar si jugador puede atacar
+bool Partida::origenAptoParaAtaque(int posJ, int idP){
+    std::list<Continente>::iterator it = tablero.begin();
 
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id() == idP){
+                std::list<int> vecinos = itp->get_conexiones();
+                std::list<int>::iterator itv = vecinos.begin();
+                for(itv = vecinos.begin();itv != vecinos.end();itv++){
+                    if(paisAtacable(jugadores[posJ-1].getId(),*itv)){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}//retornar si pais origen permite atacar
 void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDestino){
     bool ocupado = false, existe = false, esVecino = false, lleno = false, apto = false;
     int idAtacado = 0;
@@ -475,7 +455,6 @@ void Partida::elegirUbicacionAtaque(int posJug, int * paisOrigen, int * paisDest
 
     std::cout<<"VA A ATACAR AL PAIS "<<*paisDestino<<std::endl;
 }//seleccionar origen y destino de ataque
-
 int Partida::buscarAtacado(int idP){
     int atacado =  -1, posAtacado = -1;
     std::list<Continente>::iterator it = tablero.begin();
@@ -495,7 +474,6 @@ int Partida::buscarAtacado(int idP){
     }
     return posAtacado;
 }//buscar jugador atacado
-
 int Partida::lanzarDados(int numDados){
     std::vector<int> dados;
     int descartar = 0, resultado = 0;
@@ -524,7 +502,6 @@ int Partida::lanzarDados(int numDados){
     }
     return resultado;
 }//lanzar dados
-
 bool Partida::quitarUnidad(int idP){
     std::list<Continente>::iterator it = tablero.begin();
     bool vaciado = false, encontrado = false;
@@ -536,7 +513,6 @@ bool Partida::quitarUnidad(int idP){
     }
     return vaciado;
 }//quitar unidad a jugador perdedor del ataque
-
 void Partida::atacar(int posAtacante, int origen, int destino){
     int posAtacado = buscarAtacado(destino), puntosAtacante = 0, puntosAtacado = 0, continuar = 0;
     bool vaciado = false;
@@ -604,23 +580,9 @@ void Partida::atacar(int posAtacante, int origen, int destino){
 
 }//ejecutar ataque
 
-int Partida::calcularPaises(int idJ){
-    int paises = 0;
-    std::list<Continente>::iterator it = tablero.begin();
-    for(it = tablero.begin();it != tablero.end();it++){
-        std::list<Pais> p = it->get_paises();
-        std::list<Pais>::iterator itp = p.begin();
-        for(itp = p.begin();itp != p.end();itp++){
-            if(itp->get_id_jugador() == idJ){
-                paises += 1;
-            }
-        }
-    }
-    return paises;
-}//contar paises que pertenecen a un jugador
 
-void Partida::ubicarNuevasUnidades(int posJ, int gana){
-    int pais = 0, unidades = 0;
+void Partida::ubicarNuevasUnidades(int posJ, int gana, bool propias){
+    int pais = 0, unidades = 0, op  = 0;
     bool ocupado  = false, tieneCarta = false;
 
     do{
@@ -628,7 +590,7 @@ void Partida::ubicarNuevasUnidades(int posJ, int gana){
             std::cout<<"\nIngrese numero de unidades a ubicar: \n$";
             std::cin>>unidades;
             if(unidades > gana){
-                std::cout << "No ha ganado tantas unidades" << std::endl;
+                std::cout << "No tiene tantas unidades" << std::endl;
             }
         }while(unidades > gana);
 
@@ -650,9 +612,37 @@ void Partida::ubicarNuevasUnidades(int posJ, int gana){
         }
         gana = gana - unidades;
         std::cout<<"Se han ubicado "<<unidades<<" unidades en el pais "<<pais<<std::endl;
-    }while(gana > 0);
-}
 
+        if(propias){
+            do{
+                std::cout<<"Desea continuar?: \n1) Si\n2) No\n$";
+                std::cin>>op;
+                if(op < 1 || op >2){
+                    std::cout<<"Opcion no valida"<<std::endl;
+                }
+            }while(op < 1 || op >2);
+        }
+
+        if(op == 2){
+            break;
+        }
+
+    }while(gana > 0 || propias);
+}//ubicar unidades ganadas por jugador
+int Partida::calcularPaises(int idJ){
+    int paises = 0;
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id_jugador() == idJ){
+                paises += 1;
+            }
+        }
+    }
+    return paises;
+}//contar paises que pertenecen a un jugador
 void Partida::intercambioNormal(int posJ){
 
     int paisesDelJugador = 0, gana = 0;
@@ -666,11 +656,10 @@ void Partida::intercambioNormal(int posJ){
         gana =  paisesDelJugador/3;
         jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
         std::cout<<"ha obtenido "<<gana<<" unidades de forma normal"<<std::endl;
-        ubicarNuevasUnidades(posJ, gana);
+        ubicarNuevasUnidades(posJ, gana, false);
     }
 
-}//unidades para reclamar
-
+}//dar unidades ganadas segun paises poseidos y ubicarlas
 void Partida::intercambioPorPaises(int posJ){
     std::list<Continente>::iterator it = tablero.begin();
     std::list<std::string> continentes;
@@ -707,10 +696,9 @@ void Partida::intercambioPorPaises(int posJ){
     }
     jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
     if(gana > 0){
-        ubicarNuevasUnidades(posJ,gana);
+        ubicarNuevasUnidades(posJ,gana,false);
     }
-}//unidades para reclamar por continentes conquistados
-
+}//dar unidades ganadas segun continentes conquistados y ubicarlas
 bool Partida::intercambioPorCartasIguales(int posJ) {
     int cartasIguales = 0, cartasTodas = 0;
     bool gana = false;
@@ -718,12 +706,12 @@ bool Partida::intercambioPorCartasIguales(int posJ) {
     if(cartasIguales > 0 || cartasTodas > 0){
         gana = true;
     }
-}
-
+}//retornar si jugador posee cartas con las condiciones de entrega de unidades
 void Partida::intercambiarCartas(int posJ, int gana){
     jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
+    ubicarNuevasUnidades(posJ,gana,false);
+}//dar unidades ganadas segun cartas poseidas y ubicarlas
 
-}
 
 bool Partida::unidadesSuficientes(int idJ, int idP, int unidades){
     std::list<Continente>::iterator it = tablero.begin();
@@ -737,27 +725,42 @@ bool Partida::unidadesSuficientes(int idJ, int idP, int unidades){
         }
     }
     return false;
-}
-
-void Partida::moverUnidades(int posJ, int origen, int destino, int unidadesM){
+}//retornar si jugador tiene unidades suficientes
+bool Partida::paisFortificable(int idJ, int idP){
     std::list<Continente>::iterator it = tablero.begin();
-    bool movido = false, fortificado = false;
-    //restar del origen
     for(it = tablero.begin();it != tablero.end();it++){
-        movido = it->moverUnidad(origen,unidadesM);
-        if(movido){
-            break;
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id() == idP){
+                if(itp->get_id_jugador() == idJ || itp->get_id_jugador() == 0){
+                    return true;
+                }
+            }
         }
     }
-    //sumar al destino
-    for(it = tablero.begin();it != tablero.end();it++){
-        fortificado = it->fortificar(destino,jugadores[posJ-1].getId(),unidadesM);
-        if(fortificado){
-            break;
-        }
-    }
-}
+    return false;
+}//retornar si pais es fortificable
+bool Partida::puedeFortificar(int posJ){
 
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(jugadores[posJ-1].getId() == itp->get_id_jugador()){
+                std::list<int> vecinos = itp->get_conexiones();
+                std::list<int>::iterator itv = vecinos.begin();
+                for(itv = vecinos.begin();itv != vecinos.end();itv++){
+                    if(paisFortificable(jugadores[posJ-1].getId(), *itv)){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}//retornar si jugador puede fortificar
 bool Partida::aptoParaFortificar(int idP, int posJ){
     std::list<Continente>::iterator it = tablero.begin();
 
@@ -777,8 +780,25 @@ bool Partida::aptoParaFortificar(int idP, int posJ){
         }
     }
     return false;
-}
-
+}//retornar si pais de origen permite fortificar
+void Partida::moverUnidades(int posJ, int origen, int destino, int unidadesM){
+    std::list<Continente>::iterator it = tablero.begin();
+    bool movido = false, fortificado = false;
+    //restar del origen
+    for(it = tablero.begin();it != tablero.end();it++){
+        movido = it->moverUnidad(origen,unidadesM);
+        if(movido){
+            break;
+        }
+    }
+    //sumar al destino
+    for(it = tablero.begin();it != tablero.end();it++){
+        fortificado = it->fortificar(destino,jugadores[posJ-1].getId(),unidadesM);
+        if(fortificado){
+            break;
+        }
+    }
+}//mover unidades en fortificacion
 void Partida::fortificarTerritorio(int jugadorIndex) {
     int origen = 0, destino = 0, unidadesM = 0;
     bool ocupaOrigen = false, suficientes = false, vecino = false, libre = false, apto = false;
@@ -830,7 +850,8 @@ void Partida::fortificarTerritorio(int jugadorIndex) {
 
     std::cout << "Se fortifico dese " << origen << " hasta "<<destino<<" con "<<unidadesM<<" unidades"<< std::endl;
 
-}
+}//reccibir ubicacion para fortificar
+
 
 bool Partida::jugadorVigente(int posJ){
     bool tieneTerritorios = false, tieneCartas = false;
@@ -853,7 +874,6 @@ bool Partida::jugadorVigente(int posJ){
     }
     return true;
 }//retornar si jugador aun tiene cartas para intercambiar, unidades en el tablero o unidades propias
-
 bool Partida::finalizado(int * ganador){
     bool finalizado = true;
     int puntaje  = 0;
@@ -879,40 +899,7 @@ bool Partida::finalizado(int * ganador){
     }
 }//retornar si un jugador ya gano, junto con su id
 
-bool Partida::paisFortificable(int idJ, int idP){
-    std::list<Continente>::iterator it = tablero.begin();
-    for(it = tablero.begin();it != tablero.end();it++){
-        std::list<Pais> p = it->get_paises();
-        std::list<Pais>::iterator itp = p.begin();
-        for(itp = p.begin();itp != p.end();itp++){
-            if(itp->get_id() == idP){
-                if(itp->get_id_jugador() == idJ || itp->get_id_jugador() == 0){
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
 
-bool Partida::puedeFortificar(int posJ){
 
-    std::list<Continente>::iterator it = tablero.begin();
-    for(it = tablero.begin();it != tablero.end();it++){
-        std::list<Pais> p = it->get_paises();
-        std::list<Pais>::iterator itp = p.begin();
-        for(itp = p.begin();itp != p.end();itp++){
-            if(jugadores[posJ-1].getId() == itp->get_id_jugador()){
-                std::list<int> vecinos = itp->get_conexiones();
-                std::list<int>::iterator itv = vecinos.begin();
-                for(itv = vecinos.begin();itv != vecinos.end();itv++){
-                    if(paisFortificable(jugadores[posJ-1].getId(), *itv)){
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
+
 
