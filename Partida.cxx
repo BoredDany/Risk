@@ -606,7 +606,7 @@ void Partida::intercambioNormal(int posJ){
         ubicarNuevasUnidades(posJ, gana);
     }
 
-}//calcular unidades para reclamar
+}//unidades para reclamar
 
 void Partida::intercambioPorPaises(int posJ){
     std::list<Continente>::iterator it = tablero.begin();
@@ -646,7 +646,7 @@ void Partida::intercambioPorPaises(int posJ){
     if(gana > 0){
         ubicarNuevasUnidades(posJ,gana);
     }
-}//calcular unidades para reclamar por continentes conquistados
+}//unidades para reclamar por continentes conquistados
 
 bool Partida::intercambioPorCartasIguales(int posJ) {
     int cartasIguales = 0, cartasTodas = 0;
@@ -780,7 +780,7 @@ bool Partida::jugadorVigente(int posJ){
         return false;
     }
     return true;
-}
+}//retornar si jugador aun tiene cartas para intercambiar, unidades en el tablero o unidades propias
 
 bool Partida::finalizado(int * ganador){
     bool finalizado = true;
@@ -805,4 +805,4 @@ bool Partida::finalizado(int * ganador){
             puntaje = 0;
         }
     }
-}
+}//retornar si un jugador ya gano, junto con su id

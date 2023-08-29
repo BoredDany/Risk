@@ -98,10 +98,15 @@ int main() {
                                         cin >> rta;
                                         switch (rta) {
                                             case 1:
-                                                cout << "\nATAQUE INICIADO" <<endl;
-                                                risk.elegirUbicacionAtaque(numTurno, &paisOrigen, &paisDestino);
-                                                risk.atacar(numTurno,paisOrigen,paisDestino);
-                                                risk.mostrarInicializacion();
+                                                if(puedeAtacar(numTurno)){
+                                                    cout << "\nATAQUE INICIADO" <<endl;
+                                                    risk.elegirUbicacionAtaque(numTurno, &paisOrigen, &paisDestino);
+                                                    risk.atacar(numTurno,paisOrigen,paisDestino);
+                                                    risk.mostrarInicializacion();
+                                                }else{
+                                                    cout << "\nJUGADOR NO PUEDE ATACAR NINGÚN TERRITORIO" <<endl;
+                                                }
+
                                                 break;
                                             case 2:
                                                 cout << "\nHA DECIDIDO NO ATACAR" <<endl;
@@ -119,8 +124,13 @@ int main() {
                                         cin >> rta;
                                         switch (rta) {
                                             case 1:
-                                                cout << "\nFORTIFICACION INICIADA" <<endl;
-                                                risk.fortificarTerritorio(numTurno);
+                                                if(puedeFortificar(numTurno)){
+                                                    cout << "\nFORTIFICACION INICIADA" <<endl;
+                                                    risk.fortificarTerritorio(numTurno);
+                                                }else{
+                                                    cout << "\nJUGADOR NO PUEDE FORTIFICAR NINGÚN TERRITORIO" <<endl;
+                                                }
+
                                                 break;
                                             case 2:
                                                 cout << "\nHA DECIDIDO NO FORTIFICAR" <<endl;
