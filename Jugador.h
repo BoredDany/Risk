@@ -15,7 +15,6 @@ private:
     std::string alias;
     int unidades;
     std::list<Carta> cartas;
-    bool activo;
 public:
     Jugador();
     Jugador (int id, std::string color, std::string alias);
@@ -24,7 +23,6 @@ public:
     void setAlias(std::string aliasN);
     void setUnidades(int unidadesN);
     void setCartas(std::list<Carta> cartasN);
-    void setEstado(std::string EstadoN);
 
     void agregarCarta(Carta carta);
     void quitarCarta(int idP);
@@ -34,10 +32,13 @@ public:
     std::string getAlias();
     int getUnidades();
     std::list<Carta> getCartas();
-    std::string getEstado();
     void tresCartasCumplen(int * ganaIguales, int * ganaTodas);
     bool tieneCarta(int idP);
     bool getActivo();
+
+    void dividirCartas(std::list<Carta>& soldados, std::list<Carta>& caballos, std::list<Carta>& canions);
+
+
 
 };
 

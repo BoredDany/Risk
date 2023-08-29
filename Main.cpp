@@ -75,7 +75,7 @@ int main() {
                                     //reclamar unidades por poseer paises
                                     risk.intercambioPorPaises(numTurno);
                                     //reclamar unidades por cartas
-                                    intercambios = risk.intercambioPorCartasIguales(numTurno);
+                                    intercambios = risk.intercambioPorCartasCondicionales(numTurno);
 
                                     if(intercambios){
                                         numIntercambios+=1;
@@ -94,8 +94,12 @@ int main() {
                                         switch (rta) {
                                             case 1:
                                                 cout<<"El jugador tiene "<<unidadesPropias<<" unidades"<<endl;
-                                                risk.ubicarNuevasUnidades(numTurno,unidadesPropias,true);
-                                                risk.mostrarInicializacion();
+                                                if(risk.puedeUbicar(risk.get_jugadores()[numTurno-1].getId())){
+                                                    risk.ubicarNuevasUnidades(numTurno,unidadesPropias,true);
+                                                    risk.mostrarInicializacion();
+                                                }else{
+                                                    cout<<"\nEn este momento no puede ubicar sus unidades, no hay territorios disponibles para usted"<<endl<<endl;
+                                                }
                                                 break;
                                             case 2:
                                                 cout<<"\nHA DECIDIDO NO UBICAR UNIDADES PROPIAS"<<endl<<endl;
@@ -232,7 +236,6 @@ int main() {
         }
 
         limpiar(cd);
-
 
     } while (comando != "salir" || comando == "");
 }

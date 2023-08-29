@@ -56,11 +56,12 @@ public:
     void atacar(int posAtacante, int origen, int destino);
 
     //funciones relacionadas al reclamo de cartas y ubicacion de nuevas unidades
+    bool puedeUbicar(int idJ);
     void ubicarNuevasUnidades(int posJ, int gana, bool propias);
     int calcularPaises(int idJ);
     void intercambioNormal(int posJ);
     void intercambioPorPaises(int posJ);
-    bool intercambioPorCartasIguales(int posJ);
+    bool intercambioPorCartasCondicionales(int posJ);
     void intercambiarCartas(int posJ, int gana);
 
     //funciones relacionadas a fortificar territorio

@@ -320,7 +320,6 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     }
 }//imprimir resumen
 
-
 bool Partida::paisExiste(int idP){
     std::list<Continente>::iterator it = tablero.begin();
     bool existe = false;
@@ -580,7 +579,19 @@ void Partida::atacar(int posAtacante, int origen, int destino){
 
 }//ejecutar ataque
 
-
+bool Partida::puedeUbicar(int idJ){
+    std::list<Continente>::iterator it = tablero.begin();
+    for(it = tablero.begin();it != tablero.end();it++){
+        std::list<Pais> p = it->get_paises();
+        std::list<Pais>::iterator itp = p.begin();
+        for(itp = p.begin();itp != p.end();itp++){
+            if(itp->get_id_jugador() == idJ || itp->get_id_jugador() == 0){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 void Partida::ubicarNuevasUnidades(int posJ, int gana, bool propias){
     int pais = 0, unidades = 0, op  = 0;
     bool ocupado  = false, tieneCarta = false;
@@ -620,6 +631,10 @@ void Partida::ubicarNuevasUnidades(int posJ, int gana, bool propias){
                 if(op < 1 || op >2){
                     std::cout<<"Opcion no valida"<<std::endl;
                 }
+                if(jugadores[posJ-1].getUnidades() == 0){
+                    std::cout<<"Se ha quedado sin unidades"<<std::endl;
+                    break;
+                }
             }while(op < 1 || op >2);
         }
 
@@ -627,7 +642,7 @@ void Partida::ubicarNuevasUnidades(int posJ, int gana, bool propias){
             break;
         }
 
-    }while(gana > 0 || propias);
+    }while(gana > 0 || (propias && jugadores[posJ-1].getUnidades() > 0));
 }//ubicar unidades ganadas por jugador
 int Partida::calcularPaises(int idJ){
     int paises = 0;
@@ -656,7 +671,12 @@ void Partida::intercambioNormal(int posJ){
         gana =  paisesDelJugador/3;
         jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
         std::cout<<"ha obtenido "<<gana<<" unidades de forma normal"<<std::endl;
-        ubicarNuevasUnidades(posJ, gana, false);
+        if(puedeUbicar(jugadores[posJ-1].getId())){
+            ubicarNuevasUnidades(posJ, gana, false);
+        }else{
+            std::cout<<"\nEn este momento no puede ubicar sus unidades, no hay territorios disponibles para usted"<<std::endl<<std::endl;
+        }
+
     }
 
 }//dar unidades ganadas segun paises poseidos y ubicarlas
@@ -696,10 +716,15 @@ void Partida::intercambioPorPaises(int posJ){
     }
     jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
     if(gana > 0){
-        ubicarNuevasUnidades(posJ,gana,false);
+        if(puedeUbicar(jugadores[posJ-1].getId())){
+            ubicarNuevasUnidades(posJ,gana,false);
+        }else{
+            std::cout<<"\nEn este momento no puede ubicar sus unidades, no hay territorios disponibles para usted"<<std::endl<<std::endl;
+        }
+
     }
 }//dar unidades ganadas segun continentes conquistados y ubicarlas
-bool Partida::intercambioPorCartasIguales(int posJ) {
+bool Partida::intercambioPorCartasCondicionales(int posJ) {
     int cartasIguales = 0, cartasTodas = 0;
     bool gana = false;
     jugadores[posJ-1].tresCartasCumplen(&cartasIguales, &cartasTodas);
@@ -708,8 +733,59 @@ bool Partida::intercambioPorCartasIguales(int posJ) {
     }
 }//retornar si jugador posee cartas con las condiciones de entrega de unidades
 void Partida::intercambiarCartas(int posJ, int gana){
-    jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
-    ubicarNuevasUnidades(posJ,gana,false);
+
+    std::list<Carta> soldados, caballos, canions;
+    std::list<Carta> cartasSoldadoP, cartasCaballoP, cartasCanionP;
+    jugadores[posJ-1].dividirCartas(soldados, caballos, canions);
+
+    //recorrer cartas de soldado y guardar las que tienen pais diminado
+    std::list<Carta>::iterator its = soldados.begin();
+    for(its = soldados.begin();its != soldados.end();its++){
+        Carta cs(its->getId(),its->getFigura(),its->getContinente(),its->getPais());
+        if(jugadorOcupaPais(jugadores[posJ-1].getId(), cs.getId())){
+            cartasSoldadoP.push_back(cs);
+        }
+    }
+
+    //recorrer cartas de caballo y guardar las que tienen pais diminado
+    std::list<Carta>::iterator itc = caballos.begin();
+    for(itc = caballos.begin();itc != caballos.end();itc++){
+        Carta cc(itc->getId(),itc->getFigura(),itc->getContinente(),itc->getPais());
+        if(jugadorOcupaPais(jugadores[posJ-1].getId(), cc.getId())){
+            cartasCaballoP.push_back(cc);
+        }
+    }
+    //recorrer cartas de canion y guardar las que tienen pais diminado
+    std::list<Carta>::iterator itcn = canions.begin();
+    for(itcn = canions.begin();itcn != canions.end();itcn++){
+        Carta cn (itcn->getId(),itcn->getFigura(),itcn->getContinente(),itcn->getPais());
+        if(jugadorOcupaPais(jugadores[posJ-1].getId(), cn.getId())){
+            cartasCanionP.push_back(cn);
+        }
+    }
+
+    if(cartasSoldadoP.size() >= 3){
+        std::cout<<"TIENE 3 O MAS CARTAS DE SOLDADO CON PAISES QUE DOMINA"<<std::endl;
+        for(Carta cartaS: cartasSoldadoP){
+            std::cout<<cartaS.getId()<<":"<<cartaS.getPais()<<":"<<cartaS.getFigura()<<std::endl;
+        }
+    }
+    else if(cartasCaballoP.size() >= 3){
+        std::cout<<"TIENE 3 O MAS CARTAS DE CABALLO CON PAISES QUE DOMINA"<<std::endl;
+        for(Carta cartaC: cartasCaballoP){
+            std::cout<<cartaC.getId()<<":"<<cartaC.getPais()<<":"<<cartaC.getFigura()<<std::endl;
+        }
+    }
+    else if(cartasCanionP.size() >= 3){
+        std::cout<<"TIENE 3 O MAS CARTAS DE CANION CON PAISES QUE DOMINA"<<std::endl;
+        for(Carta cartaCn: cartasCanionP){
+            std::cout<<cartaCn.getId()<<":"<<cartaCn.getPais()<<":"<<cartaCn.getFigura()<<std::endl;
+        }
+    }
+
+    /*jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
+   ubicarNuevasUnidades(posJ,gana,false);*/
+
 }//dar unidades ganadas segun cartas poseidas y ubicarlas
 
 
@@ -867,7 +943,7 @@ bool Partida::jugadorVigente(int posJ){
         }
     }
 
-    tieneCartas = intercambioPorCartasIguales(posJ);
+    tieneCartas = intercambioPorCartasCondicionales(posJ);
 
     if(jugadores[posJ-1].getUnidades() == 0 && !tieneTerritorios && !tieneCartas){
         return false;
