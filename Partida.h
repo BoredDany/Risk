@@ -64,5 +64,10 @@ public:
 
     bool jugadorVigente(int posJ);
     bool finalizado(int * ganador);
+    bool puedeFortificar(int posJ);
+    bool paisAtacable(int idJ, int idP);
+    bool puedeAtacar(int posJ);
+    bool origenAptoParaAtaque(int posJ, int idP);
+    bool aptoParaFortificar(int idP, int posJ);
 };
 #endif //RISK_PARTIDA_H

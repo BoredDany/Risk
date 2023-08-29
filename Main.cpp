@@ -14,7 +14,7 @@ int main() {
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
     bool hayEspacio = false, inicializado = false, finalizado = false;
-    int numTurno = 0, paisOrigen = 0, paisDestino = 0, intercambios = 0, numIntercambios = 0, unidadesGanadas = 0, ganador = 0;
+    int numTurno = 0, paisOrigen = 0, paisDestino = 0, intercambios = 0, numIntercambios = 0, unidadesGanadas = 0, ganador = 0, rta = 0;;
     Partida risk(0);
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
@@ -68,7 +68,7 @@ int main() {
                                 if(risk.jugadorVigente(numTurno)){
 
                                     cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
-                                    cout<<"RECLAMO DE UNIDADES"<<endl;
+                                    /*cout<<"RECLAMO DE UNIDADES"<<endl;
 
                                     //reclamar unidades normal
                                     risk.intercambioNormal(numTurno);
@@ -89,16 +89,16 @@ int main() {
                                         risk.intercambiarCartas(numTurno,unidadesGanadas);
                                     }
 
-                                    risk.mostrarInicializacion();
+                                    risk.mostrarInicializacion();*/
 
                                     //atacar
-                                    int rta = 0;
+                                    /*
                                     do{
                                         cout << "Desea atacar?\n1) Si\n2) No\n$";
                                         cin >> rta;
                                         switch (rta) {
                                             case 1:
-                                                if(puedeAtacar(numTurno)){
+                                                if(risk.puedeAtacar(numTurno)){
                                                     cout << "\nATAQUE INICIADO" <<endl;
                                                     risk.elegirUbicacionAtaque(numTurno, &paisOrigen, &paisDestino);
                                                     risk.atacar(numTurno,paisOrigen,paisDestino);
@@ -116,7 +116,7 @@ int main() {
                                                 break;
                                         }
                                         cin.ignore();
-                                    }while(rta < 1 || rta > 2);
+                                    }while(rta < 1 || rta > 2);*/
 
                                     //fortificar
                                     do{
@@ -124,9 +124,10 @@ int main() {
                                         cin >> rta;
                                         switch (rta) {
                                             case 1:
-                                                if(puedeFortificar(numTurno)){
+                                                if(risk.puedeFortificar(numTurno)){
                                                     cout << "\nFORTIFICACION INICIADA" <<endl;
                                                     risk.fortificarTerritorio(numTurno);
+                                                    risk.mostrarInicializacion();
                                                 }else{
                                                     cout << "\nJUGADOR NO PUEDE FORTIFICAR NINGÚN TERRITORIO" <<endl;
                                                 }
@@ -217,5 +218,5 @@ int main() {
         limpiar(cd);
 
 
-    } while (comando != "salir" || comando == "" || !finalizado);
+    } while (comando != "salir" || comando == "");
 }
