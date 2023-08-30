@@ -312,7 +312,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         std::cout << "\033[1;31m";
         std::cout<<"[";
         std::cout << "\033[1;37m";
-        std::cout<<"tiene "<<jugadores[i].getUnidades()<<" unidades ";
+        std::cout<<"tiene "<<jugadores[i].getUnidades()<<" unidades";
         std::cout << "\033[1;31m";
         std::cout<<"]"<< std::endl;
 
@@ -320,7 +320,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         std::cout << "\033[1;31m";
         std::cout<<"[";
         std::cout << "\033[1;37m";
-        std::cout<<"tiene "<<jugadores[i].getCartas().size()<<" cartas: ";
+        std::cout<<"tiene "<<jugadores[i].getCartas().size()<<" cartas:";
         std::cout << "\033[1;31m";
         std::cout<<"]"<< std::endl;
         
