@@ -1165,6 +1165,8 @@ bool Partida::finalizado(int * ganador){
         }
         if(puntaje == 42){
             *ganador = jugadores[i].getId();
+            jugadores.clear();
+            tablero.clear();
             break;
         }
         if(puntaje < 42){
