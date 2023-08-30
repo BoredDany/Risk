@@ -417,7 +417,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
             std::cout<<" unidades";
             
             std::cout << "\033[1;37m";
-            cout<<std::endl;
+            std::cout<<std::endl;
         }
         std::cout<<"------------------------------------------------------"<<std::endl<<std::endl;
     }
