@@ -380,13 +380,13 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         std::cout<<"[";
         std::cout << "\033[1;37m";
         std::list<Pais>::iterator itp = p.begin();
-        std::cout<<"]"<<std::endl;;
+        std::cout<<"]"<<std::endl;
         std::cout << "\033[0m";
         for(itp = p.begin();itp != p.end();itp++){
             std::cout << "\033[1;31m";
             std::cout<<"[";
             
-            std::cout << "\033[1;37m"
+            std::cout << "\033[1;37m";
             std::cout<<itp->get_id();
             
             std::cout << "\033[1;31m";
@@ -401,7 +401,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
             std::cout << "\033[1;31m";
             std::coutstd::cout <<" - "; 
 
-            std::cout << "\033[1;37m"
+            std::cout << "\033[1;37m";
             std::cout << "jugador ";
             
             std::cout << "\033[1;37m";
