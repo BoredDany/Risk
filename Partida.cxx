@@ -383,7 +383,41 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         std::cout<<"]"<<std::endl;;
         std::cout << "\033[0m";
         for(itp = p.begin();itp != p.end();itp++){
-            std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" - jugador "<<itp->get_id_jugador()<<" con "<<itp->get_unidades()<<" unidades"<<std::endl;
+            std::cout << "\033[1;31m"
+            std::cout<<"[";
+            
+            std::cout << "\033[1;37m"
+            std::cout<<itp->get_id();
+            
+            std::cout << "\033[1;31m";
+            std::cout<<"]";
+            
+            std::cout << "\033[1;37m";
+            std::cout<<":";
+            
+            std::cout << "\033[1;37m";
+            std::coutitp->get_nombre();
+            
+            std::cout << "\033[1;31m";
+            std::coutstd::cout <<" - "; 
+
+            std::cout << "\033[1;37m"
+            std::cout << "jugador ";
+            
+            std::cout << "\033[1;37m";
+            std::cout<<itp->get_id_jugador();
+            
+            std::cout << "\033[1;37m";
+            std::cout<<" con ";
+            
+            std::cout << "\033[1;37m";
+            std::cout<<itp->get_unidades();
+            
+            std::cout << "\033[1;37m";
+            std::cout<<" unidades";
+            
+            std::cout << "\033[1;37m";
+            cout<<std::endl;
         }
         std::cout<<"------------------------------------------------------"<<std::endl<<std::endl;
     }
