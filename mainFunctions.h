@@ -149,7 +149,7 @@ void incrementarGrupo(int * numIntercambios, int * unidadesGanadas){
 }
 
 void inicio(){
-
+    std::cout << "\033[1;35m"
     std::cout << "            a@@@@a                                            iiii                   kkkkkkkk\n"
                  "        a@@@@@@@@@@@@a                                       i::::i                  k::::::k\n"
                  "      a@@@@@@by@@@@@@@@a                                      iiii                   k::::::k\n"
@@ -167,24 +167,28 @@ void inicio(){
                  "                                         r:::::r            i::::::i s:::::::::::ss  k::::::k   k:::::k\n"
                  "                                         rrrrrrr            iiiiiiii  sssssssssss    kkkkkkkk    kkkkkkk\n"
               << std::endl;
+              std::cout << "\033[1;30m"
 }
 
 void ganadorR(){
+    std::cout << "\033[1;37m"
     cout<<"  __ _   __ _  _ __    __ _   __| |  ___   _ __ \n"
           " / _` | / _` || '_ |  / _` | / _` | / _ / | '__|\n"
           "| (_| || (_| || | | || (_| || (_| || (_) || |   \n"
           " L__, | L__,_||_| |_| L__,_| L__,_| L___/ |_|   \n"
           " |___/                                          "<<std::endl;
+     std::cout << "\033[1;30m"
 }
 
 void mostrarTablero(){
+    std::cout << "\033[1;37m"
     std::cout << "\033[1;34m"; // Azul claro brillante
     std::cout << "\n****************************************" << std::endl;
     std::cout << "*   TERRITORIOS DEL TABLERO DE JUEGO   *" << std::endl;
     std::cout << "****************************************" << std::endl;
     // Restaura el color del texto a su valor predeterminado
     std::cout << "\033[0m";
-
+    std::cout << "\033[1;33m"
     cout<<endl<<endl;
     cout<<"+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+"<<endl;
     cout<<"|           . _..::__:  ,- - ._                 ,     _,.__             |"<<endl;
@@ -208,4 +212,5 @@ void mostrarTablero(){
     cout<<"|                     /.                                             '  |"<<endl;
     cout<<"+                                                                       +"<<endl;
     cout<<"+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+"<<endl;
+     std::cout << "\033[1;30m"
 }
