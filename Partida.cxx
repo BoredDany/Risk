@@ -295,7 +295,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     std::cout << "\033[0m";// Restaura el color del texto a su valor predeterminado
     for(int i = 0 ; i < jugadores.size() ; i++){
 
-        std::cout << "\033[1;31m"
+        std::cout << "\033[1;31m";
         std::cout<<"[";
         std::cout << "\033[1;33m";
         std::cout<<"Jugador"<<jugadores[i].getId()<<":"<<jugadores[i].getAlias();
@@ -383,7 +383,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         std::cout<<"]"<<std::endl;;
         std::cout << "\033[0m";
         for(itp = p.begin();itp != p.end();itp++){
-            std::cout << "\033[1;31m"
+            std::cout << "\033[1;31m";
             std::cout<<"[";
             
             std::cout << "\033[1;37m"
