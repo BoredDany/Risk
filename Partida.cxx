@@ -294,14 +294,61 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     std::cout << "****************************************" << std::endl;
     std::cout << "\033[0m";// Restaura el color del texto a su valor predeterminado
     for(int i = 0 ; i < jugadores.size() ; i++){
-        std::cout<<"Jugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
+
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;33m";
+        std::cout<<"Jugador"<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
+        std::cout << "\033[1;31m";
+        std::cout<<"]";
+
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::cout<<"color: "<<jugadores[i].getColor()<<std::endl;
+        std::cout << "\033[1;31m";
+        std::cout<<"]";
+        
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::cout<<"tiene "<<jugadores[i].getUnidades()<<" unidades "<<std::endl;
+        std::cout << "\033[1;31m";
+        std::cout<<"]";
+
+
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::cout<<"tiene "<<jugadores[i].getCartas().size()<<" cartas: "<<std::endl;
+        std::cout << "\033[1;31m";
+        std::cout<<"]";
+        
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::list<Carta> cartasJ = jugadores[i].getCartas();
+        std::cout << "\033[1;31m";
+        std::cout<<"]";
+        
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::list<Carta>::iterator it = cartasJ.begin();
+        std::cout << "\033[1;31m";
+        std::cout<<"]";
+    
+        std::cout << "\033[0m";
         for(it = cartasJ.begin();it != cartasJ.end();it++){
+
+            std::cout << "\033[1;31m";
+            std::cout<<"[";
+            std::cout << "\033[1;37m";
             std::cout<<it->getId()<<":"<<it->getPais()<<std::endl;
+            std::cout << "\033[1;31m";
+            std::cout<<"]";
+            
+            std::cout << "\033[0m";
         }
         std::cout<<std::endl<<std::endl;
     }
@@ -314,10 +361,27 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
 
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::cout<<it->get_nombre()<<std::endl;
+        std::cout << "\033[1;31m";
+        std::cout<<"]"<<std::endl;;
+        std::cout << "\033[0m";
         std::cout<<"------------------------------------------------------"<<std::endl;
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::list<Pais> p=it->get_paises();
+        std::cout<<"]"<<std::endl;;
+        std::cout << "\033[0m";
+        
+        std::cout << "\033[1;31m";
+        std::cout<<"[";
+        std::cout << "\033[1;37m";
         std::list<Pais>::iterator itp = p.begin();
+        std::cout<<"]"<<std::endl;;
+        std::cout << "\033[0m";
         for(itp = p.begin();itp != p.end();itp++){
             std::cout<<itp->get_id()<<":"<<itp->get_nombre()<<" - jugador "<<itp->get_id_jugador()<<" con "<<itp->get_unidades()<<" unidades"<<std::endl;
         }
