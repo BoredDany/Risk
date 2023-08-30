@@ -70,25 +70,23 @@ int main() {
                                     cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
                                     cout<<"RECLAMO DE UNIDADES"<<endl;
 
-                                    //reclamar unidades normal
                                     risk.intercambioNormal(numTurno);
-                                    //reclamar unidades por poseer paises
                                     risk.intercambioPorPaises(numTurno);
-                                    //reclamar unidades por cartas
                                     intercambios = risk.intercambioPorCartasCondicionales(numTurno);
 
                                     if(intercambios){
                                         numIntercambios+=1;
+                                        incrementarGrupo(&numIntercambios, &unidadesGanadas);
                                         cout<<"\nEL JUGADOR TIENE CARTAS CON LAS CONDICIONES DADAS";
                                         cout<<"\nSe han hecho "<<numIntercambios<<" intercambios"<<endl;
-                                        incrementarGrupo(&numIntercambios, &unidadesGanadas);
-                                        //cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
+                                        cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
                                         risk.intercambiarCartas(numTurno,unidadesGanadas);
                                     }
                                     risk.mostrarInicializacion();
+                                    cin.ignore();
 
                                     //ubicar unidades propias
-                                    /*int unidadesPropias = risk.get_jugadores()[numTurno-1].getUnidades();
+                                    int unidadesPropias = risk.get_jugadores()[numTurno-1].getUnidades();
                                     do{
                                         cout << "\nDesea ubicar unidades propias?\n1) Si\n2) No\n$";
                                         cin >> rta;
@@ -111,11 +109,11 @@ int main() {
 
                                         }
                                         cin.ignore();
-                                    }while(rta < 1 || rta > 2);*/
+                                    }while(rta < 1 || rta > 2);
 
 
                                     //atacar
-                                    /*do{
+                                    do{
                                         cout << "Desea atacar?\n1) Si\n2) No\n$";
                                         cin >> rta;
                                         switch (rta) {
@@ -138,10 +136,10 @@ int main() {
                                                 break;
                                         }
                                         cin.ignore();
-                                    }while(rta < 1 || rta > 2);*/
+                                    }while(rta < 1 || rta > 2);
 
                                     //fortificar
-                                    /*do{
+                                    do{
                                         cout << "\nDesea fortificar?\n1) Si\n2) No\n$";
                                         cin >> rta;
                                         switch (rta) {
@@ -162,7 +160,7 @@ int main() {
                                                 break;
                                         }
                                         cin.ignore();
-                                    }while(rta < 1 || rta > 2);*/
+                                    }while(rta < 1 || rta > 2);
 
                                     if(numTurno == risk.get_jugadores().size())
                                     {

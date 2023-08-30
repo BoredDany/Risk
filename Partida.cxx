@@ -732,55 +732,74 @@ bool Partida::intercambioPorCartasCondicionales(int posJ) {
         gana = true;
     }
 }//retornar si jugador posee cartas con las condiciones de entrega de unidades
-
 void Partida::elegirCartasIntercambio(int posJ, std::string figura, bool mismas) {
     int op = 0;
     bool cartaCorrecta = false;
     std::list<int> cartasIntercambiadas;
-    std::cout << "Cartas de " << figura << ":" << std::endl;
 
-    for(int i = 0 ; i < 3 ; i++){
-        std::list<Carta> cartasJugador = jugadores[posJ-1].getCartas();
-        std::list<Carta>::iterator it = cartasJugador.begin();
-        for(it = cartasJugador.begin();it != cartasJugador.end();it++){
-            if(it->getFigura() == figura){
-                std::cout<<it->getId()<<":"<<it->getPais()<<" - "<<it->getFigura()<<std::endl;
+    if(mismas){
+        std::cout << "Cartas de " << figura << ":" << std::endl;
+        for(int i = 0 ; i < 3 ; i++){
+            std::list<Carta> cartasJugador = jugadores[posJ-1].getCartas();
+            std::list<Carta>::iterator it = cartasJugador.begin();
+            for(it = cartasJugador.begin();it != cartasJugador.end();it++){
+                if(it->getFigura() == figura){
+                    std::cout<<it->getId()<<":"<<it->getPais()<<" - "<<it->getFigura()<<std::endl;
+                }
             }
+            do{
+                std::cout<<"\nEscriba el numero de la carta que quiere eliminar \n$";
+                std::cin>>op;
+                cartaCorrecta = jugadores[posJ-1].tieneCarta(op);
+                if(!cartaCorrecta){
+                    std::cout<<"\nCarta no valida"<<std::endl;
+                }
+            }while(!cartaCorrecta);
+
+            jugadores[posJ-1].quitarCarta(op);
+            cartasIntercambiadas.push_back(op);
+
         }
-        do{
-            std::cout<<"\nEscriba el numero de la carta que quiere eliminar \n$";
-            std::cin>>op;
-            cartaCorrecta = jugadores[posJ-1].tieneCarta(op);
-            if(!cartaCorrecta){
-                std::cout<<"\nCarta no valida"<<std::endl;
+    }else {
+        std::cout << "Cartas :" << std::endl;
+
+        for (int i = 0; i < 3; i++) {
+            std::list<Carta> cartasJugador = jugadores[posJ - 1].getCartas();
+            std::list<Carta>::iterator it = cartasJugador.begin();
+            for (it = cartasJugador.begin(); it != cartasJugador.end(); it++) {
+                std::cout << it->getId() << ":" << it->getPais() << " - " << it->getFigura() << std::endl;
             }
-        }while(!cartaCorrecta);
-        jugadores[posJ-1].quitarCarta(op);
-        cartasIntercambiadas.push_back(op);
+            do {
+                std::cout << "\nEscriba el numero de la carta que quiere eliminar \n$";
+                std::cin >> op;
+                cartaCorrecta = jugadores[posJ - 1].tieneCarta(op);
+                if (!cartaCorrecta) {
+                    std::cout << "\nCarta no valida" << std::endl;
+                }
+            } while (!cartaCorrecta);
+
+            jugadores[posJ - 1].quitarCarta(op);
+            cartasIntercambiadas.push_back(op);
+        }
     }
-    std::cout<<"\nHA INTERCAMBIADO ESTAS CARTAS:"<<std::endl;
+    std::cout<<"\nHA INTERCAMBIADO LAS CARTAS:"<<std::endl;
     std::list<int>::iterator iti = cartasIntercambiadas.begin();
     for(iti = cartasIntercambiadas.begin();iti != cartasIntercambiadas.end();iti++){
         std::cout<<*iti<<std::endl;
     }
-    std::cin.ignore();
-}
-void Partida::intercambiarCartas(int posJ, int gana){
-
-    int rta = 0, soldados = 0, caballos = 0, canions = 0;
-    std::list<Carta> cartasJ = jugadores[posJ-1].getCartas();
-    std::list<Carta>::iterator it = cartasJ.begin();
-    for(it = cartasJ.begin();it != cartasJ.end();it++){
-        if(it->getFigura() == "soldado"){
-            soldados = soldados+1;
-        }if(it->getFigura() == "caballo"){
-            caballos = caballos+1;
-        }if(it->getFigura() == "canion"){
-            canions = canions+1;
+    for(iti = cartasIntercambiadas.begin();iti != cartasIntercambiadas.end();iti++){
+        if(jugadorOcupaPais(jugadores[posJ-1].getId(), *iti)){
+            std::cout<<"\nHa ganado 2 unidades adicionales para el pais "<<*iti<<" se ubicaron en dicho pais"<<std::endl;
+            ocuparPais(jugadores[posJ-1].getId(),*iti,2);
         }
     }
-    if(soldados >= 3){
-        std::cout<<"TIENE 3 O MAS CARTAS DE SOLDADO"<<std::endl;
+
+}//seleccionar cartas a intercambiar
+void Partida::ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, bool mismas){
+
+    int rta = 0;
+    if(mismas){
+        std::cout<<"Tiene 3 o mas cartas de "<<figura<<std::endl;
         do{
             std::cout<<"\nDesea intercambiarlas?\n1) Si\n2) No\n$";
             std::cin>>rta;
@@ -789,7 +808,7 @@ void Partida::intercambiarCartas(int posJ, int gana){
             }
         }while(rta < 1 || rta >2);
         if(rta == 1){
-            elegirCartasIntercambio(posJ, "soldado", true);
+            elegirCartasIntercambio(posJ, figura, true);
             jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
             if(puedeUbicar(jugadores[posJ-1].getId())){
                 ubicarNuevasUnidades(posJ, gana, false);
@@ -798,24 +817,58 @@ void Partida::intercambiarCartas(int posJ, int gana){
             }
 
         }else{
-            std::cout<<"\nHa decidido no intercambiar cartas de soldados"<<std::endl;
+            std::cout<<"\nHa decidido no intercambiar cartas de "<<figura<<std::endl;
+        }
+    }else{
+        std::cout<<"Tiene al menos una carta de cada figura "<<std::endl;
+        do{
+            std::cout<<"\nDesea intercambiarlas?\n1) Si\n2) No\n$";
+            std::cin>>rta;
+            if(rta < 1 || rta >2){
+                std::cout<<"\nOpcion no valida"<<std::endl;
+            }
+        }while(rta < 1 || rta >2);
+        if(rta == 1){
+            elegirCartasIntercambio(posJ, figura, false);
+            jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
+            if(puedeUbicar(jugadores[posJ-1].getId())){
+                ubicarNuevasUnidades(posJ, gana, false);
+            }else{
+                std::cout<<"\nEn este momento no puede ubicar sus unidades, no hay territorios disponibles para usted"<<std::endl;
+            }
 
+        }else{
+            std::cout<<"\nHa decidido no intercambiar cartas"<<std::endl;
         }
     }
-   /* else if(caballos.size() >= 3){
-        std::cout<<"TIENE 3 O MAS CARTAS DE CABALLO CON PAISES QUE DOMINA"<<std::endl;
-        for(Carta cartaC: caballos){
-            std::cout<<cartaC.getId()<<":"<<cartaC.getPais()<<":"<<cartaC.getFigura()<<std::endl;
+}//ubicar unidades ganadas por intercambio de cartas
+void Partida::intercambiarCartas(int posJ, int gana){
+
+    int rta = 0, soldados = 0, caballos = 0, canions = 0;
+    std::string soldado = "soldado", caballo = "caballo", canion = "canion";
+
+    std::list<Carta> cartasJ = jugadores[posJ-1].getCartas();
+    std::list<Carta>::iterator it = cartasJ.begin();
+    for(it = cartasJ.begin();it != cartasJ.end();it++){
+        if(it->getFigura() == soldado){
+            soldados = soldados+1;
+        }if(it->getFigura() == caballo){
+            caballos = caballos+1;
+        }if(it->getFigura() == canion){
+            canions = canions+1;
         }
     }
-    else if(canions.size() >= 3){
-        std::cout<<"TIENE 3 O MAS CARTAS DE CANION CON PAISES QUE DOMINA"<<std::endl;
-        for(Carta cartaCn: canions){
-            std::cout<<cartaCn.getId()<<":"<<cartaCn.getPais()<<":"<<cartaCn.getFigura()<<std::endl;
-        }
-    }*/
+    if(soldados >= 3){
+        ubicarUnidadesDeCartas(soldado,posJ,gana,true);
+    }else if(caballos >= 3){
+        ubicarUnidadesDeCartas(caballo,posJ,gana,true);
+    }else if(canions >= 3){
+        ubicarUnidadesDeCartas(canion,posJ,gana,true);
+    }else if(soldados >= 1 && caballos >= 1 && canions >= 1){
+        ubicarUnidadesDeCartas(canion,posJ,gana,false);
+    }
 
-}//dar unidades ganadas segun cartas poseidas y ubicarlas
+}//intercambiar cartas si se cumple la condicion
 
 
 bool Partida::unidadesSuficientes(int idJ, int idP, int unidades){
