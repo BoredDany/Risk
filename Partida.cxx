@@ -396,7 +396,7 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
             std::cout<<":";
             
             std::cout << "\033[1;37m";
-            std::coutitp->get_nombre();
+            std::cout<<itp->get_nombre();
             
             std::cout << "\033[1;31m";
             std::coutstd::cout <<" - "; 
