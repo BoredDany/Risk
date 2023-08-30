@@ -291,7 +291,8 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
     std::cout << "\033[1;32m"; // Verde claro brillante
     std::cout << "\n****************************************" << std::endl;
     std::cout << "*                JUGADORES              *" << std::endl;
-    std::cout << "****************************************" << std::endl << std::endl;
+    std::cout << "****************************************" << std::endl;
+    std::cout << "\033[0m";// Restaura el color del texto a su valor predeterminado
     for(int i = 0 ; i < jugadores.size() ; i++){
         std::cout<<"Jugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
         std::cout<<"color: "<<jugadores[i].getColor()<<std::endl;
@@ -304,9 +305,12 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         }
         std::cout<<std::endl<<std::endl;
     }
-    std::cout<<"\n****************************************"<<std::endl;
-    std::cout<<"*   TERRITORIOS DEL TABLERO DE JUEGO   *"<<std::endl;
-    std::cout<<"****************************************"<<std::endl<<std::endl;
+   std::cout << "\033[1;34m"; // Azul claro brillante
+    std::cout << "\n****************************************" << std::endl;
+    std::cout << "*   TERRITORIOS DEL TABLERO DE JUEGO   *" << std::endl;
+    std::cout << "****************************************" << std::endl;
+    // Restaura el color del texto a su valor predeterminado
+    std::cout << "\033[0m";
 
     std::list<Continente>::iterator it = tablero.begin();
     for(it = tablero.begin();it != tablero.end();it++){
