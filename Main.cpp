@@ -14,10 +14,10 @@ int main() {
     string archivo_cartas = "cartas.txt";
     string archivo_conexiones = "Conexiones.txt";
     bool hayEspacio = false, inicializado = false, finalizado = false;
-    int numTurno = 0, paisOrigen = 0, paisDestino = 0, intercambios = 0, numIntercambios = 0, unidadesGanadas = 0, ganador = 0, rta = 0;;
+    int numTurno = 0, paisOrigen = 0, paisDestino = 0, intercambios = 0, numIntercambios = 1, unidadesGanadas = 4, ganador = 0, rta = 0;;
     Partida risk(0);
 
-    cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
+    cout << "BIENVENIDO A RISK - GRUPO 2" << endl << endl << endl;
     inicio();
 
     do {
@@ -58,18 +58,17 @@ int main() {
 
                                     cout<<"------- TURNO DEL JUGADOR "<<turno<<"-------"<<endl<<endl;
                                     cout<<"RECLAMO DE UNIDADES"<<endl;
-
                                     risk.intercambioNormal(numTurno);
                                     risk.intercambioPorPaises(numTurno);
                                     intercambios = risk.intercambioPorCartasCondicionales(numTurno);
-
                                     if(intercambios){
-                                        numIntercambios+=1;
-                                        incrementarGrupo(&numIntercambios, &unidadesGanadas);
                                         cout<<"\nEL JUGADOR TIENE CARTAS CON LAS CONDICIONES DADAS";
                                         cout<<"\nSe han hecho "<<numIntercambios<<" intercambios"<<endl;
-                                        cout<<"las unidades ganadas son "<<unidadesGanadas<<endl;
-                                        risk.intercambiarCartas(numTurno,unidadesGanadas);
+                                        cout<<"las unidades ganadas serian "<<unidadesGanadas<<endl;
+                                        if(risk.intercambiarCartas(numTurno,unidadesGanadas)){
+                                            numIntercambios+=1;
+                                            incrementarGrupo(&numIntercambios, &unidadesGanadas);
+                                        }
                                     }
                                     risk.mostrarInicializacion();
                                     cin.ignore();

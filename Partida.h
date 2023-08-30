@@ -63,8 +63,8 @@ public:
     void intercambioPorPaises(int posJ);
     bool intercambioPorCartasCondicionales(int posJ);
     void elegirCartasIntercambio(int posJ, std::string figura, bool mismas);
-    void ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, bool mismas);
-    void intercambiarCartas(int posJ, int gana);
+    bool ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, bool mismas);
+    bool intercambiarCartas(int posJ, int gana);
 
     //funciones relacionadas a fortificar territorio
     bool unidadesSuficientes(int posJ, int idP, int unidades);

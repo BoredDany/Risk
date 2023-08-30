@@ -320,7 +320,6 @@ void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
         std::cout<<"------------------------------------------------------"<<std::endl<<std::endl;
     }
 }//imprimir resumen
-
 bool Partida::paisExiste(int idP){
     std::list<Continente>::iterator it = tablero.begin();
     bool existe = false;
@@ -796,9 +795,10 @@ void Partida::elegirCartasIntercambio(int posJ, std::string figura, bool mismas)
     }
 
 }//seleccionar cartas a intercambiar
-void Partida::ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, bool mismas){
+bool Partida::ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, bool mismas){
 
     int rta = 0;
+    bool jugadorIntercambia = false;
     if(mismas){
         std::cout<<"Tiene 3 o mas cartas de "<<figura<<std::endl;
         do{
@@ -809,6 +809,7 @@ void Partida::ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, boo
             }
         }while(rta < 1 || rta >2);
         if(rta == 1){
+            jugadorIntercambia = true;
             elegirCartasIntercambio(posJ, figura, true);
             jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
             if(puedeUbicar(jugadores[posJ-1].getId())){
@@ -830,6 +831,7 @@ void Partida::ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, boo
             }
         }while(rta < 1 || rta >2);
         if(rta == 1){
+            jugadorIntercambia = true;
             elegirCartasIntercambio(posJ, figura, false);
             jugadores[posJ-1].setUnidades(jugadores[posJ-1].getUnidades()+gana);
             if(puedeUbicar(jugadores[posJ-1].getId())){
@@ -842,10 +844,12 @@ void Partida::ubicarUnidadesDeCartas(std::string figura, int posJ, int gana, boo
             std::cout<<"\nHa decidido no intercambiar cartas"<<std::endl;
         }
     }
+    return jugadorIntercambia;
 }//ubicar unidades ganadas por intercambio de cartas
-void Partida::intercambiarCartas(int posJ, int gana){
+bool Partida::intercambiarCartas(int posJ, int gana){
 
     int rta = 0, soldados = 0, caballos = 0, canions = 0;
+    bool jugadorIntercambia = false;
     std::string soldado = "soldado", caballo = "caballo", canion = "canion";
 
     std::list<Carta> cartasJ = jugadores[posJ-1].getCartas();
@@ -860,15 +864,24 @@ void Partida::intercambiarCartas(int posJ, int gana){
         }
     }
     if(soldados >= 3){
-        ubicarUnidadesDeCartas(soldado,posJ,gana,true);
-    }else if(caballos >= 3){
-        ubicarUnidadesDeCartas(caballo,posJ,gana,true);
-    }else if(canions >= 3){
-        ubicarUnidadesDeCartas(canion,posJ,gana,true);
-    }else if(soldados >= 1 && caballos >= 1 && canions >= 1){
-        ubicarUnidadesDeCartas(canion,posJ,gana,false);
+        if(ubicarUnidadesDeCartas(soldado,posJ,gana,true)){
+            jugadorIntercambia = true;
+        }
+    }if(caballos >= 3){
+        if(ubicarUnidadesDeCartas(caballo,posJ,gana,true)){
+            jugadorIntercambia = true;
+        }
+    }if(canions >= 3){
+        if(ubicarUnidadesDeCartas(canion,posJ,gana,true)){
+            jugadorIntercambia = true;
+        }
+    }if(soldados >= 1 && caballos >= 1 && canions >= 1){
+        if(ubicarUnidadesDeCartas(canion,posJ,gana,false)){
+            jugadorIntercambia = true;
+        }
     }
 
+    return jugadorIntercambia;
 }//intercambiar cartas si se cumple la condicion
 
 
