@@ -18,19 +18,7 @@ int main() {
     Partida risk(0);
 
     cout << "BIENVENIDO A RISK - GRUPO 2" << endl;
-    std::cout << "            a@@@@a             \n"
-                 "        a@@@@@@@@@@@@a         \n"
-                 "      a@@@@@@by@@@@@@@@a       \n"
-                 "    a@@@@@S@C@E@S@W@@@@@@a     \n"
-                 "    @@@@@@@@@@@@@@@@@@@@@@     \n"
-                 "     `@@@@@@`\\\\//'@@@@@@'    \n"
-                 "          ,,  ||  ,,           \n"
-                 "         /(-\\ || /.)          \n"
-                 "    ,---' /`-'||`-'\\ `----,   \n"
-                 "   /( )__))   ||   ((,==( )\\  \n"
-                 "_ ///_\\\\ _|| _\\ __\\ _\n"
-                 "    ``    `` /MM\\   ''   ''   \n"
-              << std::endl;
+    inicio();
 
     do {
 
@@ -40,6 +28,7 @@ int main() {
         finalizado = risk.finalizado(&ganador);
         if(finalizado){
             inicializado = false;
+            ganadorR();
             cout << "JUEGO FINALIZADO, HA GANADO EL JUGADOR " <<ganador<< endl;
         }
 
@@ -120,6 +109,7 @@ int main() {
                                             case 1:
                                                 if(risk.puedeAtacar(numTurno)){
                                                     cout << "\nATAQUE INICIADO" <<endl;
+                                                    mostrarTablero();
                                                     risk.elegirUbicacionAtaque(numTurno, &paisOrigen, &paisDestino);
                                                     risk.atacar(numTurno,paisOrigen,paisDestino);
                                                     risk.mostrarInicializacion();
@@ -146,6 +136,7 @@ int main() {
                                             case 1:
                                                 if(risk.puedeFortificar(numTurno)){
                                                     cout << "\nFORTIFICACION INICIADA" <<endl;
+                                                    mostrarTablero();
                                                     risk.fortificarTerritorio(numTurno);
                                                     risk.mostrarInicializacion();
                                                 }else{
@@ -205,6 +196,7 @@ int main() {
                 cout<<"\n****************************************"<<endl;
                 cout<<"*       INICIALIZACION DEL JUEGO       *"<<endl;
                 cout<<"****************************************"<<endl<<endl;
+                mostrarTablero();
                 risk.set_id(1);
                 risk.cargarCartas(archivo_cartas);
                 risk.inicializarJugadores();

@@ -288,9 +288,10 @@ void Partida::ubicarUnidades(bool& inicializado, int numUnidades) {
 
 }//ubicar unidades de cada jugador
 void Partida::mostrarInicializacion(){//mostrar jugadores con sus cartas
-    std::cout<<"\n****************************************"<<std::endl;
-    std::cout<<"*                JUGADORES              *"<<std::endl;
-    std::cout<<"****************************************"<<std::endl;
+    std::cout << "\033[1;32m"; // Verde claro brillante
+    std::cout << "\n****************************************" << std::endl;
+    std::cout << "*                JUGADORES              *" << std::endl;
+    std::cout << "****************************************" << std::endl << std::endl;
     for(int i = 0 ; i < jugadores.size() ; i++){
         std::cout<<"Jugador "<<jugadores[i].getId()<<":"<<jugadores[i].getAlias()<<std::endl;
         std::cout<<"color: "<<jugadores[i].getColor()<<std::endl;

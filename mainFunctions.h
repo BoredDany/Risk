@@ -147,3 +147,65 @@ void incrementarGrupo(int * numIntercambios, int * unidadesGanadas){
         *unidadesGanadas = *unidadesGanadas + 5;
     }
 }
+
+void inicio(){
+
+    std::cout << "            a@@@@a                                            iiii                   kkkkkkkk\n"
+                 "        a@@@@@@@@@@@@a                                       i::::i                  k::::::k\n"
+                 "      a@@@@@@by@@@@@@@@a                                      iiii                   k::::::k\n"
+                 "    a@@@@@S@C@E@S@W@@@@@@a                                                           k::::::k\n"
+                 "    @@@@@@@@@@@@@@@@@@@@@@              rrrrr   rrrrrrrrr   iiiiiii     ssssssssss    k:::::k    kkkkkkk\n"
+                 "     `@@@@@@`\\\\//'@@@@@@'             r::::rrr:::::::::r  i:::::i   ss::::::::::s   k:::::k   k:::::k\n"
+                 "          ,,  ||  ,,                    r:::::::::::::::::r  i::::i ss:::::::::::::s  k:::::k  k:::::k\n"
+                 "         /(-\\ || /.)                   rr::::::rrrrr::::::r i::::i s::::::ssss:::::s k:::::k k:::::k\n"
+                 "    ,---' /`-'||`-'\\ `----,             r:::::r     r:::::r i::::i  s:::::s  ssssss  k::::::k:::::k\n"
+                 "   /( )__))   ||   ((,==( )\\            r:::::r     rrrrrrr i::::i    s::::::s       k:::::::::::k\n"
+                 "_ ///_\\\\ _|| _\\ __\\ _                r:::::r             i::::i       s::::::s    k:::::::::::k\n"
+                 "    ``    `` /MM\\   ''   ''             r:::::r             i::::i ssssss   s:::::s  k::::::k:::::k\n"
+                 "                                         r:::::r            i::::::is:::::ssss::::::sk::::::k k:::::k\n"
+                 "                                         r:::::r            i::::::is::::::::::::::s k::::::k  k:::::k\n"
+                 "                                         r:::::r            i::::::i s:::::::::::ss  k::::::k   k:::::k\n"
+                 "                                         rrrrrrr            iiiiiiii  sssssssssss    kkkkkkkk    kkkkkkk\n"
+              << std::endl;
+}
+
+void ganadorR(){
+    cout<<"  __ _   __ _  _ __    __ _   __| |  ___   _ __ \n"
+          " / _` | / _` || '_ |  / _` | / _` | / _ / | '__|\n"
+          "| (_| || (_| || | | || (_| || (_| || (_) || |   \n"
+          " L__, | L__,_||_| |_| L__,_| L__,_| L___/ |_|   \n"
+          " |___/                                          "<<std::endl;
+}
+
+void mostrarTablero(){
+    std::cout << "\033[1;34m"; // Azul claro brillante
+    std::cout << "\n****************************************" << std::endl;
+    std::cout << "*   TERRITORIOS DEL TABLERO DE JUEGO   *" << std::endl;
+    std::cout << "****************************************" << std::endl;
+    // Restaura el color del texto a su valor predeterminado
+    std::cout << "\033[0m";
+
+    cout<<endl<<endl;
+    cout<<"+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+"<<endl;
+    cout<<"|           . _..::__:  ,- - ._                 ,     _,.__             |"<<endl;
+    cout<<"|   _.___ _ _<_>`!(._`.`-. 5  /        _._     `_ ,_/  '12 '-._.---.-.__|"<<endl;
+    cout<<"|>.{    1    `-==,',._/{  /  /     2   /4_  >_,-' `10             6    _|"<<endl;
+    cout<<"+   _.:--.    6  `._ )`^-.  '       , [_/(       11       4      __,/-' +"<<endl;
+    cout<<"| ' '     / 2    7    8  _L        1 _,3-'  6      1      8     /. (|   |"<<endl;
+    cout<<"|          |           ,'          _)_.//5_<>                _,' /  '   |"<<endl;
+    cout<<"|          `. 9    4  /           [_7_'` ` (             2  <'} 5)      |"<<endl;
+    cout<<"+           //        /           /   `-' ..' `:7_          _)  '       +"<<endl;
+    cout<<"|             / 3    /           /       3 `:/  > /  ,-^. 9/' '         |"<<endl;
+    cout<<"|              `._, /            |  5        /`'  /3|   /_/   /         |"<<endl;
+    cout<<"|                 `=.---.        `._._     2 ,'    '`  |' ,- '.         |"<<endl;
+    cout<<"+                   | 4  `-._         |     /          `:`<_|h--._      +"<<endl;
+    cout<<"|                   (     2  >        .  1  | ,          `=2__.3-'/     |"<<endl;
+    cout<<"|                    `.3    /         |     |{|              ,-.,/     .|"<<endl;
+    cout<<"|                     |   ,'           / 6 / `'            ,    1 /     |"<<endl;
+    cout<<"+                     |1 /              |_'                |4 __  /     +"<<endl;
+    cout<<"|                     | |                                  '-'  `-'   /.|"<<endl;
+    cout<<"|                     |/                                              / |"<<endl;
+    cout<<"|                     /.                                             '  |"<<endl;
+    cout<<"+                                                                       +"<<endl;
+    cout<<"+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+"<<endl;
+}
