@@ -101,19 +101,3 @@ bool Jugador::tieneCarta(int idP){
     }
     return false;
 }
-
-void Jugador::dividirCartas(std::list<Carta>& soldados, std::list<Carta>& caballos, std::list<Carta>& canions){
-    std::list<Carta>::iterator it = cartas.begin();
-    for(it = cartas.begin();it != cartas.end();it++){
-        Carta c  (it->getId(),it->getFigura(),it->getContinente(),it->getPais());
-        if(c.getFigura() == "soldado"){
-            soldados.push_back(c);
-        }
-        if(c.getFigura() == "caballo"){
-            caballos.push_back(c);
-        }
-        if(c.getFigura() == "canion"){
-            canions.push_back(c);
-        }
-    }
-}

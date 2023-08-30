@@ -34,11 +34,6 @@ public:
     std::list<Carta> getCartas();
     void tresCartasCumplen(int * ganaIguales, int * ganaTodas);
     bool tieneCarta(int idP);
-    bool getActivo();
-
-    void dividirCartas(std::list<Carta>& soldados, std::list<Carta>& caballos, std::list<Carta>& canions);
-
-
 
 };
 
